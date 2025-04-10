@@ -9,8 +9,8 @@ export default function cardSelectProduct() {
           alt="Product"
           className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-white text-lg font-bold">Product Name</span>
+        <div className="absolute text-white text-lg font-bold inset-0 flex items-center justify-center">
+          <span className="">Product Name</span>
         </div>
       </div>
     </div>

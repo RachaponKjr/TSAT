@@ -4,7 +4,7 @@ import CarouselModel from '@/components/carouselModel';
 import Services from '@/components/services';
 import CardSelectProduct from '@/components/cardSelectProduct';
 import { Button } from 'antd';
-import { PhoneOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import CardImageWithTag from '@/components/cardImageWithTag';
 import ContactSection from '@/components/contactSection';
 import CardLocation from '@/components/cardLocation';

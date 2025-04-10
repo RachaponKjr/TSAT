@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Carousel } from 'antd';
-import { LeftOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 
 export default function CarouselReview() {
   const carouselItems = [
