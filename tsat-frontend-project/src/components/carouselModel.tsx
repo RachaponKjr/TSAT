@@ -1,6 +1,25 @@
 import React from 'react';
 import { Button, Carousel } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+
+const CustomPrevArrow = (props) => {
+  const { className, onClick } = props;
+  return (
+    <div className={`${className} !left-[-40px] z-10`} onClick={onClick}>
+      <LeftOutlined style={{ fontSize: '24px', color: '#8F2F34' }} />
+    </div>
+  );
+};
+
+const CustomNextArrow = (props) => {
+  const { className, onClick } = props;
+  return (
+    <div className={`${className} !right-[-40px] z-10`} onClick={onClick}>
+      <RightOutlined style={{ fontSize: '24px', color: '#8F2F34' }} />
+    </div>
+  );
+};
 
 export default function CarouselReview() {
   const carouselItems = [
@@ -42,9 +61,15 @@ export default function CarouselReview() {
         </div>
       </div>
 
-      {/* Section ที่ Carousel และ Base Background อยู่ด้วยกัน */}
       <div className="relative px-24 z-10">
-        <Carousel dots={false} infinite arrows={true} slidesToShow={4}>
+        <Carousel
+          dots={false}
+          infinite
+          arrows
+          slidesToShow={4}
+          prevArrow={<CustomPrevArrow />}
+          nextArrow={<CustomNextArrow />}
+        >
           {carouselItems.map((item, index) => (
             <div
               key={index}
