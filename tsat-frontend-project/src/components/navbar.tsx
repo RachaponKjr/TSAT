@@ -27,7 +27,7 @@ export default function Navbar() {
             </div>
           </div>
           <div className="text-black">
-            <nav className="flex justify-end mt-4">
+            <nav className="flex justify-end mt-8">
               <ul className="flex gap-8 text-lg">
                 <li className="relative group">
                   <a

@@ -17,7 +17,7 @@ export default function CarouselReview() {
       <div className="bg-[#8F2F34] py-24 ">
         <div className="px-24 ">
           <div className="flex justify-between items-center mb-12">
-            <div className="text-2xl text-white ">
+            <div className="text-3xl font-bold text-white ">
               รีวิวงาน Service ของ TSAT
             </div>
             <Button

@@ -21,13 +21,19 @@ export default function Home() {
             alt="Description of image"
           />
           <div className="absolute top-4 left-1/2  mt-24 transform -translate-x-1/2 text-center">
-            <div className="text-black text-5xl font-bold">
+            <div
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.25)' }}
+              className="text-[#333333] text-6xl font-bold"
+            >
               Top Service Auto Technic (TSAT)
-              <div className="text-3xl text-white mt-12">
-                ศูนย์บริการ ซ่อมบำรุงรักษา รถปอร์เช่ (Porsche)
-                ที่ใหญ่เเละทันสมัยที่สุด <br /> การันตีงานซ่อม มากกว่า 1,500 คัน
-                ดูแลรถลูกค้า เหมือนรถเราเอง
-              </div>
+            </div>
+            <div
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.25)' }}
+              className="text-3xl text-white mt-12"
+            >
+              ศูนย์บริการ ซ่อมบำรุงรักษา รถปอร์เช่ (Porsche)
+              ที่ใหญ่เเละทันสมัยที่สุด <br /> การันตีงานซ่อม มากกว่า 1,500 คัน
+              ดูแลรถลูกค้า เหมือนรถเราเอง
             </div>
           </div>
         </div>
@@ -64,7 +70,7 @@ export default function Home() {
       </div>
       <div className="bg-[#F5F5F5] py-24 ">
         <div className=" flex justify-between px-24  items-center mb-12">
-          <div className="text-2xl font-bold text-[#8F2F34] ">
+          <div className="text-3xl font-bold text-[#8F2F34] ">
             เลือกดูบริการจาก Model Porsche ของท่าน
           </div>
 
