@@ -4,11 +4,11 @@ import React from 'react';
 export default function cardImageWithTag() {
   return (
     <div className="card relative">
-      <div className="w-full h-48 overflow-hidden rounded-xl">
+      <div className="w-full h-60 overflow-hidden rounded-xl">
         <img
-          src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?cs=srgb&dl=pexels-pixabay-210019.jpg&fm=jpg"
+          src="../images/example.png"
           alt="Card Image"
-          className="w-full h-full object-cover"
+          className="w-full  object-cover"
         />
       </div>
       <div className="absolute top-2 left-2">
@@ -23,8 +23,9 @@ export default function cardImageWithTag() {
           Macan
         </Button>
       </div>
-      <div className="text-xl text-black py-2">
-        Porche Cayenne ทรุดตัว อย่าตกใจ
+      <div className="text-2xl font-bold text-[#333333] py-2">
+        ลูกค้าท่านใดที่ขับ Porsche แล้วเจอปัญหา แอร์ไม่เย็น หรือเย็น...แต่ไม่ฉ่ำ
+        ลองแวะมาตรวจ เช็คอาการที่ Top Service Auto Technic กันดู!
       </div>
     </div>
   );

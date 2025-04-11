@@ -71,7 +71,7 @@ export default function Home() {
       <div className="bg-[#F5F5F5] py-24 ">
         <div className=" flex justify-between px-24  items-center mb-12">
           <div className="text-3xl font-bold text-[#8F2F34] ">
-            เลือกดูบริการจาก Model Porsche ของท่าน
+            ตัวอย่างงานบริการลูกค้า
           </div>
 
           <Button

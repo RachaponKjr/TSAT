@@ -32,11 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${ibmPlex.className} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>
-      <body className={ibmPlex.className}>{children}</body>
     </html>
   );
 }
