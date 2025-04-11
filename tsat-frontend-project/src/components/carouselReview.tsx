@@ -35,12 +35,12 @@ export default function CarouselReview() {
           </div>
         </div>
 
-        <div className="px-24">
+        <div className="px-32">
           <Carousel dots={false} infinite arrows={true} slidesToShow={4}>
             {carouselItems.map((item, index) => (
               <div
                 key={index}
-                className="px-2 flex flex-col items-center justify-center"
+                className="flex flex-col items-center justify-center"
               >
                 <img
                   src={item}

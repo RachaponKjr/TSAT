@@ -63,7 +63,7 @@ export default function Home() {
       </div>
       <div className="relative  min-h-screen flex items-center justify-center">
         <img
-          src="../images/main-pic.png"
+          src="../images/car.png"
           className="w-full object-cover h-1/3"
           alt="Description of image"
         />

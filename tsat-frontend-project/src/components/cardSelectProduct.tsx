@@ -5,12 +5,12 @@ export default function cardSelectProduct() {
     <div>
       <div className="relative w-full pb-[100%]">
         <img
-          src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?cs=srgb&dl=pexels-pixabay-210019.jpg&fm=jpg"
+          src=" ../images/oil.png"
           alt="Product"
-          className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+          className="absolute top-0 left-0 w-full w-32 object-cover rounded-2xl"
         />
         <div className="absolute text-white text-lg font-bold inset-0 flex items-center justify-center">
-          <span className="">Product Name</span>
+          <span className="text-2xl">น้ำมันเครื่องเกรดพรีเมี่ยม</span>
         </div>
       </div>
     </div>

@@ -4,9 +4,13 @@ import SubCardServices from './subCardServices';
 export default function cardServices() {
   return (
     <div>
-      <div className="w-[393px] mt-12 h-[285px] rounded-2xl bg-[#903035]">
-        <div className="px-4 py-6 ">
-          <img src="../images/kilo-check.png" alt="Description of image" />
+      <div className="w-full mt-12  h-[400px] rounded-2xl bg-[#903035]">
+        <div className="px-8 py-6 ">
+          <img
+            src="../images/kilo-check.png"
+            className="w-[600px]"
+            alt="Description of image"
+          />
           <div className="text-white mt-4 text-2xl font-bold">
             เช็คระยะ 10,000  กม.
           </div>
