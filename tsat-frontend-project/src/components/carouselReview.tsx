@@ -82,7 +82,6 @@ const CarouselReview = () => {
         </Carousel>
       </div>
 
-      {/* สำหรับมือถือ ให้ปุ่ม "ดูทั้งหมด" อยู่ข้างล่าง */}
       {isMobile && (
         <div className="px-4 mt-8 text-center">
           <Button
@@ -90,8 +89,8 @@ const CarouselReview = () => {
               border: '1px solid white',
               backgroundColor: 'transparent',
               color: 'white',
-              fontSize: '1rem',
-              padding: '0.75rem 2rem',
+              fontSize: '1.25rem',
+              padding: '1.5rem 6rem',
             }}
             className="hover:bg-white hover:text-black transition-all duration-300"
           >
