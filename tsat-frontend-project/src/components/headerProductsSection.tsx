@@ -4,7 +4,7 @@ export default function headerSection() {
   return (
     <div className="mt-12">
       <div className="hidden md:block  flex items-center justify-center">
-        <div className="  mt-24 2 text-center">
+        <div className="  mt-24  text-center">
           <div className="text-[#666666] text-3xl font-bold">
             ผลิตภัณฑ์ของเรา
           </div>
@@ -24,15 +24,16 @@ export default function headerSection() {
       </div>
 
       {/* Mobile Only Section */}
+      {/* Mobile Only Section */}
       <div className="block md:hidden ">
         <div className="text-center px-4">
-          <h1 className="text-[#666666] w-[400px] text-2xl font-bold leading-tight">
+          <h1 className="text-[#666666] w-[400px] mx-auto text-2xl font-bold leading-tight">
             ผลิตภัณฑ์ของเรา
           </h1>
-          <h1 className="text-[#8F2F34] mt-6 w-[400px] text-3xl font-bold leading-tight">
+          <h1 className="text-[#8F2F34] mt-6 w-[400px] mx-auto text-3xl font-bold leading-tight">
             Porsche ของคุณสมควรได้รับสิ่งที่ดีที่สุด และเราจัดให้ครบ
           </h1>
-          <p className="text-[#333333] w-[400px] font-bold text-xl mt-3 leading-relaxed">
+          <p className="text-[#333333] w-[400px] mx-auto font-bold text-xl mt-3 leading-relaxed">
             เราคัดสรรเฉพาะ อะไหล่แท้ และ ของเหลวเกรดพรีเมียม
             ที่ออกแบบมาเพื่อสมรรถนะสูงสุดของ Porsche โดยเฉพาะ
             เราการันตีมาตรฐานระดับศูนย์บริการ เพื่อให้รถของคุณแรงเต็มพิกัด
