@@ -3,6 +3,7 @@ import CarouselModel from '@/components/carouselModel';
 import Services from '@/components/services';
 import TabMenu from '@/components/tabMenu';
 import CardProduct from '@/components/cardProduct';
+import Footer from '@/components/footer';
 
 export default function Products() {
   return (
@@ -28,6 +29,7 @@ export default function Products() {
       </div>
       <TabMenu />
       <CardProduct />
+      <Footer />
     </div>
   );
 }

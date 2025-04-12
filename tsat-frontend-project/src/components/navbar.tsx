@@ -14,12 +14,12 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
-    'หน้าหลัก',
-    'บริการ',
-    'ผลิตภัณฑ์',
-    'ลูกค้าของเรา',
-    'เกี่ยวกับเรา',
-    'ติดต่อเรา',
+    { label: 'หน้าหลัก', href: '/' },
+    { label: 'บริการ', href: '/services' },
+    { label: 'ผลิตภัณฑ์', href: '/products' },
+    { label: 'ลูกค้าของเรา', href: '/customer' },
+    { label: 'เกี่ยวกับเรา', href: '/about' },
+    { label: 'ติดต่อเรา', href: '/contact' },
   ];
 
   return (
@@ -87,10 +87,10 @@ export default function Navbar() {
               {menuItems.map((item, index) => (
                 <li key={index} className="relative group">
                   <a
-                    href="#"
+                    href={item.href}
                     className="text-gray-500 hover:text-[#8F2F34] border-b-2 border-transparent group-hover:border-white"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -106,8 +106,11 @@ export default function Navbar() {
             <ul className="flex flex-col gap-4 text-base">
               {menuItems.map((item, index) => (
                 <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white">
-                    {item}
+                  <a
+                    href={item.href}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    {item.label}
                   </a>
                 </li>
               ))}

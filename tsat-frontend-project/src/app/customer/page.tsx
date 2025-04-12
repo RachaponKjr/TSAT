@@ -3,6 +3,7 @@ import CardImageWithTag from '@/components/cardImageWithTag';
 import React from 'react';
 import { Button, Carousel } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import Footer from '@/components/footer';
 
 export default function customer() {
   const carouselItems = [
@@ -81,22 +82,9 @@ export default function customer() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 px-24">
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-        <CardImageWithTag />
-      </div>
+      <CardImageWithTag />
+
+      <Footer />
     </div>
   );
 }
