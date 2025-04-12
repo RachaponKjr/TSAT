@@ -18,7 +18,7 @@ export default function Home() {
       <CarouselReview />
       <CarouselModel />
 
-      {/* <Services />
+      <Services />
 
       <div className="bg-white py-24">
         <div className="px-24">
@@ -86,7 +86,7 @@ export default function Home() {
             <CardLocation />
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
