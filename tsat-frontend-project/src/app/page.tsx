@@ -16,13 +16,10 @@ export default function Home() {
       <Navbar />
       <HeaderSection />
       <CarouselReview />
+      <CarouselModel />
 
-      <div>
-        <CarouselModel />
-      </div>
-      <div>
-        <Services />
-      </div>
+      {/* <Services />
+
       <div className="bg-white py-24">
         <div className="px-24">
           <div className="text-2xl mb-12 text-center  text-[#8F2F34] ">
@@ -89,7 +86,7 @@ export default function Home() {
             <CardLocation />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

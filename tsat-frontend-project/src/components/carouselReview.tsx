@@ -54,7 +54,7 @@ const CarouselReview = () => {
           dots={false}
           infinite
           arrows={false}
-          slidesToShow={isMobile ? 3 : 4}
+          slidesToShow={isMobile ? 1 : 4}
           autoplay
           autoplaySpeed={3000}
         >
