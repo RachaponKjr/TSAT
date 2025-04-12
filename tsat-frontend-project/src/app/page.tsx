@@ -15,9 +15,8 @@ export default function Home() {
     <div>
       <Navbar />
       <HeaderSection />
-      <div>
-        <CarouselReview />
-      </div>
+      <CarouselReview />
+
       <div>
         <CarouselModel />
       </div>
