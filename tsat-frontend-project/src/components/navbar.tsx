@@ -49,48 +49,60 @@ export default function Navbar() {
       </div>
 
       {/* Logo */}
-      <div className="flex items-end">
+      <div className="bg-white px-4">
         <img
           src="../images/logo.png"
           alt="Description of image"
-          className="hidden md:block md:w-auto"
+          className="w-full py-6  md:hidden"
         />
       </div>
       {/* Desktop Menu */}
-      <div className="hidden md:block">
-        <div className="flex justify-end mb-4">
-          <div className="flex text-lg">
-            <div className="bg-[#333333] rounded-tl-full rounded-bl-full py-2 px-4">
-              <PhoneOutlined className="mr-2" />
-              02-069-9966 / 089-986-9966
-            </div>
-            <div className="flex gap-4 items-center bg-[#8F2F34] rounded-tr-full rounded-br-full py-2 px-4">
-              <MailOutlined className="ml-2 text-2xl" />
-              <FacebookOutlined className="text-2xl" />
-              <InstagramOutlined className="text-2xl" />
+      <div className="flex items-center justify-between gap-8 hidden md:flex">
+        {/* Logo Section */}
+        <div className="bg-white px-4">
+          <img
+            src="../images/logo.png"
+            alt="Description of image"
+            className="py-6 w-auto"
+          />
+        </div>
+
+        {/* Contact & Menu Section */}
+        <div className="flex-1">
+          <div className="flex justify-end mb-4">
+            <div className="flex text-lg">
+              <div className="bg-[#333333] rounded-tl-full rounded-bl-full py-2 px-4">
+                <PhoneOutlined className="mr-2" />
+                02-069-9966 / 089-986-9966
+              </div>
+              <div className="flex gap-4 items-center bg-[#8F2F34] rounded-tr-full rounded-br-full py-2 px-4">
+                <MailOutlined className="ml-2 text-2xl" />
+                <FacebookOutlined className="text-2xl" />
+                <InstagramOutlined className="text-2xl" />
+              </div>
             </div>
           </div>
+          <nav className="text-black">
+            <ul className="flex gap-8 text-lg justify-end">
+              {menuItems.map((item, index) => (
+                <li key={index} className="relative group">
+                  <a
+                    href="#"
+                    className="text-gray-500 hover:text-[#8F2F34] border-b-2 border-transparent group-hover:border-white"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <nav className="text-black">
-          <ul className="flex gap-8 text-lg justify-end">
-            {menuItems.map((item, index) => (
-              <li key={index} className="relative group">
-                <a
-                  href="#"
-                  className="text-gray-500 hover:text-white border-b-2 border-transparent group-hover:border-white"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </div>
 
       {/* Mobile Menu Content */}
       {isMobileMenuOpen && (
         <div className="mt-6 md:hidden text-white space-y-4">
-          <nav className="text-center mt-4">
+          <nav className="text-center p-4">
             <ul className="flex flex-col gap-4 text-base">
               {menuItems.map((item, index) => (
                 <li key={index}>
