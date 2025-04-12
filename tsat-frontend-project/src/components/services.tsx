@@ -1,5 +1,6 @@
 import React from 'react';
 import CardServices from './cardServices';
+import SubCardServices from './subCardServices';
 
 export default function services() {
   return (
@@ -14,11 +15,9 @@ export default function services() {
           พร้อมแจ้งรายละเอียดปัญหาด้วยใบเสนอราคา ให้ลูกค้าตัดสินใจก่อนทุกครั้ง
           สบายใจได้เมื่อเข้ารับบริการที่ TSAT
         </div>
-        <div className="flex gap-2 justify-center">
-          <CardServices />
-          <CardServices />
-          <CardServices />
-        </div>
+
+        <CardServices />
+        <SubCardServices />
       </div>
     </div>
   );
