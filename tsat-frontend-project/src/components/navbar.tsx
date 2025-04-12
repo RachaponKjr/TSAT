@@ -1,87 +1,108 @@
+'use client';
+
 import {
   FacebookOutlined,
   InstagramOutlined,
   MailOutlined,
   PhoneOutlined,
+  MenuOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
+import { useState } from 'react';
 
 export default function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const menuItems = [
+    'หน้าหลัก',
+    'บริการ',
+    'ผลิตภัณฑ์',
+    'ลูกค้าของเรา',
+    'เกี่ยวกับเรา',
+    'ติดต่อเรา',
+  ];
+
   return (
-    <div className="text-white py-8 px-24 text-3xl">
-      <div className="grid grid-cols-8">
-        <div className="col-span-4">
-          <img src="../images/logo.png" alt="Description of image" />
-        </div>
-        <div className="col-span-4">
-          <div className="flex justify-end ">
-            <div className="flex text-lg">
-              <div className="bg-[#333333] rounded-tl-full rounded-bl-full  py-2 px-4">
-                <PhoneOutlined className="mr-2" />
-                02-069-9966 / 089-986-9966
-              </div>
-              <div className="flex gap-4 items-center bg-[#8F2F34] rounded-tr-full rounded-br-full   py-2 px-4">
-                <MailOutlined className="ml-2 text-2xl" />
-                <FacebookOutlined className="text-2xl" />
-                <InstagramOutlined className="text-2xl" />
-              </div>
-            </div>
+    <div className="text-white py-0  md:py-6 md:px-6 md:px-24 text-base md:text-3xl bg-[#333333] md:bg-white">
+      <div className="w-full md:hidden h-8 bg-[#333333]"></div>
+      <div className="flex justify-between items-center">
+        {/* Mobile Menu Button */}
+        <div className="md:hidden ml-4  cursor-pointer">
+          <div className=" text-white  text-3xl">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
+            </button>
           </div>
-          <div className="text-black">
-            <nav className="flex justify-end mt-8">
-              <ul className="flex gap-8 text-lg">
-                <li className="relative group">
-                  <a
-                    href="#"
-                    className="text-gray-500 hover:text-black border-b-2 border-transparent group-hover:border-black"
-                  >
-                    หน้าหลัก
-                  </a>
-                </li>
-                <li className="relative group">
-                  <a
-                    href="#"
-                    className="text-gray-500 hover:text-black border-b-2 border-transparent group-hover:border-black"
-                  >
-                    บริการ
-                  </a>
-                </li>
-                <li className="relative group">
-                  <a
-                    href="#"
-                    className="text-gray-500 hover:text-black border-b-2 border-transparent group-hover:border-black"
-                  >
-                    ผลิตภัณฑ์
-                  </a>
-                </li>
-                <li className="relative group">
-                  <a
-                    href="#"
-                    className="text-gray-500 hover:text-black border-b-2 border-transparent group-hover:border-black"
-                  >
-                    ลูกค้าของเรา
-                  </a>
-                </li>
-                <li className="relative group">
-                  <a
-                    href="#"
-                    className="text-gray-500 hover:text-black border-b-2 border-transparent group-hover:border-black"
-                  >
-                    เกี่ยวกับเรา
-                  </a>
-                </li>
-                <li className="relative group">
-                  <a
-                    href="#"
-                    className="text-gray-500 hover:text-black border-b-2 border-transparent group-hover:border-black"
-                  >
-                    ติดต่อเรา
-                  </a>
-                </li>
-              </ul>
-            </nav>
+        </div>
+
+        <div className="flex justify-end md:hidden">
+          <div className="bg-[#333333] text-md py-2 px-4">
+            <PhoneOutlined className="mr-2 text-3xl" />
+            02-069-9966 / 089-986-9966
+          </div>
+          <div className="flex gap-4 items-center  bg-[#8F2F34] py-2 px-4">
+            <MailOutlined className="ml-2 text-2xl" />
+            <FacebookOutlined className="text-2xl" />
+            <InstagramOutlined className="text-2xl" />
           </div>
         </div>
       </div>
+
+      {/* Logo */}
+      <div className="flex items-end">
+        <img
+          src="../images/logo.png"
+          alt="Description of image"
+          className="hidden md:block md:w-auto"
+        />
+      </div>
+      {/* Desktop Menu */}
+      <div className="hidden md:block">
+        <div className="flex justify-end mb-4">
+          <div className="flex text-lg">
+            <div className="bg-[#333333] rounded-tl-full rounded-bl-full py-2 px-4">
+              <PhoneOutlined className="mr-2" />
+              02-069-9966 / 089-986-9966
+            </div>
+            <div className="flex gap-4 items-center bg-[#8F2F34] rounded-tr-full rounded-br-full py-2 px-4">
+              <MailOutlined className="ml-2 text-2xl" />
+              <FacebookOutlined className="text-2xl" />
+              <InstagramOutlined className="text-2xl" />
+            </div>
+          </div>
+        </div>
+        <nav className="text-black">
+          <ul className="flex gap-8 text-lg justify-end">
+            {menuItems.map((item, index) => (
+              <li key={index} className="relative group">
+                <a
+                  href="#"
+                  className="text-gray-500 hover:text-white border-b-2 border-transparent group-hover:border-white"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {/* Mobile Menu Content */}
+      {isMobileMenuOpen && (
+        <div className="mt-6 md:hidden text-white space-y-4">
+          <nav className="text-center mt-4">
+            <ul className="flex flex-col gap-4 text-base">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <a href="#" className="text-gray-400 hover:text-white">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )}
     </div>
   );
 }
