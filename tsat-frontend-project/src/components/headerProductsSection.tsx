@@ -3,7 +3,7 @@ import React from 'react';
 export default function headerSection() {
   return (
     <div className="mt-12">
-      <div className="hidden md:block min-h-screen flex items-center justify-center">
+      <div className="hidden md:block  flex items-center justify-center">
         <div className="  mt-24 2 text-center">
           <div className="text-[#666666] text-3xl font-bold">
             ผลิตภัณฑ์ของเรา
@@ -14,7 +14,7 @@ export default function headerSection() {
           >
             Porsche ของคุณสมควรได้รับสิ่งที่ดีที่สุด และเราจัดให้ครบ
           </div>
-          <div className="text-3xl text-[#333333] font-bold mt-12">
+          <div className="text-3xl px-40 text-[#333333] font-bold mt-12">
             เราคัดสรรเฉพาะ อะไหล่แท้ และ ของเหลวเกรดพรีเมียม
             ที่ออกแบบมาเพื่อสมรรถนะสูงสุดของ Porsche โดยเฉพาะ
             เราการันตีมาตรฐานระดับศูนย์บริการ เพื่อให้รถของคุณแรงเต็มพิกัด
