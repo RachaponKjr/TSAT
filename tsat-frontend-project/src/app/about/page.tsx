@@ -1,12 +1,20 @@
 import Navbar from '@/components/navbar';
 import React from 'react';
-import { DatePicker } from 'antd';
+import Footer from '@/components/footer';
+import HeaderAboutSection from '@/components/headerAboutSection';
+import ArticleSection from '@/components/articleSection';
+import ArticleSection2 from '@/components/articleSection2';
+import ClientsReview from '@/components/clientsReview';
 
 export default function page() {
   return (
     <div>
       <Navbar />
-      <DatePicker />
+      <HeaderAboutSection />
+      <ArticleSection />
+      <ArticleSection2 />
+      <ClientsReview />
+      <Footer />
     </div>
   );
 }
