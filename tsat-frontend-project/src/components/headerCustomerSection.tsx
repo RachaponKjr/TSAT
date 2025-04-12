@@ -1,24 +1,21 @@
 import React from 'react';
 
-export default function headerSection() {
+export default function headerCustomerSection() {
   return (
     <div className="mt-12">
       <div className="hidden md:block  flex items-center justify-center">
         <div className="  mt-24  text-center">
-          <div className="text-[#666666] text-3xl font-bold">
-            ผลิตภัณฑ์ของเรา
-          </div>
+          <div className="text-[#666666] text-3xl font-bold">ลูกค้าของเรา</div>
           <div
             style={{ textShadow: '2px 2px 4px rgba(35, 11, 11, 0.25)' }}
             className="text-3xl text-[#8F2F34] font-bold mt-12"
           >
-            Porsche ของคุณสมควรได้รับสิ่งที่ดีที่สุด และเราจัดให้ครบ
+            รถของคุณคือเรื่องสำคัญของเรา
           </div>
           <div className="text-3xl px-40 text-[#333333] font-bold mt-12">
-            เราคัดสรรเฉพาะ อะไหล่แท้ และ ของเหลวเกรดพรีเมียม
-            ที่ออกแบบมาเพื่อสมรรถนะสูงสุดของ Porsche โดยเฉพาะ
-            เราการันตีมาตรฐานระดับศูนย์บริการ เพื่อให้รถของคุณแรงเต็มพิกัด
-            พร้อมลุยทุกเส้นทาง
+            เราภูมิใจที่ได้ดูแลให้รถคู่ใจของท่านอยู่ในสภาพสมบูรณ์แบบ
+            พร้อมออกวิ่งได้เต็มสมรรถนะ Porsche
+            ของคุณจะได้รับการดูแลอย่างดีที่สุดที่ TSAT
           </div>
         </div>
       </div>
