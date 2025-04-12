@@ -10,6 +10,7 @@ import HeaderSection from '@/components/headerSection';
 import ImageInfo from '@/components/imageInfo';
 
 import LocationSection from '@/components/locationSection';
+import Footer from '@/components/footer';
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <ImageInfo />
       <CardImageWithTag />
       <LocationSection />
+      <Footer />
     </div>
   );
 }
