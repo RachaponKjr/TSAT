@@ -31,7 +31,6 @@ const CarouselReview = () => {
             รีวิวงาน Service ของ TSAT
           </div>
 
-          {/* ปุ่ม "ดูทั้งหมด" อยู่ข้างๆ ใน Desktop */}
           {!isMobile && (
             <Button
               style={{
