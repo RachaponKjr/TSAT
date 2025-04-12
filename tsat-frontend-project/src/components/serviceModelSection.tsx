@@ -11,7 +11,7 @@ const mockModels = [
 
 export default function ServiceModelSection() {
   return (
-    <div className="text-[#8F2F34] text-center mt-24 px-6 text-3xl font-bold">
+    <div className="text-[#8F2F34] py-24  text-center mt-24 px-6 text-3xl font-bold">
       เลือกดูจากบริการ Model Porsche ของท่าน
       <div className="text-black mx-auto mt-8 grid grid-cols-3 gap-6 max-w-6xl">
         {mockModels.map((model) => (
