@@ -17,23 +17,9 @@ export default function Home() {
       <HeaderSection />
       <CarouselReview />
       <CarouselModel />
-
       <Services />
+      <CardSelectProduct />
 
-      <div className="bg-white py-24">
-        <div className="px-24">
-          <div className="text-2xl mb-12 text-center  text-[#8F2F34] ">
-            เลือกดูผลิตภัณฑ์
-          </div>
-          <div className="grid grid-cols-5 gap-6">
-            <CardSelectProduct />
-            <CardSelectProduct />
-            <CardSelectProduct />
-            <CardSelectProduct />
-            <CardSelectProduct />
-          </div>
-        </div>
-      </div>
       <div className="relative  min-h-screen flex items-center justify-center">
         <img
           src="../images/car.png"
