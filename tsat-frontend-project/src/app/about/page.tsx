@@ -4,7 +4,6 @@ import Footer from '@/components/footer';
 import HeaderAboutSection from '@/components/headerAboutSection';
 import ArticleSection from '@/components/articleSection';
 import ArticleSection2 from '@/components/articleSection2';
-import ClientsReview from '@/components/clientsReview';
 import ReviewCustomer from '../services/_components/review-customer';
 
 export default function page() {

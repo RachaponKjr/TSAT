@@ -1,5 +1,4 @@
 import React from 'react'
-import CardItemReview from './card-item-review'
 import { PlusOutlined } from '@ant-design/icons'
 import SwiperReview from './swiper-review'
 

@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Button, Carousel } from 'antd';
+import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import SwiperReviewCar from '@/app/_components/swiper-review-car';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import ArrowL from './icons/arrow-l';
 import ArrowR from './icons/arrow-r';
 
@@ -17,15 +16,6 @@ const CarouselReview = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  const carouselItems = [
-    'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg',
-    'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg',
-    'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg',
-    'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg',
-    'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg',
-    'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg',
-  ];
 
   return (
     <div className="bg-[#8F2F34] py-8 md:py-8 relative">

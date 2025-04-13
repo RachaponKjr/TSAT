@@ -1,12 +1,7 @@
 import Navbar from '@/components/navbar';
-import CardImageWithTag from '@/components/cardImageWithTag';
 import React from 'react';
-import { Button, Carousel } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import Footer from '@/components/footer';
 import HeaderCustomerSection from '@/components/headerCustomerSection';
-import CarouselModel from '@/components/carouselModel';
-import CarouselClientsModel from '@/components/carouselClientsModel';
 import ItemCustomer from './_components/items-customer';
 import SwiperClientModel from './_components/swiper-client-model';
 
