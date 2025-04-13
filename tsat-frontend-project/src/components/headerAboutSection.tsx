@@ -33,14 +33,14 @@ export default function headerAboutSection() {
           alt="Mobile Image"
           className="w-full h-full"
         />
-        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4">
-          <h1 className="text-[#666666] w-[400px] text-2xl font-bold leading-tight">
+        <div className="absolute w-full top-2/7 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4">
+          <h1 className="text-[#666666] max-w-[400px] text-2xl font-bold leading-tight">
             เกี่ยวกับเรา
           </h1>
-          <h1 className="text-[#8F2F34] mt-6 w-[400px] text-3xl font-bold leading-tight">
+          <h1 className="text-[#8F2F34] mt-6 max-w-[400px] text-3xl font-bold leading-tight">
             ดูแลรถคุณ...เหมือนดูแลรถเราเอง
           </h1>
-          <p className="text-[#333333] w-[400px] font-bold text-xl mt-3 leading-relaxed">
+          <p className="text-[#333333] max-w-[400px] font-bold text-xl mt-3 leading-relaxed">
             Top Service Auto Technic (TSAT) ไม่ใช่แค่อู่ซ่อมรถทั่วไป
             เราคือทีมช่างผู้เชี่ยวชาญที่หลงใหลในสมรรถนะและความสมบูรณ์แบบของ
             Porsche ด้วยประสบการณ์กว่า 15 ปี

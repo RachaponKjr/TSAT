@@ -1,5 +1,8 @@
 import React from 'react';
 
+import abotpro from '@/assets/images/about-pro.png'
+import Image from 'next/image';
+
 export default function ArticleSection() {
   return (
     <div className="flex flex-col md:flex-row justify-between px-6 md:px-48 py-12 gap-8">
@@ -21,8 +24,8 @@ export default function ArticleSection() {
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 flex flex-col md:flex-row items-center justify-center gap-4">
-        <div className="flex justify-center">
+      <div className="w-full md:w-1/2 flex flex-row items-center justify-center gap-4">
+        {/* <div className="flex justify-center">
           <img
             src="../images/about-pro.png"
             className="object-contain w-3/4 md:w-auto"
@@ -35,7 +38,9 @@ export default function ArticleSection() {
             className="object-contain w-3/4 md:w-auto"
             alt="about image"
           />
-        </div>
+        </div> */}
+        <Image src={abotpro} alt="about image" width={250} height={250}/>
+        <Image src={abotpro} alt="about image" width={250} height={250} className='relative top-14'/>
       </div>
     </div>
   );

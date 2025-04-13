@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Carousel } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import SwiperModelCar from '@/app/_components/swiper-model-car';
 
 export default function CarouselReview() {
   const [isMobile, setIsMobile] = useState(false);
@@ -25,9 +26,8 @@ export default function CarouselReview() {
           ? carouselRef.current?.prev()
           : carouselRef.current?.next()
       }
-      className={`absolute top-1/2 -translate-y-1/2 ${
-        direction === 'left' ? 'left-0' : 'right-0'
-      } z-20 cursor-pointer p-4`}
+      className={`absolute top-1/2 -translate-y-1/2 ${direction === 'left' ? 'left-0' : 'right-0'
+        } z-20 cursor-pointer p-4`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -35,9 +35,8 @@ export default function CarouselReview() {
         fill="#8F2F34"
         width="36"
         height="36"
-        className={`${
-          direction === 'right' ? 'rotate-180' : ''
-        } transition-transform duration-200`}
+        className={`${direction === 'right' ? 'rotate-180' : ''
+          } transition-transform duration-200`}
       >
         <path d="M32 15H3.41l8.29-8.29-1.41-1.42-10 10a1 1 0 0 0 0 1.41l10 10 1.41-1.41L3.41 17H32z" />
       </svg>
@@ -45,96 +44,27 @@ export default function CarouselReview() {
   );
 
   return (
-    <div className="bg-white py-24 relative">
-      <div className="px-8 sm:px-16 md:px-24">
-        <div className="items-center mb-12">
+    <div className="bg-white py-8 relative">
+      <div className="px-4 sm:px-16 md:px-24">
+        <div className="items-center">
           <div>
-            <div className="text-3xl sm:text-2xl md:text-3xl font-bold text-[#8F2F34]">
+            <div className="text-3xl sm:text-2xl md:text-3xl font-semibold text-[#8F2F34]">
               เลือกดูบริการจาก Model Porsche ของท่าน
             </div>
-            <div className="text-black text-lg sm:text-xl md:text-2xl mt-6">
+            <div className="text-black text-lg sm:text-xl md:text-2xl font-medium mt-6">
               TSAT คือที่สุดของการดูแล Porsche
               ที่ตอบโจทย์ทุกความต้องการของคนรักรถหรู <br />
               เราคือทีมมืออาชีพที่เชี่ยวชาญด้าน Porsche โดยเฉพาะ
               ด้วยประสบการณ์ยาวนานและความใส่ใจในทุกรายละเอียด
             </div>
           </div>
-          <Button
-            style={{
-              border: '1px solid white',
-              backgroundColor: 'transparent',
-              color: 'white',
-              fontSize: '1rem',
-              padding: '1.25rem 5rem',
-            }}
-            className="hover:bg-white hover:text-black transition-all duration-300"
+          <SwiperModelCar />
+          {/* <Button
+            className="hover:bg-white hover:text-black transition-all duration-300 w-full"
           >
             ดูทั้งหมด <PlusOutlined />
-          </Button>
+          </Button> */}
         </div>
-      </div>
-
-      <div className="relative px-8 sm:px-16 md:px-24 z-10">
-        {isMobile ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {carouselItems.map((item, index) => (
-              <div
-                key={index}
-                className="px-2 flex flex-col items-center justify-center"
-              >
-                <img
-                  src={item}
-                  alt={`Carousel item ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    objectFit: 'cover',
-                    borderRadius: '8px',
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="relative">
-            <ArrowSVG direction="left" />
-            <ArrowSVG direction="right" />
-            <Carousel
-              ref={carouselRef}
-              dots={false}
-              arrows={false} // ปิด arrows เดิม
-              infinite
-              slidesToShow={4}
-              slidesToScroll={1}
-            >
-              {carouselItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="px-2 flex flex-col items-center justify-center"
-                >
-                  <img
-                    src={item}
-                    alt={`Carousel item ${index + 1}`}
-                    style={{
-                      maxWidth: '290px',
-                      height: 'auto',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                      display: 'block',
-                      margin: '0 auto',
-                    }}
-                  />
-                </div>
-              ))}
-            </Carousel>
-          </div>
-        )}
-
-        <img
-          src="../images/base-model.png"
-          className="absolute left-0 bottom-[-120px] w-full object-cover z-0"
-          alt="Base shadow"
-        />
       </div>
     </div>
   );

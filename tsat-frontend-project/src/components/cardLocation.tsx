@@ -1,6 +1,10 @@
 import { Button } from 'antd';
 import React from 'react';
 
+import kk from '@/assets/images/kkk.png';
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
+
 const mockLocations = [
   {
     name: 'สาขานิมิตรใหม่ 61',
@@ -16,36 +20,28 @@ const mockLocations = [
 
 export default function CardLocation() {
   return (
-    <div className="relative py-12">
+    <div className="relative">
       <div className="relative z-10 grid grid-cols-2 gap-8  lg:px-24">
-        {mockLocations.map((location, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center text-center p-6 backdrop-blur-sm rounded-xl w-full max-w-[90%] sm:max-w-full mx-auto"
-          >
-            <img
-              src={location.image}
-              alt={location.name}
-              className="mb-4 w-full h-auto rounded-lg"
-            />
-            <div className="text-2xl font-semibold text-[#8F2F34] mb-4">
-              {location.name}
-            </div>
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: '#8F2F34',
-                borderColor: '#8F2F34',
-                fontSize: '1rem',
-                padding: '0.75rem 2rem',
-              }}
-              className="hover:bg-[#A33A3F] rounded-full hover:border-[#A33A3F] transition-all duration-300"
-              href={location.mapLink}
-            >
-              แผนที่
-            </Button>
+        <div className='space-y-4'>
+          <Image src={kk} alt="" width={500} height={500} />
+          <div className='flex flex-col justify-center items-center gap-1'>
+            <span className='text-[#8F2F34] font-semibold md:text-2xl'>สาขานิมิตรใหม่ 61</span>
+            <button className='bg-[#8F2F34] text-white px-3 py-1 rounded-full flex items-center gap-1 hover:bg-[#C65359]'>
+              <span className=''>แผนที่</span>
+              <ArrowRight size={16} />
+            </button>
           </div>
-        ))}
+        </div>
+        <div className='space-y-4'>
+          <Image src={kk} alt="" width={500} height={500} />
+          <div className='flex flex-col justify-center items-center gap-1'>
+            <span className='text-[#8F2F34] font-semibold md:text-2xl'>สาขานิมิตรใหม่ 61</span>
+            <button className='bg-[#8F2F34] text-white px-3 py-1 rounded-full flex items-center gap-1 hover:bg-[#C65359]'>
+              <span className=''>แผนที่</span>
+              <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

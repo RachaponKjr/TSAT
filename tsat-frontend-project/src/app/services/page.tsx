@@ -1,9 +1,9 @@
 import Navbar from '@/components/navbar';
-import CarouselModel from '@/components/carouselModel';
 import Services from '@/components/services';
 import Footer from '@/components/footer';
 import ServiceModelSection from '@/components/serviceModelSection';
 import HeaderServiceSection from '@/components/headerServiceSection';
+import ReviewCustomer from './_components/review-customer';
 
 export default function Home() {
   return (
@@ -12,7 +12,8 @@ export default function Home() {
       <HeaderServiceSection />
       <ServiceModelSection />
       <Services />
-      <CarouselModel />
+      {/* <CarouselModel /> */}
+      <ReviewCustomer />
       <Footer />
     </div>
   );
