@@ -1,22 +1,9 @@
-import { Button } from 'antd';
 import React from 'react';
 
 import kk from '@/assets/images/kkk.png';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-const mockLocations = [
-  {
-    name: 'สาขานิมิตรใหม่ 61',
-    image: '../images/kkk.png',
-    mapLink: '#',
-  },
-  {
-    name: 'สาขารามอินทรา 88',
-    image: '../images/kkk.png',
-    mapLink: '#',
-  },
-];
 
 export default function CardLocation() {
   return (
