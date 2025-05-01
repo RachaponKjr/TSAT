@@ -69,7 +69,7 @@ export default function CardServices({
               {/* ภาพด้านบน */}
               <div className='w-full min-h-[245px] relative'>
                 <Image
-                  src={`http://119.59.102.130:3130${cardData.images[0]}`}
+                  src={`http://tsat-backend:3130${cardData.images[0]}`}
                   alt={cardData.title}
                   fill
                   objectFit='cover'
@@ -95,8 +95,8 @@ export default function CardServices({
                       <div className=' grid grid-cols-3 grid-rows-2 gap-4 w-full'>
                         {modelCar.map((item, index: number) => (
                           <div className='flex flex-col max-w-full aspect-video relative'>
-                            <Image src={`http://119.59.102.130:3130/${item.image}`} alt={item.name} fill objectFit='contain' />
-                            <Image src={`http://119.59.102.130:3130/${item.imageName}`} alt={item.name} width={150} height={150} className='absolute -bottom-5 left-1/2 -translate-x-1/2' />
+                            <Image src={`http://tsat-backend:3130/${item.image}`} alt={item.name} fill objectFit='contain' />
+                            <Image src={`http://tsat-backend:3130/${item.imageName}`} alt={item.name} width={150} height={150} className='absolute -bottom-5 left-1/2 -translate-x-1/2' />
                           </div>
                         ))}
                       </div>
@@ -153,7 +153,7 @@ export default function CardServices({
                 {/* ภาพด้านบน */}
                 <div className='w-full min-h-[245px] relative '>
                   <Image
-                    src={`http://119.59.102.130:3130${item.images[0]}`}
+                    src={`http://tsat-backend:3130${item.images[0]}`}
                     alt={item.title}
                     fill
                     objectFit='cover'
@@ -179,8 +179,8 @@ export default function CardServices({
                         <div className=' grid grid-cols-3 grid-rows-2 gap-4 w-full'>
                           {modelCar.map((item, index: number) => (
                             <div className='flex flex-col max-w-full aspect-video relative'>
-                              <Image src={`http://119.59.102.130:3130/${item.image}`} alt={item.name} fill objectFit='contain' />
-                              <Image src={`http://119.59.102.130:3130/${item.imageName}`} alt={item.name} width={150} height={150} className='absolute -bottom-5 left-1/2 -translate-x-1/2' />
+                              <Image src={`http://tsat-backend:3130/${item.image}`} alt={item.name} fill objectFit='contain' />
+                              <Image src={`http://tsat-backend:3130/${item.imageName}`} alt={item.name} width={150} height={150} className='absolute -bottom-5 left-1/2 -translate-x-1/2' />
                             </div>
                           ))}
                         </div>

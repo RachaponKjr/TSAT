@@ -2,7 +2,7 @@
 import { getCookie } from "@/lib/cookie";
 
 // const BASE_URL: string = "http://localhost:3130";
-const BASE_URL: string = "http://119.59.102.130:3130";
+const BASE_URL: string = "http://tsat-backend:3130";
 type FetchConfig = RequestInit & { headers?: Record<string, string> };
 
 export type ApiResponse<T> = {
