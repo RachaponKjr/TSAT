@@ -13,7 +13,7 @@ export default function CardSelectProduct({ catagoryProduct }: { catagoryProduct
           {catagoryProduct.data.data.map((item: any, index: number) => (
             <Link href={`/products?index=${index}`} key={index} className="relative w-full aspect-[16/12] lg:aspect-square rounded-lg cursor-pointer hover:scale-[1.02] transition-all duration-300 ease-in-out"
               style={{
-                backgroundImage: `url(http://tsat-backend:3130/${item.image})`,
+                backgroundImage: `url(http://119.59.102.130:3130/${item.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}

@@ -63,8 +63,8 @@ function SwiperClientModel() {
                 {carModel.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className='flex flex-col items-center'>
-                            <Image src={`http://tsat-backend:3130/${item.image}`} alt="modelcar" width={500} height={500} />
-                            <Image src={`http://tsat-backend:3130/${item.imageName}`} alt="modelcar" width={200} height={200} />
+                            <Image src={`http://119.59.102.130:3130/${item.image}`} alt="modelcar" width={500} height={500} />
+                            <Image src={`http://119.59.102.130:3130/${item.imageName}`} alt="modelcar" width={200} height={200} />
                         </div>
                     </SwiperSlide>
                 ))}

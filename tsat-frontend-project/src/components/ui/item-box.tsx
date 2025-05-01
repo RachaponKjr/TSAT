@@ -19,7 +19,7 @@ function ItemBox({ item }: { item: any }) {
           </div>
         )}
         <Image
-          src={`http://tsat-backend:3130${item.images}`}
+          src={`http://119.59.102.130:3130${item.images}`}
           alt={item.title || ''}
           fill
           className="object-cover"
