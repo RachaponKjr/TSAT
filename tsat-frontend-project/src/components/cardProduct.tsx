@@ -37,7 +37,7 @@ export default function CardProduct({ catagoryId }: { catagoryId: string }) {
           >
             <div className='lg:w-[400px] lg:h-[300px] max-w-full max-h-full min-w-[150px] min-h-[150px] relative'>
               <Image
-                src={`http://localhost:3130${item.imageProduct || 'fallback.png'}`}
+                src={`http://119.59.102.130:3130${item.imageProduct || 'fallback.png'}`}
                 alt={item.name || 'product image'}
                 fill
                 objectFit='cover'

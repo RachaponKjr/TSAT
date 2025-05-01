@@ -24,7 +24,7 @@ function SwiperReviewCar({ workservice }: { workservice: WorkService[] }) {
                     <SwiperSlide key={index}>
                         <div className='w-full space-y-2'>
                             <div className='w-full aspect-video relative rounded-lg overflow-hidden'>
-                                <Image src={`http://localhost:3130/${item.image}`} alt="modelcar" fill className='bg-neutral-100 object-cover' />
+                                <Image src={`http://119.59.102.130:3130/${item.image}`} alt="modelcar" fill className='bg-neutral-100 object-cover' />
                             </div>
                             <h4 className='text-[12px] md:text-xl text-white font-semibold'>{item.carModel.name} {item.carSubModel.name}</h4>
                         </div>
