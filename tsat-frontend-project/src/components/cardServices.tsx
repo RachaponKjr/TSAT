@@ -49,8 +49,8 @@ export default function CardServices({
       <div className="grid grid-cols-3 lg:grid-cols-3 gap-2 xl:gap-8">
         {services.slice(0, 3).map((cardData, index) => (
           <Dialog key={index}>
-            <DialogTrigger className="w-full h-full">
-              <div className="w-full h-full bg-gradient-to-b from-[#C65359] to-[#8F2F34] rounded-md md:rounded-xl p-4 lg:p-6 flex flex-col gap-2 md:gap-5 items-center md:items-start">
+            <DialogTrigger className="w-full flex items-stretch">
+              <div className="w-full bg-gradient-to-b from-[#C65359] to-[#8F2F34] rounded-md md:rounded-xl p-4 lg:p-6 flex flex-col gap-2 md:gap-5 items-center md:items-start">
                 <div className='w-[50px] md:w-[80px] aspect-square relative'>
                   <Image src={cardData.icon} alt={cardData.title} fill className="object-contain" />
                 </div>
@@ -60,7 +60,7 @@ export default function CardServices({
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className='overflow-y-auto h-svh md:max-h-[95vh] md:max-w-[80vw]'>
+            <DialogContent className='overflow-y-auto h-full md:max-h-[95vh] md:max-w-[80vw]'>
               <DialogClose asChild>
                 <button className="absolute top-4 right-4 bg-white border border-[#999999] rounded-full w-8 aspect-square flex items-center justify-center z-30">
                   <X size={20} />

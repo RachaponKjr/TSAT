@@ -44,7 +44,7 @@ export default function Navbar() {
             <div className="absolute top-0 bottom-0 -right-4 w-4 bg-[#8B2D2D] skew-x-[-15deg] origin-top-left" />
             {/* <PhoneOutlined className="mr-2 text-lg md:text-3xl" /> */}
             <Phone size={20} color='#FFFFFF' />
-            <div className="flex flex-row items-center  gap-1">
+            <div className="flex flex-row items-center  text-nowrap gap-1">
               <a href="tel:020699966" className="text-[clamp(12px,4vw,16px)] hover:underline">
                 02-069-9966
               </a>
