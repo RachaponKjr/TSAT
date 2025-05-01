@@ -14,7 +14,7 @@ export type ApiResponse<T> = {
 async function baseApi<T>({
   path,
   params = {},
-  config = {},
+  config = {}, 
   requiresAuth = false,
   baseUrl = BASE_URL,
 }: {
