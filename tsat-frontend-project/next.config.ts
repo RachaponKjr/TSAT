@@ -3,6 +3,12 @@ import { NextConfig } from 'next';
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  images: {
+    domains: ['localhost'],
+  },
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,

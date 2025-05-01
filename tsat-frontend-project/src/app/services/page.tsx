@@ -5,7 +5,7 @@ import ServiceModelSection from '@/components/serviceModelSection';
 import HeaderServiceSection from '@/components/headerServiceSection';
 import ReviewCustomer from './_components/review-customer';
 
-export default function Home() {
+export default function page() {
   return (
     <div>
       <Navbar />

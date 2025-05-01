@@ -5,14 +5,14 @@ import HeaderCustomerSection from '@/components/headerCustomerSection';
 import ItemCustomer from './_components/items-customer';
 import SwiperClientModel from './_components/swiper-client-model';
 
-export default function customer() {
+export default function Customer() {
   return (
     <div>
       <Navbar />
       <HeaderCustomerSection />
 
       {/* <CarouselClientsModel /> */}
-      <div className='py-10 px-10 md:px-24 md:py-16 relative'>
+      <div className='py-10 px-10 xl:px-24 xl:py-16 relative'>
         <SwiperClientModel />
         <div className='absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-[#FFFFFF] to-[#999999] opacity-20' />
       </div>

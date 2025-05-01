@@ -1,23 +1,53 @@
-import React from 'react';
-import battely from '@/assets/images/battery.png';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-export default function CardProduct() {
+import api from '@/server/api';
+import { Product } from '@/types/product';
+export default function CardProduct({ catagoryId }: { catagoryId: string }) {
+  const [product, setProduct] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+  const getProduct = useCallback(async () => {
+    try {
+      setLoading(true);
+      await api.product.getProduct({ id: catagoryId }).then((res) => {
+        const data = res.data as { data: { products: Product[] } };
+        setProduct(data.data.products);
+      })
+    } catch (e) {
+      console.log(e);
+    }
+    finally {
+      setLoading(false);
+    }
+  }, [catagoryId]);
+
+  useEffect(() => {
+    void getProduct();
+  }, [getProduct]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
-    <div>
-      <div className="text-[#8F2F34] text-center mt-12 text-2xl font-bold">
-        ผลิตภัณฑ์
-      </div>
-      <div className="text-black mx-auto grid md:grid-cols-2 md:px-60 gap-8 px-4">
-        {Array.from({ length: 6 }, (_, index) => (
-          <>
-            <div key={index} className=' flex items-center gap-4'>
-              <Image src={battely} alt={""} width={600} height={600} />
-              <div className='text-[#333333] space-y-2'>
-                <h5 className='text-base md:text-2xl font-semibold'>Voltronic 5w40</h5>
-                <p className='text-sm md:text-lg'>น้ำมันเครื่องสังเคราะห์แท้จากเยอรมนี ปกป้องเครื่องยนต์ ทนความร้อนสูง พร้อมดึงสมรรถนะเต็มพิกัด</p>
-              </div>
+    <div className='mb-16'>
+      <div className="text-black mx-auto grid md:grid-cols-2 lg:gap-8 px-4 xl:px-60">
+        {product.map((item) => (
+          <div
+            key={item.id}
+            className="flex items-center gap-4 lg:gap-12 py-4 md:p-4 border-b border-[#999999] md:border-none"
+          >
+            <div className='lg:w-[400px] lg:h-[300px] max-w-full max-h-full min-w-[150px] min-h-[150px] relative'>
+              <Image
+                src={`http://localhost:3130${item.imageProduct || 'fallback.png'}`}
+                alt={item.name || 'product image'}
+                fill
+                objectFit='cover'
+              />
             </div>
-          </>
+            <div className="text-[#333333] space-y-2">
+              <h5 className="text-base md:text-[clamp(18px,1.5vw,24px)] font-semibold">{item.name}</h5>
+              <p className="text-sm md:text-[clamp(16px,1.5vw,18px)]">{item.detail}</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>

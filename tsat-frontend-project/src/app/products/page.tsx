@@ -1,18 +1,17 @@
 import Navbar from '@/components/navbar';
-import CarouselModel from '@/components/carouselModel';
-import Services from '@/components/services';
 import TabMenu from '@/components/tabMenu';
-import CardProduct from '@/components/cardProduct';
 import Footer from '@/components/footer';
 import HeaderProductsSection from '@/components/headerProductsSection';
+import { Suspense } from 'react';
 
-export default function Products() {
+export default function page() {
   return (
     <div>
       <Navbar />
       <HeaderProductsSection />
-      <TabMenu />
-      <CardProduct />
+      <Suspense fallback={<div>Loading...</div>}>
+        <TabMenu />
+      </Suspense>
       <Footer />
     </div>
   );

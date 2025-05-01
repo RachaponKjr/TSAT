@@ -3,7 +3,9 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from 'next/image';
-function SwiperReviewCar() {
+import { WorkService } from '@/components/carouselReview';
+function SwiperReviewCar({ workservice }: { workservice: WorkService[] }) {
+    console.log(workservice, 'data');
     return (
         <Swiper
             breakpoints={{
@@ -17,14 +19,14 @@ function SwiperReviewCar() {
                 },
             }}
         >
-            {Array.from({ length: 6 }).map((_, index) => (
+            {workservice.map((item, index) => (
                 <>
                     <SwiperSlide key={index}>
                         <div className='w-full space-y-2'>
                             <div className='w-full aspect-video relative rounded-lg overflow-hidden'>
-                                <Image src={''} alt="modelcar" fill className='bg-neutral-100 object-cover' />
+                                <Image src={`http://localhost:3130/${item.image}`} alt="modelcar" fill className='bg-neutral-100 object-cover' />
                             </div>
-                            <h4 className='text-[12px] md:text-xl text-white font-semibold'>Lorem ipsum dolor sit.</h4>
+                            <h4 className='text-[12px] md:text-xl text-white font-semibold'>{item.carModel.name} {item.carSubModel.name}</h4>
                         </div>
                     </SwiperSlide>
                 </>

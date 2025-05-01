@@ -5,6 +5,7 @@ import HeaderAboutSection from '@/components/headerAboutSection';
 import ArticleSection from '@/components/articleSection';
 import ArticleSection2 from '@/components/articleSection2';
 import ReviewCustomer from '../services/_components/review-customer';
+import BannerBottom from './_components/banner';
 
 export default function page() {
   return (
@@ -13,8 +14,8 @@ export default function page() {
       <HeaderAboutSection />
       <ArticleSection />
       <ArticleSection2 />
-      {/* <ClientsReview /> */}
-      <ReviewCustomer bgColor='#F5F5F5'/>
+      <ReviewCustomer bgColor='#F5F5F5' />
+      <BannerBottom />
       <Footer />
     </div>
   );

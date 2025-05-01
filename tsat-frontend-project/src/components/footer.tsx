@@ -1,125 +1,73 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
-import {
-  FaPhoneAlt,
-  FaLine,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaInstagram,
-  FaFacebook,
-} from 'react-icons/fa';
+import Line from './icons/line';
+import { Mail, MapPin } from 'lucide-react';
+import Facebook from './icons/facebook';
+import { InstagramOutlined } from '@ant-design/icons';
 
 export default function Footer() {
-  const contactItems2 = [
-    {
-      icon: <FaFacebook className="text-xl text-white mr-3" />,
-      text: 'topserviceautotechnic',
-    },
-    {
-      icon: <FaInstagram className="text-xl text-white mr-3" />,
-      text: 'topserviceautotechnic',
-    },
-  ];
 
-  const contactItems = [
-    {
-      icon: <FaPhoneAlt className="text-xl text-white mr-3" />,
-      text: '02-069-9966 / 089-986-9966',
-    },
-    {
-      icon: <FaLine className="text-xl text-white mr-3" />,
-      text: '@topserviceautotechnic',
-    },
-    {
-      icon: <FaEnvelope className="text-xl text-white mr-3" />,
-      text: 'customer@topserviceautotechnic.com',
-    },
-    {
-      icon: <FaMapMarkerAlt className="text-xl text-white mr-3" />,
-      text: 'สาขานิมิตรใหม่ 61 →',
-    },
-    {
-      icon: <FaMapMarkerAlt className="text-xl text-white mr-3" />,
-      text: 'สาขารามอินทรา →',
-    },
-  ];
 
   return (
-    <footer className="bg-[#8F2F34] text-white py-12 px-6 sm:px-12">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
-          <div className="md:col-span-2">
-            <img
-              src="../images/logo-white.png"
-              alt="Description of image"
-              className="w-1/2 sm:w-1/3 md:w-1/2"
-            />
-            <ul className="text-md mt-6 space-y-4 max-w-md">
-              <li>
-                Top Service Auto Technic — อู่ซ่อมบำรุง Porsche ครบวงจร เช็คระยะ
-                ซ่อมเครื่องยนต์ ระบบไฟฟ้า ลงโปรแกรมด้วย Piwis Tester 3
-                มาตรฐานศูนย์บริการ ปอร์เช่ ทั่วโลก
-                พร้อมอะไหล่แท้และของเหลวสังเคราะห์ เกรดพรีเมียม
-                ดูแลโดยทีมช่างผู้เชี่ยวชาญ
-              </li>
-              <li className="font-bold text-white/40 text-sm">
-                © 2025 Top Service Auto Technic. All rights reserved.
-              </li>
-            </ul>
+    <footer className="bg-[#8F2F34] text-white py-6 md:py-12 px-6 sm:px-12">
+      <div className='container mx-auto flex md:flex-row flex-col justify-between gaap-0'>
+        <div className='max-w-[350px] hidden lg:flex flex-col gap-[18px]'>
+          <Image src="/images/logo-white.png" alt="" width={350} height={350} />
+          <p className='text-white font-bold'>Top Service Auto Technic — อู่ซ่อมบำรุง Porsche ครบวงจร เช็คระยะ ซ่อมเครื่องยนต์ ระบบไฟฟ้า ลงโปรแกรมด้วย Piwis Tester 3 มาตรฐานศูนย์บริการ ปอร์เช่ ทั่วโลก พร้อมอะไหล่แท้และของเหลวสังเคราะห์ เกรดพรีเมียม ดูแลโดยทีมช่างผู้เชี่ยวชาญ</p>
+          <span className='text-[#BD676B] text-sm font-bold'>© 2025 Top Service Auto Technic. All rights reserved.</span>
+        </div>
+        <div className='flex flex-row justify-evenly py-3 md:py-0 border-b border-[#BD676B] md:border-none md:flex-col gap-4 font-bold text-sm'>
+          <Link href={'/'} className='hidden md:block'>หน้าหลัก</Link>
+          <Link href={'/services'}>บริการ</Link>
+          <Link href={'/products'}>ผลิตภัณฑ์</Link>
+          <Link href={'/customer'}>ลูกค้าของเรา</Link>
+          <Link href={'/about'}>เกี่ยวกับเรา</Link>
+          <Link href={'/contact'}>ติดต่อเรา</Link>
+        </div>
+        <div className='flex items-center justify-center md:justify-start md:items-start flex-wrap-reverse md:flex-nowrap md:flex-col gap-4 font-bold text-sm py-3 md:py-0 border-b border-[#BD676B] md:border-none'>
+          <div className='flex gap-2'>
+            <Line size={20} color='white' />
+            <div className="flex flex-row items-center gap-2">
+              <a href="tel:020699966" className="text-base hover:underline">
+                02-069-9966
+              </a>
+              <span>/</span>
+              <a href="tel:0899869966" className="text-base hover:underline">
+                089-986-9966
+              </a>
+            </div>
           </div>
-
-          <div>
-            <div className="font-bold text-lg mb-2">เมนู</div>
-            <ul>
-              <li className="py-2 hover:text-[#333333] cursor-pointer">
-                หน้าหลัก
-              </li>
-              <li className="py-2 hover:text-[#333333] cursor-pointer">
-                บริการ
-              </li>
-              <li className="py-2 hover:text-[#333333] cursor-pointer">
-                ผลิตภัณฑ์
-              </li>
-              <li className="py-2 hover:text-[#333333] cursor-pointer">
-                ลูกค้าของเรา
-              </li>
-              <li className="py-2 hover:text-[#333333] cursor-pointer">
-                เกี่ยวกับเรา
-              </li>
-              <li className="py-2 hover:text-[#333333] cursor-pointer">
-                ติดต่อเรา
-              </li>
-            </ul>
+          <div className='flex gap-2'>
+            <Line size={20} color='white' />
+            <span>@topserviceautotechnic</span>
           </div>
-
-          <div>
-            <div className="font-bold text-lg mb-2">ติดต่อ</div>
-            <ul className="space-y-3">
-              {contactItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center text-white text-base font-semibold hover:text-[#333333] cursor-pointer"
-                >
-                  {item.icon}
-                  <span>{item.text}</span>
-                </li>
-              ))}
-            </ul>
+          <div className='flex gap-2'>
+            <Mail size={20} />
+            <span>customer@topserviceautotechnic.com</span>
           </div>
-
-          <div>
-            <div className="font-bold text-lg mb-2">ติดตามเรา</div>
-            <ul className="space-y-3">
-              {contactItems2.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center text-white text-base font-semibold hover:text-[#333333] cursor-pointer"
-                >
-                  {item.icon}
-                  <span>{item.text}</span>
-                </li>
-              ))}
-            </ul>
+          <div className='flex gap-2 flex-col md:flex-row items-center'>
+            <MapPin size={20} />
+            <span>สาขานิมิตรใหม่ 61 →</span>
           </div>
+          <div className='flex flex-col md:flex-row items-center gap-2'>
+            <MapPin size={20} />
+            <span>สาขารัชดาภิเษก 19 →</span>
+          </div>
+        </div>
+        <div className='flex flex-row justify-between md:justify-start md:flex-col gap-4 font-bold text-sm py-3 md:py-0 border-b border-[#BD676B] md:border-none'>
+          <div className='flex flex-col md:flex-row items-center gap-2'>
+            <Facebook color='white' size={20} />
+            <span>topserviceautotechnic</span>
+          </div>
+          <div className='flex flex-col md:flex-row items-center gap-2'>
+            <InstagramOutlined className='text-[20px]' />
+            <span>topserviceautotechnic</span>
+          </div>
+        </div>
+        <div className='flex flex-col md:hidden gap-4 text-center py-3'>
+          <p className='font-semibold'>Top Service Auto Technic — อู่ซ่อมบำรุง Porsche ครบวงจร เช็คระยะ ซ่อมเครื่องยนต์ ระบบไฟฟ้า ลงโปรแกรมด้วย Piwis Tester 3 มาตรฐานศูนย์บริการ ปอร์เช่ ทั่วโลก พร้อมอะไหล่แท้และของเหลวสังเคราะห์ เกรดพรีเมียม ดูแลโดยทีมช่างผู้เชี่ยวชาญ</p>
+          <span className='text-[#BD676B] text-sm font-bold'>© 2025 Top Service Auto Technic. All rights reserved.</span>
         </div>
       </div>
     </footer>

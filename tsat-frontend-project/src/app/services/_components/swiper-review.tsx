@@ -4,23 +4,24 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import CardItemReview from './card-item-review';
-function SwiperReview() {
+function SwiperReview({ reviews }: { reviews: any }) {
     return (
         <Swiper
             breakpoints={{
                 0: {
-                    slidesPerView: 1.3,
-                    spaceBetween: 15,
+                    slidesPerView: 1.2,
+                    spaceBetween: 0,
                 },
                 768: {
                     slidesPerView: 3,
-                    spaceBetween: 25,
+                    spaceBetween: 0,
                 },
             }}
+            className='w-full max-w-full h-[320px] md:h-max'
         >
-            {Array.from({ length: 6 }).map((_, index) => (
-                <SwiperSlide key={index} className='p-2'>
-                    <CardItemReview />
+            {reviews.map((item: any, index: number) => (
+                <SwiperSlide key={index} className='p-4 h-[233px] md:h-max'>
+                    <CardItemReview item={item} />
                 </SwiperSlide>
             ))}
         </Swiper>

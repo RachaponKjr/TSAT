@@ -2,19 +2,21 @@ import React from 'react';
 
 export default function headerSection() {
   return (
-    <div className="mt-12">
+    <div className="mt-12 container mx-auto">
       <div className="hidden md:block items-center justify-center">
-        <div className="  mt-24  text-center">
-          <div className="text-[#666666] text-3xl font-bold">
-            ผลิตภัณฑ์ของเรา
+        <div className="md:mt-12 xl:mt-24  text-center">
+          <div className="text-[#666666] text-xl md:text-[clamp(24px,2vw,30px)] font-bold relative">
+            <h6>
+              ผลิตภัณฑ์ของเรา
+            </h6>
           </div>
           <div
             style={{ textShadow: '2px 2px 4px rgba(35, 11, 11, 0.25)' }}
-            className="text-3xl text-[#8F2F34] font-bold mt-12"
+            className="text-2xl md:text-[clamp(30px,3vw,42px)] text-[#8F2F34] font-bold mt-12 md:mt-6 lg:mt-12"
           >
             Porsche ของคุณสมควรได้รับสิ่งที่ดีที่สุด และเราจัดให้ครบ
           </div>
-          <div className="text-3xl px-40 text-[#333333] font-bold mt-12">
+          <div className="text-base md:text-[Clamp(18px,2vw,24px)] px-40 text-[#333333] font-bold mt-12 md:mt-6 lg:mt-12">
             เราคัดสรรเฉพาะ อะไหล่แท้ และ ของเหลวเกรดพรีเมียม
             ที่ออกแบบมาเพื่อสมรรถนะสูงสุดของ Porsche โดยเฉพาะ
             เราการันตีมาตรฐานระดับศูนย์บริการ เพื่อให้รถของคุณแรงเต็มพิกัด

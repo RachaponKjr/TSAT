@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ArticleSection() {
   return (
-    <div className="flex flex-col md:flex-row justify-between py-12 px-6 md:px-48 gap-8">
+    <div className="flex flex-col md:flex-row justify-between py-12 px-6 xl:px-48 gap-8 container mx-auto">
       <div className="w-full md:w-1/2">
         <img
           src="../images/porche.png"
