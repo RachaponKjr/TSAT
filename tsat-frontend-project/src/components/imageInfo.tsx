@@ -50,7 +50,7 @@ export default function HeroWithCards() {
           {mockServices.map((service, index) => (
             <div
               key={index}
-              className="bg-white/90 rounded-xl text-black shadow-lg w-full p-2 flex flex-col h-full aspect-[8/10]"
+              className="bg-white/90 rounded-xl text-black shadow-lg w-full p-2 flex flex-col aspect-[8/10]"
             >
               <h2 className="text-[clamp(14px,4vw,24px] font-semibold grow p-2 text-start" dangerouslySetInnerHTML={{ __html: service.title }} />
               <div className='w-full h-[50%] relative'>
