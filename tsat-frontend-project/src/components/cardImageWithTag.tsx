@@ -8,7 +8,7 @@ export default async function CardImageWithTag() {
   const { data: customerWork } = await api.customerWork.getCustomerWork() as { data: any };
 
   return (
-    <div className="bg-[#F5F5F5] py-8 md:py-10 space-y-6">
+    <div className="bg-[#F5F5F5] py-6 space-y-6">
       <div className="flex flex-col md:flex-row justify-between px-6 lg:px-24 items-start md:items-center gap-4 container mx-auto">
         <div className="text-xl md:text-[clamp(24px,2vw,30px)] font-bold text-[#8F2F34]">
           ตัวอย่างงานบริการลูกค้า

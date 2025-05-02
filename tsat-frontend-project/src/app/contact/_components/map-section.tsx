@@ -42,7 +42,7 @@ const MapSection = () => {
         },
     ]
     return (
-        <div className='px-4 mt-8 md:mt-14 flex flex-col gap-6 container mx-auto'>
+        <div className='px-4 mt-8 flex flex-col gap-6 container mx-auto'>
             <div className='grid grid-cols-2 gap-4 md:gap-8 w-full md:w-[500px] md:place-self-center'>
                 <div className='flex flex-col justify-center items-center gap-1'>
                     <span className='text-sm md:text-[clamp(18px,2vw,22px)] text-[#8F2F34] font-semibold'>สาขานิมิตรใหม่ 61</span>

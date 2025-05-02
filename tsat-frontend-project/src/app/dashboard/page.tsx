@@ -1,8 +1,13 @@
 import React from 'react'
+import HeaderTop from './_components/header-top'
+import ShowProduct from './_components/show-product'
 
 const page = () => {
     return (
-        <div>page</div>
+        <div className='space-y-4'>
+            <HeaderTop />
+            <ShowProduct />
+        </div>
     )
 }
 

@@ -17,7 +17,7 @@ export default function Footer() {
           <p className='text-white font-bold'>Top Service Auto Technic — อู่ซ่อมบำรุง Porsche ครบวงจร เช็คระยะ ซ่อมเครื่องยนต์ ระบบไฟฟ้า ลงโปรแกรมด้วย Piwis Tester 3 มาตรฐานศูนย์บริการ ปอร์เช่ ทั่วโลก พร้อมอะไหล่แท้และของเหลวสังเคราะห์ เกรดพรีเมียม ดูแลโดยทีมช่างผู้เชี่ยวชาญ</p>
           <span className='text-[#BD676B] text-sm font-bold'>© 2025 Top Service Auto Technic. All rights reserved.</span>
         </div>
-        <div className='flex flex-row justify-evenly py-3 md:py-0 border-b border-[#BD676B] md:border-none md:flex-col gap-4 font-bold text-sm'>
+        <div className='flex flex-row justify-evenly text-nowrap py-3 md:py-0 border-b border-[#BD676B] md:border-none md:flex-col gap-4 font-bold text-[clamp(12px,2vw,14px)]'>
           <Link href={'/'} className='hidden md:block'>หน้าหลัก</Link>
           <Link href={'/services'}>บริการ</Link>
           <Link href={'/products'}>ผลิตภัณฑ์</Link>

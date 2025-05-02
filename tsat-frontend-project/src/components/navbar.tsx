@@ -40,21 +40,21 @@ export default function Navbar() {
         </div>
 
         <div className="flex grow justify-end md:hidden">
-          <div className="bg-[#333333] grow text-[16px] md:text-md py-2 px-4 flex items-center gap-2 relative">
-            <div className="absolute top-0 bottom-0 -right-4 w-4 bg-[#8B2D2D] skew-x-[-15deg] origin-top-left" />
+          <div className="bg-[#333333] grow text-[16px] md:text-md py-2 px-2 flex items-center gap-1 relative">
+            <div className="absolute top-0 bottom-0 -right-3 w-3 bg-[#8B2D2D] skew-x-[-15deg] origin-top-left" />
             {/* <PhoneOutlined className="mr-2 text-lg md:text-3xl" /> */}
             <Phone size={20} color='#FFFFFF' />
-            <div className="flex flex-row items-center  gap-1">
-              <a href="tel:020699966" className="text-[clamp(10px,4vw,16px)] hover:underline">
+            <div className="flex flex-row items-center grow text-nowrap font-semibold justify-evenly">
+              <a href="tel:020699966" className="text-[clamp(14px,4vw,20px)] hover:underline">
                 02-069-9966
               </a>
               <span>/</span>
-              <a href="tel:0899869966" className="text-[clamp(10px,4vw,16px)] hover:underline">
+              <a href="tel:0899869966" className="text-[clamp(14px,4vw,20px)] hover:underline">
                 089-986-9966
               </a>
             </div>
           </div>
-          <div className="flex gap-4 items-center  bg-[#8F2F34] py-2 px-4">
+          <div className="flex gap-4 items-center  bg-[#8F2F34] py-2 px-2">
             <Line size={24} color='#FFFFFF' />
             <Facebook size={24} color='#FFFFFF' />
           </div>

@@ -1,18 +1,20 @@
 // components/Sidebar.tsx
 'use client';
 
-import { Home, Settings, User } from 'lucide-react';
+import { BookOpenText, Box, Car, Cpu, Star } from 'lucide-react';
 import Link from 'next/link';
 
 const menuItems = [
-  { name: 'หน้าหลัก', icon: <Home size={20} />, href: '/' },
-  { name: 'โปรไฟล์', icon: <User size={20} />, href: '/profile' },
-  { name: 'ตั้งค่า', icon: <Settings size={20} />, href: '/settings' },
+  { name: 'จัดการสินค้า', icon: <Box size={20} />, href: '/dashboard' },
+  { name: 'จัดการรีวิว', icon: <Star size={20} />, href: '/dashboard/edit-review' },
+  { name: 'จัดการ Service', icon: <Cpu size={20} />, href: '/dashboard/edit-service' },
+  { name: 'จัดการ Bloges', icon: <BookOpenText size={20} />, href: '/dashboard/edit-blogs' },
+  { name: 'ข้อมูลรถ', icon: <Car size={20} />, href: '/dashboard/edit-car' },
 ];
 
 export default function Sidebar() {
   return (
-    <aside className="hidden md:flex flex-col w-64 h-screen bg-white shadow-md p-4">
+    <aside className="hidden md:flex flex-col min-w-64 h-screen bg-white shadow-md p-4">
       <h1 className="text-xl font-bold mb-6">เมนู</h1>
       <nav className="flex flex-col gap-2">
         {menuItems.map((item, index) => (

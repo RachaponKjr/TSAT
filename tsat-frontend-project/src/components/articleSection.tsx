@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 export default function ArticleSection() {
   return (
-    <div className="flex flex-col md:flex-row justify-between px-6 xl:px-48 py-12 gap-8 container mx-auto">
-      <div className="w-full md:w-1/2">
+    <div className="flex flex-col lg:flex-row justify-between px-6 xl:px-24 py-6 gap-8 container mx-auto">
+      <div className="w-full lg:w-1/2">
         <div className="text-[#8F2F34] text-2xl md:text-3xl font-bold">
           จากผู้ใช้รถ...สู่การสร้างทีมช่างผู้เชี่ยวชาญ
         </div>
@@ -24,9 +24,13 @@ export default function ArticleSection() {
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 flex flex-row items-center justify-center gap-4">
-        <Image src={abotpro} alt="about image" width={250} height={250}/>
-        <Image src={abotpro} alt="about image" width={250} height={250} className='relative top-14'/>
+      <div className="w-full lg:w-1/2 max-w-full flex flex-row items-center justify-center gap-4">
+        <div className='w-full aspect-auto'>
+          <Image src={abotpro} alt="about image" width={250} height={250} className='w-full' />
+        </div>
+        <div className='w-full aspect-auto'>
+          <Image src={abotpro} alt="about image" width={250} height={250} className='relative top-14 w-full' />
+        </div>
       </div>
     </div>
   );

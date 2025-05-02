@@ -40,7 +40,7 @@ const CarouselReview = ({ workservice }: { workservice: WorksServiceProps }) => 
   return (
     <div className="bg-[#8F2F34] py-8 md:py-8 relative">
       <div className={`px-4 xl:px-24 container mx-auto`}>
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-12 gap-4 md:gap-0">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4 md:gap-0">
           <div className="text-2xl md:text-[clamp(24px,6vw,30px)] font-bold text-white text-center md:text-left">
             รีวิวงาน Service ของ TSAT
           </div>

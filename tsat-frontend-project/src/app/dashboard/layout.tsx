@@ -10,10 +10,10 @@ export default function DashboardLayout({
             <body>
                 {/* Layout UI */}
                 {/* Place children where you want to render a page or nested layout */}
-                <main>
+                <main className="h-screen overflow-hidden">
                     <div className="flex flex-row">
                         <Sidebar />
-                        <div className="p-4">
+                        <div className="p-4 h-screen grow overflow-hidden overflow-y-scroll">
                             {children}
                         </div>
                     </div>

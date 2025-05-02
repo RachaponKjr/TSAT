@@ -45,7 +45,7 @@ export default function CardServices({
 
   console.log(services, 'services');
   return (
-    <div className="w-full mt-12 flex flex-col gap-5 xl:gap-8">
+    <div className="w-full mt-6 flex flex-col gap-5 xl:gap-8">
       <div className="grid grid-cols-3 lg:grid-cols-3 gap-2 xl:gap-8">
         {services.slice(0, 3).map((cardData, index) => (
           <Dialog key={index}>

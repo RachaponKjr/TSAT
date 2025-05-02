@@ -4,7 +4,7 @@ export default function headerCustomerSection() {
   return (
     <div className="mt-8">
       <div className="flex items-center justify-center">
-        <div className=" flex flex-col gap-6 px-4 text-center justify-center max-w-[800px]">
+        <div className=" flex flex-col gap-4 px-4 text-center justify-center max-w-[800px]">
           <div className="text-[#666666] text-xl md:text-[clamp(24px,2vw,30px)] font-bold mb-2">ลูกค้าของเรา</div>
           <div
             style={{ textShadow: '2px 2px 4px rgba(35, 11, 11, 0.25)' }}

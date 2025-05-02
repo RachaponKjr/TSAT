@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 export default function CardSelectProduct({ catagoryProduct }: { catagoryProduct: CatagoryProduct }) {
   return (
-    <div className="bg-white py-8">
-      <div className="px-4 xl:px-24 space-y-4 lg:space-y-8 container mx-auto">
+    <div className="bg-white py-6">
+      <div className="px-4 xl:px-24 space-y-4 lg:space-y-4 container mx-auto">
         <div className="text-3xl font-bold text-center text-[#8F2F34]">
           เลือกดูผลิตภัณฑ์
         </div>
