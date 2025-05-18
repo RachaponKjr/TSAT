@@ -25,7 +25,7 @@ function ItemBox({ item }: { item: any }) {
           </div>
         ) : null}
         <Image
-          src={`http://tsat-back:3131${item.images}`}
+          src={`http://150.95.25.111:3131${item.images}`}
           alt={item.title || ''}
           fill
           className="object-cover"
