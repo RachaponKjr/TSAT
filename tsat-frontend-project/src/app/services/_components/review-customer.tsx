@@ -25,5 +25,5 @@ async function ReviewCustomer({ bgColor, headText }: { bgColor?: string, headTex
         </div>
     )
 }
-
+ 
 export default ReviewCustomer
