@@ -28,7 +28,7 @@ const page = () => {
         const res = await api.auth.login(user)
         if (res.status === 200) {
             toast.success('เข้าสู่ระบบสําเร็จ', { className: '!text-green-500' })
-            await setCookie({ name: 'access_token', value: res.data.token, maxAge: 60 * 60 * 8, path: '/', sameSite: 'none', secure: false })
+            await setCookie({ name: 'access_token', value: res.data.token, maxAge: 60 * 60 * 8, path: '/',httpOnly: true, sameSite: 'none', secure: false })
             router.push('/dashboard')
         } else {
             toast.error('เข้าสู่ระบบไม่สําเร็จ', { className: '!text-red-500' })

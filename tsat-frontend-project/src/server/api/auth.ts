@@ -12,6 +12,7 @@ const login = async ({
     path: `/api/v1/user/login`,
     config: {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({ username, password }),
     },
   });
