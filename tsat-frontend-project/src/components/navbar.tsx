@@ -6,7 +6,7 @@ import {
   MenuOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import logo from '@/assets/images/logo.png'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,10 +14,27 @@ import { usePathname } from 'next/navigation';
 import Line from './icons/line';
 import Facebook from './icons/facebook';
 import { Phone, X } from 'lucide-react';
+import api from '@/server/api';
+import { formatPhoneName } from '@/lib/format-phonenumber';
+
+export interface ContactProps {
+  facebook: string;
+  id: string;
+  instagram: string;
+  line: string;
+  link_email: string;
+  link_facebook: string;
+  link_instagram: string;
+  link_line: string;
+  mail: string;
+  phone: string;
+  phone2: string;
+}
+
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const path = usePathname();
-
+  const [contact, setContact] = useState<ContactProps>();
   const menuItems = [
     { label: 'หน้าหลัก', href: '/' },
     { label: 'บริการ', href: '/services' },
@@ -26,6 +43,17 @@ export default function Navbar() {
     { label: 'เกี่ยวกับเรา', href: '/about' },
     { label: 'ติดต่อเรา', href: '/contact' },
   ];
+  const getContact = useCallback(async () => {
+    await api.content.getContact().then((res) => {
+      const data = res.data as { data: ContactProps[] };
+      setContact(data.data[0]);
+    });
+  }, []);
+
+  useEffect(() => {
+    getContact();
+  }, [getContact]);
+
   return (
     <div className="text-white py-0 shadow-[0px_12px_24px_0px_#00000008] md:py-6 md:px-4 lg::px-12 xl:px-24 text-base md:text-3xl bg-[#333333] md:bg-white container mx-auto">
       <div className="w-full md:hidden h-8 bg-[#333333]"></div>
@@ -45,29 +73,28 @@ export default function Navbar() {
             {/* <PhoneOutlined className="mr-2 text-lg md:text-3xl" /> */}
             <Phone size={20} color='#FFFFFF' />
             <div className="flex flex-row items-center grow text-nowrap font-semibold justify-evenly">
-              <a href="tel:020699966" className="text-[clamp(14px,4vw,20px)] hover:underline">
-                02-069-9966
+              <a href={`tel:${contact?.phone}`} className="text-[clamp(14px,4vw,20px)] hover:underline">
+                {formatPhoneName(String(contact?.phone))}
               </a>
               <span>/</span>
-              <a href="tel:0899869966" className="text-[clamp(14px,4vw,20px)] hover:underline">
-                089-986-9966
+              <a href={`tel:${contact?.phone2}`} className="text-[clamp(14px,4vw,20px)] hover:underline">
+                {formatPhoneName(String(contact?.phone2))}
               </a>
             </div>
           </div>
           <div className="flex gap-4 items-center  bg-[#8F2F34] py-2 px-2">
-            <Line size={24} color='#FFFFFF' />
-            <Facebook size={24} color='#FFFFFF' />
+            <div onClick={() => window.open(contact?.link_line, '_blank')}>
+              <Line size={24} color='#FFFFFF' />
+            </div>
+            <div onClick={() => window.open(contact?.link_facebook, '_blank')}>
+              <Facebook size={24} color='#FFFFFF' />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Logo */}
       <div className="bg-white px-4">
-        {/* <img
-          src="../images/logo.png"
-          alt="Description of image"
-          className="w-full py-6  md:hidden"
-        /> */}
         <Image src={logo} alt="Description of image" width={500} height={500} className='py-2 md:hidden' />
       </div>
       {/* Desktop Menu */}
@@ -84,20 +111,24 @@ export default function Navbar() {
               <div className="bg-[#333333] rounded-tl-full text-[15px] font-bold rounded-bl-full flex gap-2 items-center py-2 px-4">
                 <Phone size={20} color='#FFFFFF' />
                 <div className="flex flex-row items-center  gap-1">
-                  <a href="tel:020699966" className="text-base hover:underline">
-                    02-069-9966
+                  <a href={`tel:${contact?.phone}`} className="text-base hover:underline">
+                    {formatPhoneName(String(contact?.phone))}
                   </a>
                   <span>/</span>
-                  <a href="tel:0899869966" className="text-base hover:underline">
-                    089-986-9966
+                  <a href={`tel:${contact?.phone2}`} className="text-base hover:underline">
+                    {formatPhoneName(String(contact?.phone2))}
                   </a>
                 </div>
               </div>
               <div className="flex gap-4 items-center bg-[#8F2F34] rounded-tr-full rounded-br-full py-2 px-4">
-                <MailOutlined className="ml-2 text-2xl" />
-                <Line color='#FFFFFF' size={24} />
-                <Facebook color='#FFFFFF' size={24} />
-                <InstagramOutlined className="text-2xl" />
+                <MailOutlined className="ml-2 text-2xl cursor-pointer" onClick={() => window.open(`mailto:${contact?.mail}`)} />
+                <div className='cursor-pointer' onClick={() => window.open(`${contact?.link_line}`)}>
+                  <Line color='#FFFFFF' size={24} />
+                </div>
+                <div className='cursor-pointer ' onClick={() => window.open(`${contact?.link_facebook}`)}>
+                  <Facebook color='#FFFFFF' size={24} />
+                </div>
+                <InstagramOutlined className="text-2xl cursor-pointer" onClick={() => window.open(`${contact?.link_instagram}`)} />
               </div>
             </div>
           </div>

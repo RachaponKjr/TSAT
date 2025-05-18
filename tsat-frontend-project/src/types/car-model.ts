@@ -27,12 +27,7 @@ const CarCatogorySchema = z.object({
   imageName: z.string(),
   showActive: z.boolean(),
   categories: z.array(z.string()),
-  carSubModels: z.array(z.object({
-    id: z.string(),
-    image: z.string(),
-    name: z.string(),
-  })),
-  updatedAt: z.string(),
+  categoryService: z.array(z.string()),
 });
 
 export type CarSubModel = z.infer<typeof CarSubModelSchema>;

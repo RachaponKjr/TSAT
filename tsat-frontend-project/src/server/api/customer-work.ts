@@ -1,4 +1,14 @@
-import { baseApi } from "../base-api";
+import { ApiResponse, baseApi } from "../base-api";
+
+export interface ResBlog {
+  id: string;
+  title: string;
+  content: any;
+  images: string;
+  carModel: string;
+  subCarModel: string;
+  tags: string[];
+}
 
 const getCustomerWork = async () => {
   return baseApi({
@@ -7,4 +17,25 @@ const getCustomerWork = async () => {
   });
 };
 
-export { getCustomerWork };
+const deleteCustomerWork = async ({ id }: { id: string }) => {
+  return baseApi({
+    path: `/api/v1/customer-work/delete-work/${id}`,
+    config: { method: "DELETE" },
+  });
+};
+
+const getBySubCarModel = async (id: string) => {
+  return baseApi({
+    path: `/api/v1/customer-work/get-by-subCarModel/${id}`,
+    config: { method: "GET" },
+  });
+};
+
+const getWorkByBlog = async (id: string): Promise<ApiResponse<ResBlog[]>> => {
+  return baseApi({
+    path: `/api/v1/customer-work/get-work/${id}`,
+    config: { method: "GET" },
+  });
+};
+
+export { getCustomerWork, deleteCustomerWork, getBySubCarModel, getWorkByBlog };

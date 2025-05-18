@@ -6,6 +6,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import SwiperReviewCar from '@/app/_components/swiper-review-car';
 import ArrowL from './icons/arrow-l';
 import ArrowR from './icons/arrow-r';
+import Link from 'next/link';
 
 export interface WorkService {
   id: string;
@@ -27,7 +28,7 @@ export type WorksServiceProps = {
   data: WorkService[];
 };
 
-const CarouselReview = ({ workservice }: { workservice: WorksServiceProps }) => {
+const CarouselReview = ({ workservice, headText }: { workservice: WorksServiceProps, headText: string }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -41,43 +42,29 @@ const CarouselReview = ({ workservice }: { workservice: WorksServiceProps }) => 
     <div className="bg-[#8F2F34] py-8 md:py-8 relative">
       <div className={`px-4 xl:px-24 container mx-auto`}>
         <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4 md:gap-0">
-          <div className="text-2xl md:text-[clamp(24px,6vw,30px)] font-bold text-white text-center md:text-left">
-            รีวิวงาน Service ของ TSAT
-          </div>
+          <div className="text-2xl md:text-[clamp(24px,6vw,30px)] font-bold text-white text-center md:text-left" dangerouslySetInnerHTML={{ __html: headText }} />
 
           {!isMobile && (
-            <Button
-              style={{
-                border: '1px solid white',
-                backgroundColor: 'transparent',
-                color: 'white',
-                fontSize: '1.25rem',
-                padding: '1.5rem 6rem',
-              }}
-              className="hover:bg-white hover:text-black transition-all duration-300"
+            <Link
+              href={'/customer'}
+              className="hover:bg-white hover:text-[#8F2F34] h-[54px] w-[243px] border border-white flex items-center justify-center rounded-sm text-white text-lg font-semibold gap-1 transition-all duration-300"
             >
               ดูทั้งหมด <PlusOutlined />
-            </Button>
+            </Link>
           )}
         </div>
       </div>
       <div className='px-4 md:px-24 container mx-auto'>
-        <div className='hidden md:block absolute top-1/2 translate-y-1 left-0 z-20 cursor-pointer p-4'>
-          <ArrowL size={32} />
-        </div>
         <SwiperReviewCar workservice={workservice.data} />
-        <div className='hidden md:block absolute top-1/2 translate-y-1 right-0 z-20 cursor-pointer p-4'>
-          <ArrowR size={32} />
-        </div>
       </div>
 
       {/* btn mobile */}
       <div className='flex gap-8 justify-center items-center mt-4 md:hidden px-8 container mx-auto'>
-        <ArrowL size={32} />
-        <button className='grow py-3 border rounded-lg text-white'>
+        <ArrowL className='swiper-button-prev-service' size={32} />
+        <Link href={'/customer'} className='grow flex justify-center items-center py-3 border rounded-lg text-white'>
           ดูทั้งหมด <PlusOutlined />
-        </button>
-        <ArrowR size={32} />
+        </Link>
+        <ArrowR className='swiper-button-next-service' size={32} />
       </div>
 
     </div >

@@ -1,13 +1,22 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ImageBoxUploadProps {
   onChange?: (file: File) => void;
+  value?: string; // สามารถเป็น base64 หรือ URL ได้
 }
 
-const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange }) => {
+const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // อัปเดต preview ถ้ามีการส่งค่า value เข้ามาใหม่ (กรณี controlled)
+  useEffect(() => {
+    if (value) {
+      setPreview(value);
+    }
+  }, [value]);
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -19,7 +28,8 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange }) => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPreview(reader.result as string);
+      const base64 = reader.result as string;
+      setPreview(base64);
     };
     reader.readAsDataURL(file);
 
@@ -35,14 +45,17 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange }) => {
         onChange={handleFileChange}
         className="hidden"
       />
+
       <div
         onClick={handleClick}
-        className="w-40 h-40 cursor-pointer border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center overflow-hidden bg-gray-50 hover:border-blue-400 transition"
+        className="w-40 h-40 cursor-pointer border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center overflow-hidden bg-black/20 hover:border-blue-400 transition"
       >
         {preview ? (
-          <img
+          <Image
             src={preview}
-            alt="preview"
+            alt="uploaded preview"
+            width={160}
+            height={160}
             className="w-full h-full object-cover"
           />
         ) : (

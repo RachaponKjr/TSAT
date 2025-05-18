@@ -1,20 +1,27 @@
-import { Tag } from 'antd';
+import { ResBlog } from '@/server/api/customer-work';
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaLine } from 'react-icons/fa';
 
-export default function headerBlog() {
+export default function HeaderBlog({ headText, data }: { headText: string, data: ResBlog }) {
+  const combined = [
+    ...(data?.carModel ? [data?.carModel] : []),
+    ...(data?.subCarModel ? [data?.subCarModel] : []),
+    ...data?.tags || [],
+  ];
   return (
     <div className="mt-12 px-6 md:px-72">
-      <div className="mt-24">
+      <div className="mt-16">
         <div className="text-[#666666] text-3xl font-bold">
-          Porsche Cayenne ทรุดตัว!? อย่าตกใจ มาดูสาเหตุกัน!
+          <h1 className=''>{headText}</h1>
         </div>
 
         <div className="flex justify-between">
-          <div className="mt-4">
-            <Tag color="#8F2F34" className="mr-2 font-bold">
-              Porsche
-            </Tag>
+          <div className="mt-4 mb-2 flex gap-2">
+            {combined.map((tab, index) => (
+              <div key={index} className="px-1 py-1 w-max bg-[#8F2F34] text-white rounded-sm text-sm z-10 block">
+                {tab}
+              </div>
+            ))}
           </div>
 
           <div className="flex space-x-4 mt-4">

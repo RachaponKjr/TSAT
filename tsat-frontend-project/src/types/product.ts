@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 const ProductSchema = z.object({
+  category: z.object({ name: z.string() }),
   name: z.string(),
   imageProduct: z.string(),
   id: z.string(),

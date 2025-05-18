@@ -5,7 +5,7 @@ import React from 'react';
 import { Service } from '@/types/service';
 import { CarModel } from '@/types/car-model';
 
-export default async function Services() {
+export default async function Services({ headText, description }: { headText: string, description: string }) {
   const res = await api.service.getService()
   const cardata = await api.carModel.getCarModel();
   const carModel: CarModel = cardata as unknown as CarModel;
@@ -16,16 +16,8 @@ export default async function Services() {
   return (
     <div className="bg-[#F5F5F5]">
       <div className="p-4 xl:px-24 xl:py-6 container mx-auto">
-        <div className="text-[clamp(24px,2vw,30px)] font-bold text-[#8F2F34] ">
-          เลือกจากบริการที่ท่านสนใจ
-        </div>
-        <div className="text-[#333333] text-[clamp(16px,2vw,20px)] mt-4">
-          ให้คำปรึกษาฟรีตรวจเช็คและประเมินปัญหาฟรีไม่มีค่าธรรมเนียมแรกเข้าใดๆ
-          <br />
-          พร้อมแจ้งรายละเอียดปัญหาด้วยใบเสนอราคา ให้ลูกค้าตัดสินใจก่อนทุกครั้ง
-          สบายใจได้เมื่อเข้ารับบริการที่ TSAT
-        </div>
-
+        <div className="text-[clamp(24px,2vw,30px)] font-bold text-[#8F2F34] " dangerouslySetInnerHTML={{ __html: headText }} />
+        <div className="text-[#333333] text-[clamp(16px,2vw,20px)] mt-4" dangerouslySetInnerHTML={{ __html: description }} />
         <CardServices carModel={carModel} customerWork={customerWork} services={service} />
       </div>
     </div>

@@ -5,6 +5,11 @@ import * as service from "./service";
 import * as customerWork from "./customer-work";
 import * as customerReview from "./customer-review";
 import * as workservice from "./work-service";
+import * as editBlogs from "./edit-blogs";
+import * as content from "./contact";
+import * as cms from "./cms";
+import * as catagory from "./catagory-service";
+import * as auth from "./auth";
 
 const api = {
   testApi,
@@ -14,6 +19,11 @@ const api = {
   customerWork,
   customerReview,
   workservice,
+  editBlogs,
+  content,
+  cms,
+  catagory,
+  auth,
 };
 
 export default api;

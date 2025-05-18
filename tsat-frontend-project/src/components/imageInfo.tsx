@@ -8,6 +8,7 @@ import cause_1 from '@/assets/images/cause_1.png'
 import cause_2 from '@/assets/images/cause_2.png'
 import cause_3 from '@/assets/images/cause_3.png'
 import cause_4 from '@/assets/images/cause_4.png'
+import Link from 'next/link';
 
 const mockServices = [
   {
@@ -28,7 +29,7 @@ const mockServices = [
   },
 ];
 
-export default function HeroWithCards() {
+export default function HeroWithCards({ headText, description1, description2 }: { headText: string, description1: string, description2: string }) {
   return (
     <div className="relative h-max w-full ">
       <Image
@@ -39,12 +40,10 @@ export default function HeroWithCards() {
       />
       <div className="absolute inset-0  bg-opacity-50 z-10" />
       <div className="relative container mx-auto z-20 w-full flex flex-col items-center justify-start h-max px-6 py-6 text-white text-center">
-        <h1 className="text-3xl sm:text-[clamp(24px,5vw,36px] font-bold mb-4">
-          เหตุผลที่เราเป็นที่1
-        </h1>
-
-        <div className="text-base sm:text-[clamp(16px,2.5vw,20px] mb-6 leading-relaxed">
-          TSAT เราเริ่มจากการเป็นผู้ใช้รถ Porsche และรถสมรรถนะสูงที่นำเข้าทั่วไปในสมัยก่อนมานานกว่า 10 ปี<br />และจากผู้ใช้รถ มาสู่ผู้เชี่ยวชาญในการซ่อมบำรุงรักษา<br /><br /> ตั้งแต่ปี 2017 จนถึงวันนี้ เราผ่านงานซ่อมรถ Porsche ทุกรุ่นมามากกว่า 1000 คัน<br /> เรากล้าการันตีว่าอู่ของเราเป็นอู่ที่มีความมุ่งมั่นจริงใจ ทั้งในด้านคุณภาพงานซ่อม และ ในด้านการให้บริการ<br />สำหรับท่านเจ้าของรถ Porsche ทุกท่าน ที่ดีที่สุดในประเทศไทย
+        <h1 className="text-3xl sm:text-[clamp(24px,5vw,36px] font-bold mb-4" dangerouslySetInnerHTML={{ __html: headText }} />
+        <div className="text-base sm:text-[clamp(16px,2.5vw,20px] mb-6 flex flex-col gap-4 leading-relaxed">
+          <p dangerouslySetInnerHTML={{ __html: description1 }} />
+          <p dangerouslySetInnerHTML={{ __html: description2 }} />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 w-full  md:px-14">
           {mockServices.map((service, index) => (
@@ -59,10 +58,10 @@ export default function HeroWithCards() {
             </div>
           ))}
         </div>
-        <button className="mt-6 w-full md:max-w-[250px] py-4 bg-[#333333]/30 border border-white text-white rounded-lg flex gap-2 items-center justify-center hover:bg-[#903035] transition duration-300">
+        <Link href={'/about'} className="mt-6 w-full md:max-w-[245px] h-[54px] bg-[#333333]/30 border text-lg font-semibold border-white text-white rounded-sm flex gap-2 items-center justify-center hover:bg-white hover:text-[#8F2F34] transition duration-300">
           เพิ่มเติมเกี่ยวกับเรา
           <PlusIcon size={20} />
-        </button>
+        </Link>
       </div>
     </div>
   );

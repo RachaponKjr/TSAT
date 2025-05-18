@@ -1,32 +1,38 @@
+
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function ItemBox({ item }: { item: any }) {
-  console.log(item, 'item');
 
   if (!item) {
-    return null; // ถ้าไม่มี item ก็ไม่ render อะไรเลย ป้องกันพัง
+    return null;
   }
 
-  const firstTag = item.tags?.[0] || '';
+  const firstTag = item.carModel.name;
+  const subCarModel = item.carSubModel;
 
   return (
-    <div className="flex flex-row md:flex-col gap-3">
+    <Link href={`/customer/${item.id}`} className="flex flex-row md:flex-col gap-3">
       <div className="min-w-[114px] md:w-full aspect-[16/8] rounded-lg relative overflow-hidden">
-        {firstTag && (
-          <div className="px-1 py-1 absolute top-4 left-4 bg-[#8F2F34] rounded-sm text-[clamp(14px,1.5vw,18px)] z-10 text-white hidden md:block">
+        {subCarModel ? (
+          <div className="px-2 py-1 absolute top-4 left-4 bg-[#8F2F34] rounded-sm text-[clamp(12px,1.5vw,16px)] z-10 text-white hidden md:block">
+            {subCarModel}
+          </div>
+        ) : firstTag ? (
+          <div className="px-1 py-1 absolute top-4 left-4 bg-[#8F2F34] rounded-sm text-[clamp(12px,1.5vw,16px)] z-10 text-white hidden md:block">
             {firstTag}
           </div>
-        )}
+        ) : null}
         <Image
-          src={`http://119.59.102.130:3130${item.images}`}
+          src={`http://tsat-back:3131${item.images}`}
           alt={item.title || ''}
           fill
           className="object-cover"
         />
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-[#333333] font-semibold text-sm lg:text-2xl line-clamp-2 md:line-clamp-none">
+        <p className="text-[#333333] font-semibold text-sm lg:text-xl line-clamp-2 md:line-clamp-3">
           {item.title}
         </p>
         {firstTag && (
@@ -35,7 +41,7 @@ function ItemBox({ item }: { item: any }) {
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 }
 

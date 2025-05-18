@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Carousel } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 const CarouselReview = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -90,18 +91,12 @@ const CarouselReview = () => {
 
       {isMobile && (
         <div className="px-4 mt-8 text-center">
-          <Button
-            style={{
-              border: '1px solid #8F2F34',
-              backgroundColor: 'transparent',
-              color: '#8F2F34',
-              fontSize: '1.25rem',
-              padding: '1.5rem 6rem',
-            }}
-            className="hover:bg-white hover:text-black transition-all duration-300"
+          <Link
+            href={'/customer'}
+            className="hover:bg-white hover:text-[#8F2F34] transition-all duration-300"
           >
             ดูทั้งหมด <PlusOutlined />
-          </Button>
+          </Link>
         </div>
       )}
     </div>
