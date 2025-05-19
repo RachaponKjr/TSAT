@@ -25,6 +25,7 @@ function ItemBox({ item }: { item: any }) {
           </div>
         ) : null}
         <Image
+          unoptimized
           src={`http://150.95.25.111:3131${item.images}`}
           alt={item.title || ''}
           fill
