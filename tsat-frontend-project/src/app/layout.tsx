@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { IBM_Plex_Sans_Thai } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'sonner';
+import Navbar from '@/components/navbar';
+import Footer from '@/components/footer';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -34,8 +36,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${ibmPlex.className} ${geistMono.variable} antialiased`}
       >
+        <Navbar />
         {children}
         <Toaster />
+        <Footer />
       </body>
     </html>
   );

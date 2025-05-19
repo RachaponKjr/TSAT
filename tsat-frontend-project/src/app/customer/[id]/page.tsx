@@ -16,10 +16,8 @@ async function CustomerDetail({ params }: { params: Promise<{ id: string }> }) {
 
   return (
     <div>
-      <Navbar />
       <HeaderBlog headText={blog?.title || ''} data={blog} />
       <Article content={blog?.content} />
-      <Footer />
     </div>
   );
 }

@@ -14,9 +14,7 @@ export default async function Customer() {
   const { data: customerWork } = await api.customerWork.getCustomerWork() as { data: any };
   return (
     <div>
-      <Navbar />
       <HeaderCustomerSection headText={cms.data.text_line_1} description1={cms.data.text_line_2} description2={cms.data.text_line_3} />
-
       {/* <CarouselClientsModel /> */}
       <div className='py-10 px-10 xl:px-24 relative before:absolute before:bottom-0 before:left-0 before:w-full before:h-[50%] before:bg-gradient-to-t before:from-[#FFFFFF] before:to-[#999999] before:opacity-20'>
         <SwiperClientModel />
@@ -30,8 +28,6 @@ export default async function Customer() {
           </>
         ))}
       </div>
-
-      <Footer />
     </div>
   );
 }

@@ -14,13 +14,11 @@ export default async function page() {
   const { data: cms } = cmsResponse as { data: CMSAboutProps };
   return (
     <div>
-      <Navbar />
       <HeaderAboutSection headText={cms.data.text_line_1} description1={cms.data.text_line_2} description2={cms.data.text_line_3} />
       <ArticleSection />
       <ArticleSection2 />
       <ReviewCustomer headText={cms.data.text_line_2} bgColor='#F5F5F5' />
       <BannerBottom />
-      <Footer />
     </div>
   );
 }

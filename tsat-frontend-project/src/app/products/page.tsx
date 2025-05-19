@@ -11,12 +11,10 @@ export default async function page() {
   const { data: cms } = cmsResponse as { data: CMSProductProps };
   return (
     <div>
-      <Navbar />
       <HeaderProductsSection headText={cms.data.text_line_1} description1={cms.data.text_line_2} description2={cms.data.text_line_3} />
       <Suspense fallback={<div>Loading...</div>}>
         <TabMenu />
       </Suspense>
-      <Footer />
     </div>
   );
 }

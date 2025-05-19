@@ -34,7 +34,6 @@ export default async function Home() {
   const { data: cms } = cmsResponse as { data: CMSHomeProps };
   return (
     <div>
-      <Navbar />
       <HeaderSection text_line1={cms.data.text_line_1} text_line2={cms.data.text_line_2} />
       <CarouselReview workservice={workService.data as any} headText={cms.data.text_line_3} />
       <CarouselModel carModel={carModel as unknown as CarCatogory} headText={cms.data.text_line_4} description={cms.data.text_line_5} />
@@ -43,7 +42,6 @@ export default async function Home() {
       <ImageInfo headText={cms.data.text_line_9} description1={cms.data.text_line_10} description2={cms.data.text_line_11} />
       <CardImageWithTag headText={cms.data.text_line_12} />
       <LocationSection contact={contact.data.data[0] as ContactProps} headText={cms.data.text_line_13} />
-      <Footer />
     </div>
   );
 }

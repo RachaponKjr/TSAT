@@ -16,6 +16,7 @@ import Facebook from './icons/facebook';
 import { Phone, X } from 'lucide-react';
 import api from '@/server/api';
 import { formatPhoneName } from '@/lib/format-phonenumber';
+import { cn } from '../lib/utils';
 
 export interface ContactProps {
   facebook: string;
@@ -54,8 +55,10 @@ export default function Navbar() {
     getContact();
   }, [getContact]);
 
+  console.log(path);
+
   return (
-    <div className="text-white py-0 shadow-[0px_12px_24px_0px_#00000008] md:py-6 md:px-4 lg::px-12 xl:px-24 text-base md:text-3xl bg-[#333333] md:bg-white container mx-auto">
+    <div className={cn(path === '/admin-login' || path.startsWith('/dashboard') ? 'hidden' : 'block', 'text-white py-0 shadow-[0px_12px_24px_0px_#00000008] md:py-6 md:px-4 lg::px-12 xl:px-24 text-base md:text-3xl bg-[#333333] md:bg-white container mx-auto')}>
       <div className="w-full md:hidden h-8 bg-[#333333]"></div>
       <div className="flex justify-start items-center">
         {/* Mobile Menu Button */}
@@ -149,25 +152,27 @@ export default function Navbar() {
         </div>
       </div>
 
-      {isMobileMenuOpen && (
-        <>
-          <div className='fixed top-0 left-0 w-full h-full bg-[#333333] z-99 p-4'>
-            <X className='text-whit cursor-pointer place-self-end' onClick={() => setIsMobileMenuOpen(false)} />
-            <div className='flex flex-col gap-4 my-8'>
-              {menuItems.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className={`text-gray-500 text-2xl hover:text-[#8F2F34] px-2 flex justify-center ${path === item.href ? '!text-[#8F2F34]' : ''}`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+      {
+        isMobileMenuOpen && (
+          <>
+            <div className='fixed top-0 left-0 w-full h-full bg-[#333333] z-99 p-4'>
+              <X className='text-whit cursor-pointer place-self-end' onClick={() => setIsMobileMenuOpen(false)} />
+              <div className='flex flex-col gap-4 my-8'>
+                {menuItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className={`text-gray-500 text-2xl hover:text-[#8F2F34] px-2 flex justify-center ${path === item.href ? '!text-[#8F2F34]' : ''}`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )
+      }
 
-    </div>
+    </div >
   );
 }

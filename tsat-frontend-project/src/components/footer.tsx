@@ -9,11 +9,13 @@ import { InstagramOutlined } from '@ant-design/icons';
 import { ContactProps } from './navbar';
 import api from '@/server/api';
 import { formatPhoneName } from '@/lib/format-phonenumber';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export default function Footer() {
   const [contact, setContact] = useState<ContactProps>();
   const router = useRouter();
+  const path = usePathname();
   const getContact = useCallback(async () => {
     await api.content.getContact().then((res) => {
       const data = res.data as { data: ContactProps[] };
@@ -26,7 +28,7 @@ export default function Footer() {
   }, [getContact]);
 
   return (
-    <footer className="bg-[#8F2F34] text-white py-6 md:py-12 px-6 sm:px-12">
+    <footer className={cn(path === '/admin-login' || path.startsWith('/dashboard') ? 'hidden' : 'block', "bg-[#8F2F34] text-white py-6 md:py-12 px-6 sm:px-12")}>
       <div className='container mx-auto flex md:flex-row flex-col justify-between gaap-0'>
         <div className='max-w-[350px] hidden lg:flex flex-col gap-[18px]'>
           <Image src="/images/logo-white.png" alt="" width={350} height={350} />
