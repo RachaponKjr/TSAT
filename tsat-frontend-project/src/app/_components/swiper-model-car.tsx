@@ -62,6 +62,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                         width={500}
                         height={500}
                         className=' object-cover'
+                        unoptimized
                       />
                     </div>
                     <Image
@@ -69,6 +70,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                       alt={item.name || 'modelcar'}
                       width={200}
                       height={200}
+                      unoptimized
                     />
                   </div>
                 </DialogTrigger>
@@ -89,6 +91,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                         quality={100}
                         width={500}
                         height={500}
+                        unoptimized
                       />
                       <Image
                         src={`http://150.95.25.111:3131/${item.imageName ?? 'default.jpg'}`}
@@ -97,6 +100,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                         quality={100}
                         width={500}
                         height={500}
+                        unoptimized
                       />
                     </div>
                     <div className='w-full h-max max-w-full px-4 md:px-20 flex flex-col gap-8 '>

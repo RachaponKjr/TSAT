@@ -8,8 +8,8 @@ const BannerBottom = () => {
     return (
         <div className='container mx-auto py-5 lg:py-10 px-4 xl:px-0'>
             <div className='w-full max-w-full h-[496px] lg:h-max rounded-[10px] lg:rounded-4xl relative overflow-hidden'>
-                <Image src={banner} alt="banner" width={1600} height={1600} className='hidden lg:block w-full h-full object-cover' />
-                <Image src={bannermobile} alt="banner" width={1600} height={1600} className='lg:hidden w-full h-full' />
+                <Image unoptimized src={banner} alt="banner" width={1600} height={1600} className='hidden lg:block w-full h-full object-cover' />
+                <Image unoptimized src={bannermobile} alt="banner" width={1600} height={1600} className='lg:hidden w-full h-full' />
                 <div className='max-w-full absolute top-0 bottom-0 left-0 right-0 flex md:items-center justify-end px-10 py-10 md:py-0'>
                     <div className='w-full lg:max-w-[550px] text-[#8F2F34] flex flex-col gap-7'>
                         <span className='text-[clamp(20px,2.5vw,30px)] font-semibold text-center lg:text-start'>ที่ TSAT เราไม่ใช่แค่ศูนย์บริการ<br />

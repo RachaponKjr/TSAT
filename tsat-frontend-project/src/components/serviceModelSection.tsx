@@ -30,6 +30,7 @@ export default function ServiceModelSection({ headText }: { headText: string }) 
           <div key={index} className='flex flex-col w-full gap-0 items-center'>
             <div className='h-full relative'>
               <Image
+                unoptimized
                 src={`http://150.95.25.111:3131/${model.image ?? 'default.jpg'}`}
                 alt={model.name || 'modelcar'}
                 width={500}
@@ -38,6 +39,7 @@ export default function ServiceModelSection({ headText }: { headText: string }) 
               />
             </div>
             <Image
+              unoptimized
               src={`http://150.95.25.111:3131/${model.imageName ?? 'default.jpg'}`}
               alt={model.name || 'modelcar'}
               width={200}

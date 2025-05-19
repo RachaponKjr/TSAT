@@ -79,7 +79,7 @@ const page = () => {
                                     </div>
                                 </DialogContent>
                             </Dialog>
-                            <Image src={`http://150.95.25.111:3131${item.images}`} alt="modelcar" fill className=' object-cover' />
+                            <Image unoptimized src={`http://150.95.25.111:3131${item.images}`} alt="modelcar" fill className=' object-cover' />
                         </div>
                         <h4>{item.title}</h4>
                     </div>
