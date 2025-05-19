@@ -84,7 +84,7 @@ const TableUser = ({ userData }: { userData: Props[] }) => {
                                         onChange={(e) => {
                                             setUpdateUser({ ...updateUser, username: e.target.value });
                                         }}
-                                        value={updateUser?.username}
+                                        value={item.username}
                                         label='ชื่อ พนักงาน'
                                         placeholder='ชื่อ พนักงาน'
                                     />
@@ -102,7 +102,7 @@ const TableUser = ({ userData }: { userData: Props[] }) => {
                                     />
                                     <div className='w-full'>
                                         <label className="text-sm font-medium text-gray-700">สิทธิการใช้งาน</label>
-                                        <Select value={updateUser?.role} onValueChange={handleRoleChange}>
+                                        <Select value={item.role} onValueChange={handleRoleChange}>
                                             <SelectTrigger className='w-full !h-full'>
                                                 <SelectValue placeholder='หมวดหมู่' />
                                             </SelectTrigger>

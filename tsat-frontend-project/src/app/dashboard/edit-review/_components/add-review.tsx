@@ -69,7 +69,7 @@ const AddReview = () => {
             if (image) {
                 formData.append('image', image)
             }
-            const res = await fetch('http://tsat-back:3131/api/v1/customer-review/create', {
+            const res = await fetch('http://http://150.95.25.111:3131/api/v1/customer-review/create', {
                 method: 'POST',
                 body: formData,
             })

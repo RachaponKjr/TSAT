@@ -37,7 +37,7 @@ const page = () => {
             form.append('name', name)
             form.append('image_model', imageModel as File)
             form.append('image_name', imageName as File)
-            await fetch('http://tsat-back:3131/api/v1/car-model/create', {
+            await fetch('http://http://150.95.25.111:3131/api/v1/car-model/create', {
                 method: 'POST',
                 body: form
             }).then(res => {
@@ -59,7 +59,7 @@ const page = () => {
             form.append('name', subName)
             form.append('carModelId', id)
             form.append('image', subImage as File)
-            await fetch('http://tsat-back:3131/api/v1/sub-car-model/create', {
+            await fetch('http://http://150.95.25.111:3131/api/v1/sub-car-model/create', {
                 method: 'POST',
                 body: form
             }).then(res => {

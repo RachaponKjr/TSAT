@@ -344,7 +344,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
       const formData = new FormData();
       formData.append("image", file);
 
-      const res = await fetch("http://tsat-back:3131/api/v1/edit-blog/upload-blog-image", {
+      const res = await fetch("http://http://150.95.25.111:3131/api/v1/edit-blog/upload-blog-image", {
         method: "POST",
         body: formData,
         signal,
