@@ -5,6 +5,7 @@ import api from '@/server/api'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
+import Cookies from 'js-cookie'
 
 const page = () => {
     const [user, setUser] = useState({
@@ -28,7 +29,8 @@ const page = () => {
         const res = await api.auth.login(user)
         if (res.status === 200) {
             toast.success('เข้าสู่ระบบสําเร็จ', { className: '!text-green-500' })
-            await setCookie({ name: 'access_token', value: res.data.token, maxAge: 60 * 60 * 8, path: '/',httpOnly: true, sameSite: 'none', secure: false })
+            // await setCookie({ name: 'access_token', value: res.data.token, maxAge: 60 * 60 * 8, path: '/', httpOnly: true, sameSite: 'none', secure: false })
+            Cookies.set('access_token', res.data.token, { expires: 8, path: '/' })
             router.push('/dashboard')
         } else {
             toast.error('เข้าสู่ระบบไม่สําเร็จ', { className: '!text-red-500' })
