@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Product } from '@/types/product'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
 import Image from 'next/image'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import DelItem from '../edit-review/_components/del-item'
 
 const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => void }) => {
@@ -15,7 +15,7 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
 
     return (
         <div className='w-full aspect-square border rounded-xl p-2 space-y-2'>
-            <Image src={`http://150.95.25.111:3131/${item.imageProduct}`} alt='' width={400} height={400} className='bg-neutral-100 rounded-lg' />
+            <Image src={`http://150.95.25.111:3131${item.imageProduct}`} alt='' width={400} height={400} className='bg-neutral-100 rounded-lg' />
             <h4 className='line-clamp-2 text-sm font-semibold'>{item.name}</h4>
             <div className='text-[13px] line-clamp-1'>
                 <span>หมวดหมู่ : </span>
