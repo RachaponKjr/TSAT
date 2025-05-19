@@ -98,7 +98,7 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
     formData.append('categoryId', data.categoryId)
     formData.append('image', image as File)
     try {
-      const res = await fetch('http://http://150.95.25.111:3131/api/v1/product/create-product', {
+      const res = await fetch('http://150.95.25.111:3131/api/v1/product/create-product', {
         method: 'POST',
         body: formData
       })
@@ -127,7 +127,7 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
       formData.append('name', serviceData.name)
       formData.append('categoryServiceId', serviceData.categoryServiceId)
       formData.append('image', bgImage as File)
-      const res = await fetch('http://http://150.95.25.111:3131/api/v1/product/create-category', {
+      const res = await fetch('http://150.95.25.111:3131/api/v1/product/create-category', {
         method: 'POST',
         body: formData
       })
