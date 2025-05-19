@@ -5,6 +5,7 @@ import type { NodeViewProps } from "@tiptap/react"
 import { NodeViewWrapper } from "@tiptap/react"
 import { CloseIcon } from "@/components/tiptap-icons/close-icon"
 import "@/components/tiptap-node/image-upload-node/image-upload-node.scss"
+import { getCookie } from "@/lib/cookie"
 
 export interface FileItem {
   id: string
@@ -341,6 +342,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
     limit,
     accept,
     upload: async (file, onProgress, signal) => {
+      const cookie = await getCookie('access_token')
       const formData = new FormData();
       formData.append("image", file);
 
@@ -348,6 +350,9 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
         method: "POST",
         body: formData,
         signal,
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+        }
       });
 
       const data = await res.json();

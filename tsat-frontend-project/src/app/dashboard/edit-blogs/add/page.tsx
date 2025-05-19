@@ -19,6 +19,7 @@ import ImageUpload from '@/components/image-upload'
 import { toast } from 'sonner'
 import { json } from 'stream/consumers'
 import { useRouter } from 'next/navigation'
+import { getCookie } from '@/lib/cookie'
 
 const Page = () => {
     const [editorContent, setEditorContent] = useState<JSONContent | null>(null)
@@ -65,6 +66,7 @@ const Page = () => {
             toast.error('กรุณากรอกข้อมูลให้ครบ', { className: '!text-red-500' })
             return
         }
+        const cookie = await getCookie('access_token')
 
         const formData = new FormData()
         formData.append('title', data.title)
@@ -77,7 +79,10 @@ const Page = () => {
             // Reset หรือ redirect
             await fetch('http://150.95.25.111:3131/api/v1/customer-work/create-work', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    Authorization: `Bearer ${cookie}`,
+                }
             }).then((res) => {
                 if (res.status === 200) {
                     toast.success('สร้างบทความสําเร็จ', { className: '!text-green-500' })

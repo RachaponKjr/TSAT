@@ -9,6 +9,7 @@ import { PlusIcon } from 'lucide-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import DelItem from '../edit-review/_components/del-item'
+import { getCookie } from '@/lib/cookie'
 
 const page = () => {
     const [carModel, setCarModel] = useState<CarModel[]>([])
@@ -33,13 +34,17 @@ const page = () => {
 
     const addCarModel = async () => {
         try {
+            const cookie = await getCookie('access_token')
             const form = new FormData()
             form.append('name', name)
             form.append('image_model', imageModel as File)
             form.append('image_name', imageName as File)
             await fetch('http://150.95.25.111:3131/api/v1/car-model/create', {
                 method: 'POST',
-                body: form
+                body: form,
+                headers: {
+                    Authorization: `Bearer ${cookie}`
+                }
             }).then(res => {
                 if (res.status === 200) {
                     toast.success('เพิ่มรถสําเร็จ', { className: '!text-green-500' })
@@ -55,13 +60,17 @@ const page = () => {
     const addSubmit = async (e: React.FormEvent<HTMLFormElement>, id: string) => {
         e.preventDefault()
         try {
+            const cookie = await getCookie('access_token')
             const form = new FormData()
             form.append('name', subName)
             form.append('carModelId', id)
             form.append('image', subImage as File)
             await fetch('http://150.95.25.111:3131/api/v1/sub-car-model/create', {
                 method: 'POST',
-                body: form
+                body: form,
+                headers: {
+                    Authorization: `Bearer ${cookie}`
+                }
             }).then(res => {
                 if (res.status === 200) {
                     toast.success('เพิ่มรถสําเร็จ', { className: '!text-green-500' })

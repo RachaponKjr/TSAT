@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/select'
 import api from '@/server/api'
 import { toast } from 'sonner'
+import { getCookie } from '@/lib/cookie'
 
 interface CategoryProduct {
   id: string
@@ -89,6 +90,7 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const cookie = await getCookie('access_token')
     if (data.name === '' && data.detail === '' && data.categoryId === '' && image === null) {
       toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { className: '!text-red-500' })
     }
@@ -100,7 +102,10 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
     try {
       const res = await fetch('http://150.95.25.111:3131/api/v1/product/create-product', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+        }
       })
       if (res.status === 201) {
         toast.success('สร้างสินค้าสําเร็จ', { className: '!text-green-500' })
@@ -122,6 +127,7 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
 
   const createCategoryService = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const cookie = await getCookie('access_token')
     try {
       const formData = new FormData()
       formData.append('name', serviceData.name)
@@ -129,7 +135,10 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
       formData.append('image', bgImage as File)
       const res = await fetch('http://150.95.25.111:3131/api/v1/product/create-category', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+        }
       })
       if (res.status === 200) {
         toast.success('สร้างหมวดหมู่บริการสําเร็จ', { className: '!text-green-500' })
