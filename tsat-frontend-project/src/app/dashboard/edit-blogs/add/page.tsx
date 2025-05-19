@@ -75,7 +75,7 @@ const Page = () => {
 
         try {
             // Reset หรือ redirect
-            await fetch('http://localhost:3130/api/v1/customer-work/create-work', {
+            await fetch('http://tsat-back:3131/api/v1/customer-work/create-work', {
                 method: 'POST',
                 body: formData
             }).then((res) => {

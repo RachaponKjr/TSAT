@@ -48,7 +48,7 @@ const TableService = () => {
     const deleteService = async (id: string) => {
         const accept_token = await getCookie('access_token')
         try {
-            const del = await fetch(`http://localhost:3130/api/v1/service/delete-service/${id}`, {
+            const del = await fetch(`http://tsat-back:3131/api/v1/service/delete-service/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accept_token}`

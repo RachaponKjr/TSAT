@@ -83,7 +83,7 @@ const ImageMultiUpload: React.FC<ImageMultiUploadProps> = ({
         )}
 
         {previews.map((src, index) => {
-          const imageSrc = isBase64(src) ? src : `http://localhost:3130${src}`;
+          const imageSrc = isBase64(src) ? src : `http://150.95.25.111:3131${src}`;
           return (
             <div key={`preview-${index}`} className="w-40 h-40 border rounded-xl overflow-hidden relative">
               <Image

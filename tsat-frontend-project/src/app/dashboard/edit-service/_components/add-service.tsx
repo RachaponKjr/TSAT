@@ -59,7 +59,7 @@ const AddService = () => {
                 formData.append('images', images[i])
             }
 
-            const res = await fetch('http://localhost:3130/api/v1/service/create-service', {
+            const res = await fetch('http://tsat-back:3131/api/v1/service/create-service', {
                 method: 'POST',
                 body: formData,
             })

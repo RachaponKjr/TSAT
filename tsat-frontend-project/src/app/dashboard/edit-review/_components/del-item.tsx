@@ -16,7 +16,7 @@ const DelItem = ({ id, apiPath, onComplete }: TaskOptions) => {
     const delReview = async (id: string) => {
         try {
             const accept_token = await getCookie('access_token')
-            const res = await fetch(`http://localhost:3131/api/v1/${apiPath}/${id}`, {
+            const res = await fetch(`http://tsat-back:3131/api/v1/${apiPath}/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accept_token}`,
