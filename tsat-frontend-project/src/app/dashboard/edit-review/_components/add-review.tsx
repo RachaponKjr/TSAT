@@ -11,6 +11,7 @@ import ImageBoxUpload from '@/components/image-upload'
 import { CarModel } from '@/types/car-model'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { getCookie } from '@/lib/cookie'
 
 
 interface ReqReview {
@@ -61,6 +62,7 @@ const AddReview = () => {
 
     const addReview = useCallback(async () => {
         try {
+            const cookie = await getCookie('access_token')
             const formData = new FormData()
             formData.append('customerName', ReqData?.customerName || '')
             formData.append('review', ReqData?.review || '')
@@ -72,6 +74,9 @@ const AddReview = () => {
             const res = await fetch('http://150.95.25.111:3131/api/v1/customer-review/create', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    Authorization: `Bearer ${cookie}`,
+                },
             })
             if (res.status === 200) {
                 toast.success('เพิ่มรีวิวสำเร็จ', { className: '!text-green-500' })

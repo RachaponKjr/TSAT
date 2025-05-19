@@ -7,6 +7,7 @@ import ImageBoxUpload from '@/components/image-upload'
 import InputWithLabel from '@/components/input-label'
 import TextareaWithLabel from '@/components/textarea-with-label'
 import { toast } from 'sonner'
+import { getCookie } from '@/lib/cookie'
 
 interface AddServiceProps {
     serviceName?: string
@@ -49,6 +50,7 @@ const AddService = () => {
 
     const submitAdd = async () => {
         try {
+            const cookie = await getCookie('access_token')
             const formData = new FormData()
             formData.append('serviceName', serviceData?.serviceName || '')
             formData.append('title', serviceData?.title || '')
@@ -62,6 +64,9 @@ const AddService = () => {
             const res = await fetch('http://150.95.25.111:3131/api/v1/service/create-service', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    Authorization: `Bearer ${cookie}`,
+                },
             })
             if (res.status === 201) {
                 toast.success('เพิ่มเซอร์วิสสำเร็จ', { className: '!text-green-500' })
