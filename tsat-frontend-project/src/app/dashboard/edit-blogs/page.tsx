@@ -2,6 +2,7 @@
 'use client'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { getCookie } from '@/lib/cookie'
 import api from '@/server/api'
 import { Button } from 'antd'
 import { Plus, X } from 'lucide-react'
@@ -22,9 +23,13 @@ const page = () => {
         }
     }, [])
     const deleteBlog = useCallback(async (id: string) => {
+        const accept_token = await getCookie('access_token')
         try {
             const res = await fetch(`http://localhost:3130/api/v1/customer-work/delete-work/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${accept_token}`
+                }
             })
             if (res.status === 200) {
                 toast.success('ลบบทความสําเร็จ', { className: '!text-green-500' })

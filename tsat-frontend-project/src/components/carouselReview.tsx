@@ -55,7 +55,9 @@ const CarouselReview = ({ workservice, headText }: { workservice: WorksServicePr
         </div>
       </div>
       <div className='px-4 md:px-24 container mx-auto'>
-        <SwiperReviewCar workservice={workservice.data} />
+        {workservice.data.length === 0 ? <div className="text-white text-center md:text-left mt-4">ไม่มีข้อมูล</div> :
+          <SwiperReviewCar workservice={workservice.data} />
+        }
       </div>
 
       {/* btn mobile */}

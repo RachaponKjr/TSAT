@@ -13,6 +13,7 @@ import dayjs from 'dayjs'
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import EditZone from './edit-zone'
 import { toast } from 'sonner'
+import { getCookie } from '@/lib/cookie'
 
 
 export interface ServiceResponse {
@@ -45,9 +46,13 @@ const TableService = () => {
     }, [])
 
     const deleteService = async (id: string) => {
+        const accept_token = await getCookie('access_token')
         try {
             const del = await fetch(`http://localhost:3130/api/v1/service/delete-service/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${accept_token}`
+                }
             })
             if (del.status === 200) {
                 toast.success('ลบข้อมูลสำเร็จ', { className: '!text-green-500' })

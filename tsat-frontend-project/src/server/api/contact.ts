@@ -24,6 +24,7 @@ const updateContact = async ({
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 

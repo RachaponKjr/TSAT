@@ -21,11 +21,13 @@ export default async function CardImageWithTag({ headText }: { headText: string 
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 lg:px-24 container mx-auto">
-        {customerWork.works.slice(0, 6).map((item: any, index: number) => (
-          <>
-            <ItemBox item={item} key={index} />
-          </>
-        ))}
+        {customerWork.works.length === 0 ? <div className="text-black text-center md:text-left mt-4">ไม่มีข้อมูล</div> :
+          customerWork.works.slice(0, 6).map((item: any, index: number) => (
+            <>
+              <ItemBox item={item} key={index} />
+            </>
+          ))
+        }
       </div>
 
       <div className="block md:hidden text-center mt-12 container mx-auto px-4">

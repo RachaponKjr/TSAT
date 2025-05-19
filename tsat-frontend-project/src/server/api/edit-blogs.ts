@@ -7,6 +7,7 @@ const postImage = async (data: any) => {
       method: "POST",
       body: data,
     },
+    requiresAuth: true,
   });
 };
 

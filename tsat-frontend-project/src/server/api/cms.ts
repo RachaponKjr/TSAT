@@ -60,6 +60,7 @@ const updateCMSHome = async (data: Partial<CMSHomeProps>) => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 const updateCMSService = async (data: Partial<CMSServiceProps>) => {
@@ -69,6 +70,7 @@ const updateCMSService = async (data: Partial<CMSServiceProps>) => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 const updateCMSProduct = async (data: Partial<CMSProductProps>) => {
@@ -78,6 +80,7 @@ const updateCMSProduct = async (data: Partial<CMSProductProps>) => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 const updateCMSCustomer = async (data: Partial<CMSCustomerProps>) => {
@@ -87,6 +90,7 @@ const updateCMSCustomer = async (data: Partial<CMSCustomerProps>) => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 const updateCMSAbout = async (data: Partial<CMSCustomerProps>) => {
@@ -96,6 +100,7 @@ const updateCMSAbout = async (data: Partial<CMSCustomerProps>) => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 const updateCMSContact = async (data: Partial<CMSCustomerProps>) => {
@@ -105,6 +110,7 @@ const updateCMSContact = async (data: Partial<CMSCustomerProps>) => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+    requiresAuth: true,
   });
 };
 

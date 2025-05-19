@@ -14,8 +14,9 @@ export default function CarouselReview({ carModel, headText, description }: { ca
             <div className="text-3xl sm:text-2xl md:text-[clamp(24px,6vw,30px)] font-semibold text-[#8F2F34]" dangerouslySetInnerHTML={{ __html: headText }} />
             <div className="text-black text-lg sm:text-xl md:text-[clamp(18px,2vw,24px)] font-medium mt-4" dangerouslySetInnerHTML={{ __html: description }} />
           </div>
-
-          <SwiperModelCar data={data} />
+          {data.length === 0 ? <div className="text-black text-center md:text-left mt-4">ไม่มีข้อมูล</div> :
+            <SwiperModelCar data={data} />
+          }
         </div>
       </div>
     </div>
