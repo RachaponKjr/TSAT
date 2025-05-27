@@ -155,7 +155,10 @@ const page = () => {
                                             <InputWithLabel onChange={(e) => setSubName(e.target.value)} type='text' value={subName} label='ชื่อรุ่นรถ' name='name' placeholder='กรุณากรอกชื่อรุ่นรถ' />
                                             <div className='flex gap-4'>
                                                 <div className='flex flex-col gap-1'>
-                                                    <span className="text-sm font-medium text-gray-700">เพิ่มรูปรถ</span>
+                                                    <div className='flex gap-1 items-center'>
+                                                        <span className="text-sm font-medium text-gray-700">เพิ่มรูปรถ</span>
+                                                        <span className="text-sm font-medium text-red-500">* ไม่จําเป็น</span>
+                                                    </div>
                                                     <ImageBoxUpload onChange={setSubImage} />
                                                 </div>
                                             </div>

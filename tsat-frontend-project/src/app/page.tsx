@@ -13,6 +13,7 @@ import LocationSection from '@/components/locationSection';
 import api from '@/server/api';
 import { CarCatogory, CarModel } from '@/types/car-model';
 import { CMSHomeProps } from './dashboard/cms/_components/home-page';
+import { Work } from '@/types/customer-work';
 
 export interface CatagoryProduct {
   data: any;
@@ -29,20 +30,19 @@ export default async function Home() {
     const carModel: CarModel = response as unknown as CarModel;
 
     const catagoryProduct = await api.product.getCatagoryProduct() as unknown as CatagoryProduct[];
-
-    const workService = await api.workservice.getService();
     const cmsResponse = await api.cms.getCMSHome();
     const contact = await api.content.getContact();
 
     const cmsData = (cmsResponse as any)?.data?.data;
-    const workServiceData = (workService as any)?.data;
     const contactData = (contact as any)?.data?.data?.[0];
+    const { data: customerWork } = await api.customerWork.getCustomerWork() as { data: { works: Work[] } };
 
     // ถ้าไม่มี CMS ข้อมูล ให้ return null หรือ UI แจ้งเตือน
     if (!cmsData) {
       return <div>ไม่สามารถโหลดข้อมูลหน้าแรกได้</div>;
     }
 
+    console.log('Customer Work:', customerWork.works);
     return (
       <div>
         <HeaderSection
@@ -50,7 +50,7 @@ export default async function Home() {
           text_line2={cmsData.text_line_2 || ''}
         />
         <CarouselReview
-          workservice={workServiceData || []}
+          workservice={customerWork.works || []}
           headText={cmsData.text_line_3 || ''}
         />
         <CarouselModel

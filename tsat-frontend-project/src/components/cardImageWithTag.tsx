@@ -3,9 +3,10 @@ import React from 'react';
 import ItemBox from './ui/item-box';
 import api from '@/server/api';
 import Link from 'next/link';
+import { Work } from '@/types/customer-work';
 
 export default async function CardImageWithTag({ headText }: { headText: string }) {
-  const { data: customerWork } = await api.customerWork.getCustomerWork() as { data: any };
+  const { data: customerWork } = await api.customerWork.getCustomerWork() as { data: { works: Work[] } };
   return (
     <div className="bg-[#F5F5F5] py-6 space-y-6">
       <div className="flex flex-col md:flex-row justify-between px-6 lg:px-24 items-start md:items-center gap-4 container mx-auto">
@@ -22,7 +23,7 @@ export default async function CardImageWithTag({ headText }: { headText: string 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 lg:px-24 container mx-auto">
         {customerWork.works.length === 0 ? <div className="text-black text-center md:text-left mt-4">ไม่มีข้อมูล</div> :
-          customerWork.works.slice(0, 6).map((item: any, index: number) => (
+          customerWork.works.slice(0, 6).filter((item: Work) => item.type === "WorkBlog").map((item: Work, index: number) => (
             <>
               <ItemBox item={item} key={index} />
             </>

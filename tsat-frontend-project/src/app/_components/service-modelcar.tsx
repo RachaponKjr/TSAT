@@ -32,7 +32,7 @@ const ServiceModelCar = ({ subCarModelId }: { subCarModelId: string }) => {
 
     return (
         <div
-            className='w-full grid grid-cols-3 justify-center gap-4 mt-4'
+            className='min-w-full grid grid-cols-1 lg:grid-cols-3 justify-center gap-4 mt-4'
         >
             {subCarModel.length === 0 ? (
                 <h1 className='col-span-3 text-center '>ไม่พบข้อมูล</h1>

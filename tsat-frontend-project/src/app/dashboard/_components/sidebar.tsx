@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 const menuItems = [
   { name: 'จัดการสินค้า', icon: <Box size={20} />, href: '/dashboard' },
   { name: 'จัดหน้า ตาเว็บไซต์', icon: <Settings size={20} />, href: '/dashboard/cms' },
-  { name: 'จัดการรีวิว', icon: <Star size={20} />, href: '/dashboard/edit-review' },
+  // { name: 'จัดการรีวิว', icon: <Star size={20} />, href: '/dashboard/edit-review' },
   { name: 'จัดการ Service', icon: <Cpu size={20} />, href: '/dashboard/edit-service' },
   { name: 'จัดการ Bloges', icon: <BookOpenText size={20} />, href: '/dashboard/edit-blogs' },
   { name: 'ข้อมูลรถ', icon: <Car size={20} />, href: '/dashboard/edit-car' },

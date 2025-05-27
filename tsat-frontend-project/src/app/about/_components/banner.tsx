@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const BannerBottom = () => {
     return (
-        <div className='container mx-auto py-5 lg:py-10 px-4 xl:px-2'>
+        <div className='container mx-auto py-5 lg:py-10 px-4'>
             <div className='w-full max-w-full h-[496px] lg:h-max rounded-[10px] lg:rounded-4xl relative overflow-hidden'>
                 <Image unoptimized src={banner} alt="banner" width={1600} height={1600} className='hidden lg:block w-full h-full object-cover' />
                 <Image unoptimized src={bannermobile} alt="banner" width={1600} height={1600} className='lg:hidden w-full h-full' />
@@ -16,8 +16,8 @@ const BannerBottom = () => {
                         <span className='text-[clamp(20px,2.5vw,30px)] font-semibold text-center lg:text-start'>ที่ TSAT เราไม่ใช่แค่ศูนย์บริการ<br />
                             เราคือพาร์ทเนอร์ที่ดูแลรถคุณด้วยความใส่ใจ</span>
                         <div className='w-full flex flex-col lg:flex-row h-max gap-6 text-[clamp(14px,2.5vw,16px]'>
-                            <Link href={'/service'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border font-semibold border-[#8F2F34]'>เลือกดูบริการ</Link>
-                            <Link href={'/contact'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border font-semibold border-[#8F2F34]'>ติดต่อเรา</Link>
+                            <Link href={'/service'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border flex items-center justify-center font-semibold border-[#8F2F34]'>เลือกดูบริการ</Link>
+                            <Link href={'/contact'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border flex items-center justify-center font-semibold border-[#8F2F34]'>ติดต่อเรา</Link>
                         </div>
                     </div>
                 </div>

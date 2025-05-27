@@ -10,6 +10,7 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
+    SelectLabel,
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
@@ -20,6 +21,10 @@ import { toast } from 'sonner'
 import { json } from 'stream/consumers'
 import { useRouter } from 'next/navigation'
 import { getCookie } from '@/lib/cookie'
+import { Checkbox, Switch } from 'antd'
+import { SubCarModel } from '../../edit-review/_components/add-review'
+
+type BlogType = 'WorkBlog' | 'ReviewBlog';
 
 const Page = () => {
     const [editorContent, setEditorContent] = useState<JSONContent | null>(null)
@@ -27,15 +32,22 @@ const Page = () => {
     const [tags, setTags] = useState<string[]>([])
     const [tagInput, setTagInput] = useState<string>('')
     const [carModel, setCarModel] = useState<CarCatogory[]>([])
+    const [carSubModel, setCarSubModel] = useState<SubCarModel[]>([])
     const [image, setImage] = useState<File | null>(null)
     const [data, setData] = useState<{
         title: string
         content: JSONContent | null
         carModelId: string
+        type: BlogType
+        carSubModelId: string
+        isShow: boolean
     }>({
         title: '',
         content: null,
-        carModelId: ''
+        carModelId: '',
+        carSubModelId: '',
+        type: 'WorkBlog',
+        isShow: false
     })
 
     const getCarModel = useCallback(async () => {
@@ -61,6 +73,15 @@ const Page = () => {
         setTags(newTags)
     }
 
+    const getSubCarModel = useCallback(async (id: string) => {
+        try {
+            const { data } = await api.carModel.getSubCarModel(id)
+            setCarSubModel(data?.carSubModels)
+        } catch (error) {
+            console.error('Error fetching sub car models:', error)
+        }
+    }, [])
+
     const handleSubmit = async () => {
         if (!data.title || !data.carModelId || !editorContent || !image) {
             toast.error('กรุณากรอกข้อมูลให้ครบ', { className: '!text-red-500' })
@@ -72,12 +93,15 @@ const Page = () => {
         formData.append('title', data.title)
         formData.append('carModelId', data.carModelId)
         formData.append('content', JSON.stringify(editorContent))
+        formData.append('type', data.type)
+        formData.append('isShow', data.isShow ? 'true' : 'false');
         formData.append('tags', JSON.stringify(tags))
         formData.append('image', image)
+        formData.append('carSubModelId', data.carSubModelId)
 
         try {
             // Reset หรือ redirect
-            await fetch('http://150.95.25.111:3131/api/v1/customer-work/create-work', {
+            await fetch('http://localhost:3131/api/v1/customer-work/create-work', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -98,16 +122,19 @@ const Page = () => {
 
     useEffect(() => {
         void getCarModel()
-    }, [getCarModel])
+        if (data?.carModelId) {
+            void getSubCarModel(data.carModelId)
+        }
+    }, [data?.carModelId, getCarModel, getSubCarModel])
 
-
+    console.log(data)
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 min-h-[116vh]">
             <HeadAddBlogs />
             <div className="grid grid-cols-2 items-start gap-4">
                 {/* ===== Blog Name ===== */}
                 <div className="flex flex-col items-start gap-2">
-                    <span>ชื่อสินค้า</span>
+                    <span>ชื่อบทความ</span>
                     <Input
                         name="name"
                         value={data.title}
@@ -117,6 +144,29 @@ const Page = () => {
                         className="w-full h-[2.5rem]"
                         placeholder="ชื่อ Blog"
                     />
+                </div>
+                <div className="flex flex-col items-start gap-2">
+                    <span>ชนิดบทความ</span>
+                    <Select
+                        value={data.type}
+                        onValueChange={(value) =>
+                            setData((prev) => ({ ...prev, type: value as BlogType }))
+                        }
+                    >
+                        <SelectTrigger className="w-full !h-[2.5rem]">
+                            <SelectValue placeholder="ชนิดบทความ" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="WorkBlog">
+                                    บทความงานลูกค้า
+                                </SelectItem>
+                                <SelectItem value="ReviewBlog">
+                                    บทความรีวิว
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
 
                 {/* ===== Car Model ===== */}
@@ -143,18 +193,15 @@ const Page = () => {
                 </div>
                 <div className="flex flex-col items-start gap-2">
                     <span>เลือกรุ่นรถย่อย</span>
-                    <Select
-                        onValueChange={(value) =>
-                            setData((prev) => ({ ...prev, carModelId: value }))
-                        }
-                    >
-                        <SelectTrigger className="w-full !h-[2.5rem]">
-                            <SelectValue placeholder="เลือกรุ่นรถ" />
+                    <Select onValueChange={(value) => setData((prev) => ({ ...prev, carSubModelId: value }))}>
+                        <SelectTrigger className='w-full !h-full'>
+                            <SelectValue placeholder='กรุณาเลือกรุ่นรถรอง' />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {carModel.map((item) => (
-                                    <SelectItem key={item.id} value={item.id.toString()}>
+                                <SelectLabel>ทำการเลือกรุ่นรถหลักก่อน</SelectLabel>
+                                {carSubModel && carSubModel.map((item) => (
+                                    <SelectItem key={item.id} value={item.id}>
                                         {item.name}
                                     </SelectItem>
                                 ))}
@@ -212,6 +259,13 @@ const Page = () => {
                     </div>
                 </div>
 
+                <div className="flex flex-col items-start h-full gap-2">
+                    <span>เเสดงหน้าเเรก</span>
+                    <div className='flex flex-1 items-center flex-row gap-4'>
+                        <Switch checked={data.isShow || false} onChange={() => setData((prev) => ({ ...prev, isShow: !prev.isShow }))} />
+                        <span className='text-sm text-red-500'>* ต้องเป็นบทความ งานลูกค้า</span>
+                    </div>
+                </div>
                 {/* ===== Cover Image ===== */}
                 <div className="flex flex-row items-end gap-4 ">
                     <div>

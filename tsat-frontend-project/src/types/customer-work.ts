@@ -38,6 +38,8 @@ export const WorkSchema = z.object({
   id: z.string().uuid(),
   title: z.string(),
   content: ContentSchema,
+  isShow: z.boolean(),
+  type: z.string(),
   images: z.string(),
   carModel: z.object({
     id: z.string().uuid(),

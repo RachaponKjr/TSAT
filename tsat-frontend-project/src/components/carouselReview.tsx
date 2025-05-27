@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import SwiperReviewCar from '@/app/_components/swiper-review-car';
 import ArrowL from './icons/arrow-l';
 import ArrowR from './icons/arrow-r';
 import Link from 'next/link';
+import { Work } from '@/types/customer-work';
 
 export interface WorkService {
   id: string;
@@ -28,7 +28,7 @@ export type WorksServiceProps = {
   data: WorkService[];
 };
 
-const CarouselReview = ({ workservice, headText }: { workservice: WorksServiceProps, headText: string }) => {
+const CarouselReview = ({ workservice, headText }: { workservice: Work[], headText: string }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -38,6 +38,11 @@ const CarouselReview = ({ workservice, headText }: { workservice: WorksServicePr
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // ตรวจสอบว่ามีข้อมูลที่จะแสดงหรือไม่
+  const hasData = workservice && workservice.length > 0;
+
+  console.log('workservice', workservice);
+  
   return (
     <div className="bg-[#8F2F34] py-8 md:py-8 relative">
       <div className={`px-4 xl:px-24 container mx-auto`}>
@@ -54,10 +59,13 @@ const CarouselReview = ({ workservice, headText }: { workservice: WorksServicePr
           )}
         </div>
       </div>
+      
       <div className='px-4 md:px-24 container mx-auto'>
-        {workservice.data.length === 0 ? <div className="text-white text-center md:text-left mt-4">ไม่มีข้อมูล</div> :
-          <SwiperReviewCar workservice={workservice.data} />
-        }
+        {!hasData ? (
+          <div className="text-white text-center md:text-left mt-4">ไม่มีข้อมูล</div>
+        ) : (
+          <SwiperReviewCar workservice={workservice} />
+        )}
       </div>
 
       {/* btn mobile */}
@@ -68,8 +76,7 @@ const CarouselReview = ({ workservice, headText }: { workservice: WorksServicePr
         </Link>
         <ArrowR className='swiper-button-next-service' size={32} />
       </div>
-
-    </div >
+    </div>
   );
 };
 

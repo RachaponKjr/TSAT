@@ -17,6 +17,7 @@ import ArrowR from './icons/arrow-r';
 import ArrowL from './icons/arrow-l';
 import { Navigation, Pagination } from 'swiper/modules';
 import Link from 'next/link';
+import { Work } from '@/types/customer-work';
 
 export default function CardServices({
   onCardClick,
@@ -27,7 +28,7 @@ export default function CardServices({
   onCardClick?: () => void;
   services: Service[]
   carModel: CarCatogory[]
-  customerWork: any
+  customerWork: Work[]
 }) {
   const [modelCar, setModelCar] = useState<CarCatogory[]>([])
   const swiperRef = useRef<any>(null)
@@ -48,7 +49,7 @@ export default function CardServices({
   useEffect(() => {
     void getModelCar();
   }, [getModelCar]);
-
+  console.log('customerWork', customerWork);
 
   return (
     <div className="w-full mt-6 flex flex-col gap-5 xl:gap-8">
@@ -87,7 +88,7 @@ export default function CardServices({
                 {cardData.images.map((image, index) => (
                   <SwiperSlide key={index}>
                     <Image
-                    unoptimized
+                      unoptimized
                       src={`http://150.95.25.111:3131${image}`}
                       alt={cardData.title}
                       fill
@@ -153,7 +154,7 @@ export default function CardServices({
                     </Link>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                    {customerWork.works.slice(0, 3).map((item: any, index: number) => (
+                    {customerWork.filter((item: Work) => item.type === "WorkBlog").slice(0, 3).map((item: Work, index: number) => (
                       <ItemBox item={item} key={index} />
                     ))}
                   </div>
@@ -204,7 +205,7 @@ export default function CardServices({
                   {item.images.map((image, index) => (
                     <SwiperSlide key={index}>
                       <Image
-                      unoptimized
+                        unoptimized
                         src={`http://150.95.25.111:3131${image}`}
                         alt={item.title}
                         fill
@@ -271,7 +272,7 @@ export default function CardServices({
                       </Link>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                      {customerWork.works.slice(0, 3).map((item: any, index: number) => (
+                      {customerWork.filter((item: Work) => item.type === "WorkBlog").slice(0, 3).map((item: Work, index: number) => (
                         <ItemBox item={item} key={index} />
                       ))}
                     </div>

@@ -1,10 +1,11 @@
 'use client'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Product } from '@/types/product'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import DelItem from '../edit-review/_components/del-item'
+import EditProduct from './edit-product'
 
 const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => void }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,16 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
                 <span>หมวดหมู่ : </span>
                 <span className='font-semibold'>{item.category.name}</span>
             </div>
-            <div className='flex gap-2'>
+            <div className='grid grid-cols-2 gap-2'>
+                <Dialog>
+                    <DialogTrigger className='col-span-2'>
+                        <button className='border border-yellow-400 text-yellow-500 w-full py-2 rounded-md font-semibold cursor-pointer text-sm'>แก้ไข</button>
+                    </DialogTrigger>
+                    <DialogContent className='max-w-[600px] max-h-[90vh] overflow-y-auto p-4'>
+                        <DialogTitle>แก้ไขสินค้า</DialogTitle>
+                        <EditProduct data={item} />
+                    </DialogContent>
+                </Dialog>
                 <Popover>
                     <PopoverTrigger className='border border-green-400 text-green-500 w-full py-2 rounded-md font-semibold cursor-pointer text-sm'>
                         ดูรายละเอียด

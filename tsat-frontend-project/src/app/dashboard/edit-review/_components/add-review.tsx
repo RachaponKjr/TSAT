@@ -14,14 +14,14 @@ import { useRouter } from 'next/navigation'
 import { getCookie } from '@/lib/cookie'
 
 
-interface ReqReview {
+export interface ReqReview {
     customerName?: string
     review?: string
     carModelId?: string
     carSubModelId?: string
 }
 
-interface SubCarModel {
+export interface SubCarModel {
     id: string
     name: string
     image: string
