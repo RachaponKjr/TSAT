@@ -41,6 +41,9 @@ export const WorkSchema = z.object({
   isShow: z.boolean(),
   type: z.string(),
   images: z.string(),
+  carSubModel: z.object({
+    name: z.string().nullable(),
+  }),
   carModel: z.object({
     id: z.string().uuid(),
     name: z.string(),

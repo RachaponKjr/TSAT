@@ -2,15 +2,16 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Work } from '@/types/customer-work';
 
-function ItemBox({ item }: { item: any }) {
+function ItemBox({ item }: { item: Work }) {
 
   if (!item) {
     return null;
   }
 
   const firstTag = item.carModel.name;
-  const subCarModel = item.carSubModel;
+  const subCarModel = item.carSubModel?.name;
 
   return (
     <Link href={`/customer/${item.id}`} className="flex flex-row md:flex-col gap-3">

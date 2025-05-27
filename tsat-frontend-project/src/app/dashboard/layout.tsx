@@ -1,10 +1,18 @@
+import api from "@/server/api"
 import Sidebar from "./_components/sidebar"
+import { redirect } from "next/navigation"
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
+
+    const token = await api.auth.checkToken()
+    if (token.status !== 200) {
+        redirect('/admin-login')
+    }
+
     return (
         <html lang="en">
             <body>

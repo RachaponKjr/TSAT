@@ -101,7 +101,7 @@ const Page = () => {
 
         try {
             // Reset หรือ redirect
-            await fetch('http://localhost:3131/api/v1/customer-work/create-work', {
+            await fetch('http://150.95.25.111:3131/api/v1/customer-work/create-work', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -134,7 +134,10 @@ const Page = () => {
             <div className="grid grid-cols-2 items-start gap-4">
                 {/* ===== Blog Name ===== */}
                 <div className="flex flex-col items-start gap-2">
-                    <span>ชื่อบทความ</span>
+                    <div className='flex items-center gap-2'>
+                        <span>ชื่อบทความ</span>
+                        <span className='text-red-500'> (หรือชื่อลูกค้า)</span>
+                    </div>
                     <Input
                         name="name"
                         value={data.title}

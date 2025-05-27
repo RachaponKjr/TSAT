@@ -63,4 +63,14 @@ const updateUser = async ({
   });
 };
 
-export { login, getUser, createUser, updateUser };
+const checkToken = async () => {
+  return baseApi({
+    path: "/api/v1/token/check",
+    config: {
+      method: "GET",
+    },
+    requiresAuth: true,
+  });
+};
+
+export { login, getUser, createUser, updateUser, checkToken };

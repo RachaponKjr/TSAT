@@ -50,7 +50,7 @@ const EditProduct = ({ data }: { data: Product }) => {
         if (image) {
             formData.append('image', image as File);
         }
-        await fetch(`http://localhost:3131/api/v1/product/update-product/${editdata?.id}`, {
+        await fetch(`http://150.95.25.111:3131/api/v1/product/update-product/${editdata?.id}`, {
             method: 'PUT',
             body: formData,
             headers: {
