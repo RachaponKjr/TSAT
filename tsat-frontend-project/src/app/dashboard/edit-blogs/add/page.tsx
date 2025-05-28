@@ -18,11 +18,11 @@ import api from '@/server/api'
 import { CarCatogory } from '@/types/car-model'
 import ImageUpload from '@/components/image-upload'
 import { toast } from 'sonner'
-import { json } from 'stream/consumers'
 import { useRouter } from 'next/navigation'
 import { getCookie } from '@/lib/cookie'
-import { Checkbox, Switch } from 'antd'
+import { Switch } from 'antd'
 import { SubCarModel } from '../../edit-review/_components/add-review'
+import { Tag, X, Plus, Save, FileText, Car, Image as ImageIcon } from 'lucide-react'
 
 type BlogType = 'WorkBlog' | 'ReviewBlog';
 
@@ -34,6 +34,7 @@ const Page = () => {
     const [carModel, setCarModel] = useState<CarCatogory[]>([])
     const [carSubModel, setCarSubModel] = useState<SubCarModel[]>([])
     const [image, setImage] = useState<File | null>(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [data, setData] = useState<{
         title: string
         content: JSONContent | null
@@ -87,6 +88,8 @@ const Page = () => {
             toast.error('กรุณากรอกข้อมูลให้ครบ', { className: '!text-red-500' })
             return
         }
+
+        setIsSubmitting(true)
         const cookie = await getCookie('access_token')
 
         const formData = new FormData()
@@ -100,7 +103,6 @@ const Page = () => {
         formData.append('carSubModelId', data.carSubModelId)
 
         try {
-            // Reset หรือ redirect
             await fetch('http://150.95.25.111:3131/api/v1/customer-work/create-work', {
                 method: 'POST',
                 body: formData,
@@ -117,6 +119,8 @@ const Page = () => {
             })
         } catch {
             toast.error('เกิดข้อผิดพลาดในการสร้าง Blog')
+        } finally {
+            setIsSubmitting(false)
         }
     }
 
@@ -127,169 +131,256 @@ const Page = () => {
         }
     }, [data?.carModelId, getCarModel, getSubCarModel])
 
-    console.log(data)
     return (
-        <div className="space-y-4 min-h-[116vh]">
+        <div className="space-y-4 sm:space-y-6 pb-6">
             <HeadAddBlogs />
-            <div className="grid grid-cols-2 items-start gap-4">
-                {/* ===== Blog Name ===== */}
-                <div className="flex flex-col items-start gap-2">
-                    <div className='flex items-center gap-2'>
-                        <span>ชื่อบทความ</span>
-                        <span className='text-red-500'> (หรือชื่อลูกค้า)</span>
-                    </div>
-                    <Input
-                        name="name"
-                        value={data.title}
-                        onChange={(e) =>
-                            setData((prev) => ({ ...prev, title: e.target.value }))
-                        }
-                        className="w-full h-[2.5rem]"
-                        placeholder="ชื่อ Blog"
-                    />
-                </div>
-                <div className="flex flex-col items-start gap-2">
-                    <span>ชนิดบทความ</span>
-                    <Select
-                        value={data.type}
-                        onValueChange={(value) =>
-                            setData((prev) => ({ ...prev, type: value as BlogType }))
-                        }
-                    >
-                        <SelectTrigger className="w-full !h-[2.5rem]">
-                            <SelectValue placeholder="ชนิดบทความ" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectItem value="WorkBlog">
-                                    บทความงานลูกค้า
-                                </SelectItem>
-                                <SelectItem value="ReviewBlog">
-                                    บทความรีวิว
-                                </SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                {/* ===== Car Model ===== */}
-                <div className="flex flex-col items-start gap-2">
-                    <span>เลือกรุ่นรถ</span>
-                    <Select
-                        onValueChange={(value) =>
-                            setData((prev) => ({ ...prev, carModelId: value }))
-                        }
-                    >
-                        <SelectTrigger className="w-full !h-[2.5rem]">
-                            <SelectValue placeholder="เลือกรุ่นรถ" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {carModel.map((item) => (
-                                    <SelectItem key={item.id} value={item.id.toString()}>
-                                        {item.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="flex flex-col items-start gap-2">
-                    <span>เลือกรุ่นรถย่อย</span>
-                    <Select onValueChange={(value) => setData((prev) => ({ ...prev, carSubModelId: value }))}>
-                        <SelectTrigger className='w-full !h-full'>
-                            <SelectValue placeholder='กรุณาเลือกรุ่นรถรอง' />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>ทำการเลือกรุ่นรถหลักก่อน</SelectLabel>
-                                {carSubModel && carSubModel.map((item) => (
-                                    <SelectItem key={item.id} value={item.id}>
-                                        {item.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                {/* ===== Tags ===== */}
-                <div className="flex flex-col gap-2 w-full">
-                    <span>แท็ก Blog</span>
-                    <div className="flex gap-2">
-                        <Input
-                            name="tagInput"
-                            value={tagInput}
-                            onChange={(e) => setTagInput(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' && tagInput.trim()) {
-                                    e.preventDefault()
-                                    addTags(tagInput)
-                                    setTagInput('')
-                                }
-                            }}
-                            className="w-full h-[2.5rem]"
-                            placeholder="เพิ่มแท็ก แล้วกด Enter หรือคลิกเพิ่ม"
-                        />
-                        <button
-                            onClick={() => {
-                                if (tagInput.trim()) {
-                                    addTags(tagInput)
-                                    setTagInput('')
-                                }
-                            }}
-                            className="border border-green-400 text-green-500 px-4 rounded-md font-semibold cursor-pointer text-sm"
-                        >
-                            เพิ่ม
-                        </button>
+            
+            {/* Form Container */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                <div className="p-4 sm:p-6">
+                    {/* Section Headers for Mobile */}
+                    <div className="mb-6">
+                        <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2 mb-2">
+                            <FileText size={20} className="text-[#8F2F34]" />
+                            ข้อมูลบทความ
+                        </h2>
+                        <p className="text-sm text-gray-600">กรอกข้อมูลพื้นฐานของบทความ</p>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
-                        {tags.map((tag, index) => (
-                            <div
-                                key={index}
-                                className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm flex items-center gap-2"
-                            >
-                                {tag}
-                                <button
-                                    onClick={() => removeTag(index)}
-                                    className="text-red-500 hover:text-red-700"
-                                >
-                                    ×
-                                </button>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                        {/* Blog Title */}
+                        <div className="md:col-span-1">
+                            <div className="flex flex-col items-start gap-2">
+                                <div className='flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2'>
+                                    <span className="text-sm font-medium text-gray-700">ชื่อบทความ</span>
+                                    <span className='text-xs text-red-500'>(หรือชื่อลูกค้า)</span>
+                                </div>
+                                <Input
+                                    name="name"
+                                    value={data.title}
+                                    onChange={(e) =>
+                                        setData((prev) => ({ ...prev, title: e.target.value }))
+                                    }
+                                    className="w-full h-10 sm:h-[2.5rem]"
+                                    placeholder="ชื่อ Blog"
+                                />
                             </div>
-                        ))}
-                    </div>
-                </div>
+                        </div>
 
-                <div className="flex flex-col items-start h-full gap-2">
-                    <span>เเสดงหน้าเเรก</span>
-                    <div className='flex flex-1 items-center flex-row gap-4'>
-                        <Switch checked={data.isShow || false} onChange={() => setData((prev) => ({ ...prev, isShow: !prev.isShow }))} />
-                        <span className='text-sm text-red-500'>* ต้องเป็นบทความ งานลูกค้า</span>
+                        {/* Blog Type */}
+                        <div className="md:col-span-1">
+                            <div className="flex flex-col items-start gap-2">
+                                <span className="text-sm font-medium text-gray-700">ชนิดบทความ</span>
+                                <Select
+                                    value={data.type}
+                                    onValueChange={(value) =>
+                                        setData((prev) => ({ ...prev, type: value as BlogType }))
+                                    }
+                                >
+                                    <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
+                                        <SelectValue placeholder="ชนิดบทความ" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectItem value="WorkBlog">
+                                                บทความงานลูกค้า
+                                            </SelectItem>
+                                            <SelectItem value="ReviewBlog">
+                                                บทความรีวิว
+                                            </SelectItem>
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Car Model */}
+                        <div className="md:col-span-1">
+                            <div className="flex flex-col items-start gap-2">
+                                <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                                    <Car size={14} />
+                                    เลือกรุ่นรถ
+                                </span>
+                                <Select
+                                    onValueChange={(value) =>
+                                        setData((prev) => ({ ...prev, carModelId: value }))
+                                    }
+                                >
+                                    <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
+                                        <SelectValue placeholder="เลือกรุ่นรถ" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            {carModel.map((item) => (
+                                                <SelectItem key={item.id} value={item.id.toString()}>
+                                                    {item.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Sub Car Model */}
+                        <div className="md:col-span-1">
+                            <div className="flex flex-col items-start gap-2">
+                                <span className="text-sm font-medium text-gray-700">เลือกรุ่นรถย่อย</span>
+                                <Select onValueChange={(value) => setData((prev) => ({ ...prev, carSubModelId: value }))}>
+                                    <SelectTrigger className='w-full h-10 sm:h-[2.5rem]'>
+                                        <SelectValue placeholder='กรุณาเลือกรุ่นรถรอง' />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>ทำการเลือกรุ่นรถหลักก่อน</SelectLabel>
+                                            {carSubModel && carSubModel.map((item) => (
+                                                <SelectItem key={item.id} value={item.id}>
+                                                    {item.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Tags Section */}
+                        <div className="md:col-span-2">
+                            <div className="flex flex-col gap-3">
+                                <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                                    <Tag size={14} />
+                                    แท็ก Blog
+                                </span>
+                                
+                                {/* Tag Input */}
+                                <div className="flex flex-col sm:flex-row gap-2">
+                                    <Input
+                                        name="tagInput"
+                                        value={tagInput}
+                                        onChange={(e) => setTagInput(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && tagInput.trim()) {
+                                                e.preventDefault()
+                                                addTags(tagInput)
+                                                setTagInput('')
+                                            }
+                                        }}
+                                        className="flex-1 h-10 sm:h-[2.5rem]"
+                                        placeholder="เพิ่มแท็ก แล้วกด Enter หรือคลิกเพิ่ม"
+                                    />
+                                    <button
+                                        onClick={() => {
+                                            if (tagInput.trim()) {
+                                                addTags(tagInput)
+                                                setTagInput('')
+                                            }
+                                        }}
+                                        className="flex items-center gap-1 border border-green-400 text-green-600 px-4 py-2 rounded-md font-medium cursor-pointer text-sm hover:bg-green-50 transition-colors"
+                                    >
+                                        <Plus size={14} />
+                                        <span>เพิ่ม</span>
+                                    </button>
+                                </div>
+
+                                {/* Tags Display */}
+                                {tags.length > 0 && (
+                                    <div className="flex flex-wrap gap-2">
+                                        {tags.map((tag, index) => (
+                                            <div
+                                                key={index}
+                                                className="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-sm flex items-center gap-2 border border-blue-200"
+                                            >
+                                                {tag}
+                                                <button
+                                                    onClick={() => removeTag(index)}
+                                                    className="text-red-500 hover:text-red-700 ml-1"
+                                                >
+                                                    <X size={14} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Show on Homepage */}
+                        <div className="md:col-span-1">
+                            <div className="flex flex-col gap-2">
+                                <span className="text-sm font-medium text-gray-700">แสดงหน้าแรก</span>
+                                <div className='flex items-center gap-3'>
+                                    <Switch 
+                                        checked={data.isShow || false} 
+                                        onChange={() => setData((prev) => ({ ...prev, isShow: !prev.isShow }))} 
+                                    />
+                                    <span className='text-xs text-red-500'>* ต้องเป็นบทความงานลูกค้า</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Cover Image */}
+                        <div className="md:col-span-1">
+                            <div className="flex flex-col gap-2">
+                                <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                                    <ImageIcon size={14} />
+                                    เพิ่มภาพหน้าปก
+                                </span>
+                                <ImageUpload onChange={setImage} />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                {/* ===== Cover Image ===== */}
-                <div className="flex flex-row items-end gap-4 ">
-                    <div>
-                        <span>เพิ่มภาพหน้าปก</span>
-                        <ImageUpload onChange={setImage} />
+
+                    {/* Save Button */}
+                    <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="flex flex-col sm:flex-row justify-end gap-3">
+                            <button
+                                onClick={() => router.back()}
+                                className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                            >
+                                ยกเลิก
+                            </button>
+                            <button 
+                                onClick={handleSubmit}
+                                disabled={isSubmitting}
+                                className='flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white px-6 py-2.5 rounded-lg transition-colors font-medium'
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        <span>กำลังบันทึก...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Save size={16} />
+                                        <span>บันทึก</span>
+                                    </>
+                                )}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div className='place-self-end'>
-                    <button onClick={handleSubmit} className='flex items-center py-2 place-self-end  bg-green-500 !text-white justify-center gap-2 cursor-pointer rounded-sm border px-8 h-full'>
-                        <span className='text-lg'>บันทึก</span>
-                    </button>
                 </div>
             </div>
 
-            {/* ===== Editor ===== */}
-            <SimpleEditor setEditorContent={(content: React.SetStateAction<JSONContent | null>) => {
-                setEditorContent(content)
-                setData((prev) => ({ ...prev, content: content }))
-            }} />
-
-        </div >
+            {/* Editor Section */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                <div className="p-4 sm:p-6">
+                    <div className="mb-4">
+                        <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2 mb-2">
+                            <FileText size={20} className="text-[#8F2F34]" />
+                            เนื้อหาบทความ
+                        </h2>
+                        <p className="text-sm text-gray-600">เขียนเนื้อหาบทความของคุณ</p>
+                    </div>
+                    
+                    <div className="border border-gray-200 rounded-lg overflow-hidden">
+                        <SimpleEditor setEditorContent={(content: React.SetStateAction<JSONContent | null>) => {
+                            setEditorContent(content)
+                            setData((prev) => ({ ...prev, content: content }))
+                        }} />
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 

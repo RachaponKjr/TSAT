@@ -20,6 +20,8 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
     }
   }, [value]);
 
+  console.log('ImageBoxUpload value:', value);
+
   const handleClick = () => {
     fileInputRef.current?.click();
   };
@@ -44,7 +46,7 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
     if (!preview) return '';
     
     // ถ้าเป็นการอัปโหลดใหม่ (base64) ให้ใช้ preview โดยตรง
-    if (isNewUpload) {
+    if (!isNewUpload) {
       return preview;
     }
     

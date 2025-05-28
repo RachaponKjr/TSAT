@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
-import { Plus } from 'lucide-react'
+import { Plus, Filter } from 'lucide-react'
 
 import ImageUpload from '@/components/image-upload'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
@@ -125,6 +125,23 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
     }
   }
 
+  const resetProductForm = () => {
+    setData({
+      name: '',
+      detail: '',
+      categoryId: '',
+    })
+    setImage(null)
+  }
+
+  const resetServiceForm = () => {
+    setServiceData({
+      name: '',
+      categoryServiceId: '',
+    })
+    setBgImage(null)
+  }
+
   const createCategoryService = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const cookie = await getCookie('access_token')
@@ -142,13 +159,9 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
       })
       if (res.status === 200) {
         toast.success('สร้างหมวดหมู่บริการสําเร็จ', { className: '!text-green-500' })
-        setServiceData({
-          name: '',
-          categoryServiceId: '',
-        })
+        resetServiceForm()
         fetchCategoriesService()
         setOpenService(false)
-        setBgImage(null)
       } else {
         toast.error('สร้างหมวดหมู่บริการไม่สําเร็จ', { className: '!text-red-500' })
       }
@@ -158,147 +171,171 @@ const HeaderTop = ({ getProduct, setFilter }: { getProduct: () => Promise<void>,
   }
 
   return (
-    <div className='text-xl font-bold text-[#333333] flex justify-between items-center w-full max-w-full h-max'>
-      <h6>รายการสินค้า</h6>
-      <div className='flex items-center gap-4 h-[2.5rem]'>
-        <Select onValueChange={(e) => setFilter(e)}>
-          <SelectTrigger className='w-[180px] !h-full'>
-            <SelectValue placeholder='หมวดหมู่' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>หมวดหมู่สินค้า</SelectLabel>
-              <SelectItem value='all'>ทั้งหมด</SelectItem>
-              {categories.map((item) => (
-                <SelectItem key={item.id} value={item.name}>
-                  {item.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <Dialog open={openService} onOpenChange={setOpenService}>
-          <DialogTrigger asChild>
-            <div className='flex items-center justify-center gap-2 cursor-pointer rounded-sm border px-6 h-full'>
-              <span className='text-[#333333] text-sm'>เพิ่มหมวดหมู่</span>
-              <Plus color='#333333' size={16} />
-            </div>
-          </DialogTrigger>
-          <DialogContent className='max-w-[600px] p-4'>
-            <h6 className='text-lg font-semibold'>เพิ่มหมวดหมู่สินค้า</h6>
-
-            <form onSubmit={createCategoryService} className='flex flex-col gap-4'>
-              <div className='flex flex-col items-start gap-2'>
-                <span>ชื่อหมวดหมู่อะไหล่</span>
-                <Input
-                  name='name'
-                  className='w-full h-[2.5rem]'
-                  placeholder='ชื่อหมวดหมู่'
-                  value={serviceData.name}
-                  onChange={(e) => setServiceData({ ...serviceData, name: e.target.value })}
-                />
+    <div className='flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 w-full'>
+      {/* Header Title */}
+      <div className='flex-shrink-0'>
+        <h6 className='text-lg sm:text-xl font-bold text-[#333333] text-center lg:text-left'>รายการสินค้า</h6>
+      </div>
+      
+      {/* Controls Container */}
+      <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4'>
+        {/* Filter Select */}
+        <div className='w-full sm:w-[180px]'>
+          <Select onValueChange={(e) => setFilter(e)}>
+            <SelectTrigger className='w-full h-10 sm:h-[2.5rem]'>
+              <div className='flex items-center gap-2'>
+                <Filter size={16} className='sm:hidden' />
+                <SelectValue placeholder='หมวดหมู่' />
               </div>
-              <div className='flex flex-col items-start gap-2'>
-                <span>หมวดหมู่บริการ</span>
-                <Select
-                  value={serviceData.categoryServiceId}
-                  onValueChange={(value) =>
-                    setServiceData({ ...serviceData, categoryServiceId: value })
-                  }
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>หมวดหมู่สินค้า</SelectLabel>
+                <SelectItem value='all'>ทั้งหมด</SelectItem>
+                {categories.map((item) => (
+                  <SelectItem key={item.id} value={item.name}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Action Buttons Container */}
+        <div className='flex flex-col sm:flex-row gap-2 sm:gap-4'>
+          {/* Add Category Button */}
+          <Dialog open={openService} onOpenChange={setOpenService}>
+            <DialogTrigger asChild>
+              <button 
+                className='flex items-center justify-center gap-2 cursor-pointer rounded-md border border-gray-300 px-4 py-2 h-10 sm:h-[2.5rem] hover:bg-gray-50 transition-colors'
+                onClick={() => resetServiceForm()}
+              >
+                <span className='text-[#333333] text-sm font-medium'>เพิ่มหมวดหมู่</span>
+                <Plus color='#333333' size={16} />
+              </button>
+            </DialogTrigger>
+            <DialogContent className='max-w-[95vw] sm:max-w-[600px] p-4 max-h-[90vh] overflow-y-auto'>
+              <h6 className='text-lg font-semibold mb-4'>เพิ่มหมวดหมู่สินค้า</h6>
+
+              <form onSubmit={createCategoryService} className='flex flex-col gap-4'>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>ชื่อหมวดหมู่อะไหล่</span>
+                  <Input
+                    name='name'
+                    className='w-full h-10 sm:h-[2.5rem]'
+                    placeholder='ชื่อหมวดหมู่'
+                    value={serviceData.name}
+                    onChange={(e) => setServiceData({ ...serviceData, name: e.target.value })}
+                  />
+                </div>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>หมวดหมู่บริการ</span>
+                  <Select
+                    value={serviceData.categoryServiceId}
+                    onValueChange={(value) =>
+                      setServiceData({ ...serviceData, categoryServiceId: value })
+                    }
+                  >
+                    <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
+                      <SelectValue placeholder="หมวดหมู่" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>หมวดหมู่บริการ</SelectLabel>
+                        {categoryService.map((item) => (
+                          <SelectItem key={item.id} value={item.id.toString()}>
+                            {item.title}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>ภาพพื้นหลัง</span>
+                  <ImageUpload onChange={setBgImage} />
+                </div>
+                <button
+                  type='submit'
+                  className='bg-[#8F2F34] h-12 sm:h-[3rem] text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[#C65359] justify-center cursor-pointer transition-colors font-medium'
                 >
-                  <SelectTrigger className="w-full !h-full">
-                    <SelectValue placeholder="หมวดหมู่" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>หมวดหมู่บริการ</SelectLabel>
-                      {categoryService.map((item) => (
-                        <SelectItem key={item.id} value={item.id.toString()}>
-                          {item.title}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className='flex flex-col items-start gap-2'>
-                <span>ภาพพื้นหลัง</span>
-                <ImageUpload onChange={setBgImage} />
-              </div>
-              <button
-                type='submit'
-                className='bg-[#8F2F34] h-[3rem] text-white px-3 py-1 rounded-lg flex items-center gap-1 hover:bg-[#C65359] justify-center cursor-pointer'
+                  <span>บันทึก</span>
+                </button>
+              </form>
+            </DialogContent>
+          </Dialog>
+
+          {/* Add Product Button */}
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <button 
+                className='flex items-center justify-center gap-2 cursor-pointer rounded-md bg-[#8F2F34] text-white px-4 py-2 h-10 sm:h-[2.5rem] hover:bg-[#C65359] transition-colors'
+                onClick={() => resetProductForm()}
               >
-                <span>บันทึก</span>
+                <span className='text-sm font-medium'>เพิ่มสินค้า</span>
+                <Plus size={16} />
               </button>
-            </form>
-          </DialogContent>
-        </Dialog>
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <div className='flex items-center justify-center gap-2 cursor-pointer rounded-sm border px-6 h-full'>
-              <span className='text-[#333333] text-sm'>เพิ่มสินค้า</span>
-              <Plus color='#333333' size={16} />
-            </div>
-          </DialogTrigger>
-          <DialogContent className='max-w-[600px] p-4'>
-            <h6 className='text-lg font-semibold'>เพิ่มรายการสินค้า</h6>
+            </DialogTrigger>
+            <DialogContent className='max-w-[95vw] sm:max-w-[600px] p-4 max-h-[90vh] overflow-y-auto'>
+              <h6 className='text-lg font-semibold mb-4'>เพิ่มรายการสินค้า</h6>
 
-            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-              <div className='flex flex-col items-start gap-2'>
-                <span>หมวดหมู่</span>
-                <Select onValueChange={handleCategoryChange}>
-                  <SelectTrigger className='w-full !h-[2.5rem]'>
-                    <SelectValue placeholder='เลือกหมวดหมู่สินค้า' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {categories.map((item) => (
-                        <SelectItem key={item.id} value={item.id}>
-                          {item.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
+              <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>หมวดหมู่</span>
+                  <Select onValueChange={handleCategoryChange}>
+                    <SelectTrigger className='w-full h-10 sm:h-[2.5rem]'>
+                      <SelectValue placeholder='เลือกหมวดหมู่สินค้า' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {categories.map((item) => (
+                          <SelectItem key={item.id} value={item.id}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div className='flex flex-col items-start gap-2'>
-                <span>ชื่อสินค้า</span>
-                <Input
-                  name='name'
-                  className='w-full h-[2.5rem]'
-                  placeholder='ชื่อสินค้า'
-                  value={data.name}
-                  onChange={handleInputChange}
-                />
-              </div>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>ชื่อสินค้า</span>
+                  <Input
+                    name='name'
+                    className='w-full h-10 sm:h-[2.5rem]'
+                    placeholder='ชื่อสินค้า'
+                    value={data.name}
+                    onChange={handleInputChange}
+                  />
+                </div>
 
-              <div className='flex flex-col items-start gap-2'>
-                <span>รายละเอียด</span>
-                <textarea
-                  name='detail'
-                  className='w-full min-h-[6rem] max-h-[6rem] border rounded-md p-2'
-                  placeholder='รายละเอียด'
-                  value={data.detail}
-                  onChange={handleInputChange}
-                />
-              </div>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>รายละเอียด</span>
+                  <textarea
+                    name='detail'
+                    className='w-full min-h-[6rem] max-h-[8rem] border border-gray-300 rounded-md p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#8F2F34] focus:border-transparent'
+                    placeholder='รายละเอียด'
+                    value={data.detail}
+                    onChange={handleInputChange}
+                  />
+                </div>
 
-              <div className='flex flex-col items-start gap-2'>
-                <span>ภาพสินค้า</span>
-                <ImageUpload onChange={setImage} />
-              </div>
+                <div className='flex flex-col items-start gap-2'>
+                  <span className='text-sm font-medium'>ภาพสินค้า</span>
+                  <ImageUpload onChange={setImage} />
+                </div>
 
-              <button
-                type='submit'
-                className='bg-[#8F2F34] h-[3rem] text-white px-3 py-1 rounded-lg flex items-center gap-1 hover:bg-[#C65359] justify-center cursor-pointer'
-              >
-                <span>บันทึก</span>
-              </button>
-            </form>
-          </DialogContent>
-        </Dialog>
+                <button
+                  type='submit'
+                  className='bg-[#8F2F34] h-12 sm:h-[3rem] text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[#C65359] justify-center cursor-pointer transition-colors font-medium'
+                >
+                  <span>บันทึก</span>
+                </button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </div>
   )
