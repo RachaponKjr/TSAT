@@ -1,6 +1,6 @@
-'use client';
-import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+"use client";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 
 interface ImageBoxUploadProps {
   onChange?: (file: File) => void;
@@ -9,24 +9,22 @@ interface ImageBoxUploadProps {
 
 const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [isNewUpload, setIsNewUpload] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // อัปเดต preview ถ้ามีการส่งค่า value เข้ามาใหม่ (กรณี controlled)
   useEffect(() => {
     if (value) {
       setPreview(value);
-      setIsNewUpload(false); // รีเซ็ต flag เมื่อมี value ใหม่จาก server
     }
   }, [value]);
 
-  console.log('ImageBoxUpload value:', value);
+  console.log("ImageBoxUpload value:", value);
 
   const handleClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -34,7 +32,6 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
     reader.onloadend = () => {
       const base64 = reader.result as string;
       setPreview(base64);
-      setIsNewUpload(true); // ตั้ง flag ว่าเป็นการอัปโหลดใหม่
     };
     reader.readAsDataURL(file);
 
@@ -43,15 +40,15 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
 
   // กำหนด src ของรูป
   const getImageSrc = () => {
-    if (!preview) return '';
-    
-    // ถ้าเป็นการอัปโหลดใหม่ (base64) ให้ใช้ preview โดยตรง
-    if (!isNewUpload) {
+    if (!preview) return "";
+  
+    // ถ้าเป็น base64 → อย่าเติม URL
+    if (preview.startsWith("data:image")) {
       return preview;
     }
-    
-    // ถ้าเป็น value จาก server ให้เพิ่ม server URL
-    return `http://150.95.25.111:3131${preview}`;
+  
+    // ถ้าไม่ใช่ base64 → แปลว่าเป็น path จาก server
+    return `http://150.95.26.51:3131${preview}`;
   };
 
   return (

@@ -38,7 +38,7 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
             <div className='relative aspect-square bg-gray-100 overflow-hidden'>
                 <Image 
                     unoptimized 
-                    src={`http://150.95.25.111:3131${item.imageProduct}`} 
+                    src={`http://150.95.26.51:3131${item.imageProduct}`} 
                     alt={item.name || 'Product image'} 
                     fill
                     className='object-cover group-hover:scale-105 transition-transform duration-200' 

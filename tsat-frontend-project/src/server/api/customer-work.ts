@@ -3,6 +3,8 @@ import { ApiResponse, baseApi } from "../base-api";
 export interface ResBlog {
   id: string;
   title: string;
+  service: string;
+  subService: string;
   content: any;
   images: string;
   carModel: string;

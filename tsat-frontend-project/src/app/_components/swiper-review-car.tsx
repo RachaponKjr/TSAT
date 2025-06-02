@@ -39,7 +39,7 @@ function SwiperReviewCar({ workservice }: { workservice: Work[] }) {
                         <Link href={`/customer/${item.id}`} className='w-full space-y-2 cursor-pointer'>
                             <div className='w-full aspect-video relative rounded-lg overflow-hidden'>
                                 <Image
-                                    src={`http://150.95.25.111:3131${item.images}`}
+                                    src={`http://150.95.26.51:3131${item.images}`}
                                     alt={`${item.carModel.name} review`}
                                     fill
                                     unoptimized

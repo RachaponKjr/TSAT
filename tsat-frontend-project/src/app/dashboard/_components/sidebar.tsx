@@ -78,7 +78,7 @@ export default function Sidebar() {
         </button>
       </div>
 
-      <nav className="flex flex-col justify-between h-full gap-2">
+      <nav className="flex flex-col justify-start md:justify-between h-full gap-2">
         <div className="space-y-1">
           {menuItems.map((item, index) => {
             const isActive = pathname === item.href;
@@ -98,7 +98,7 @@ export default function Sidebar() {
           })}
         </div>
 
-        <div className="mt-auto pt-4">
+        <div className="md:mt-auto pt-4">
           <button
             onClick={singOut}
             className='flex items-center justify-center cursor-pointer gap-3 p-3 rounded-lg w-full bg-[#8F2F34] text-white hover:bg-[#8F2F34]/80 transition-colors font-medium'

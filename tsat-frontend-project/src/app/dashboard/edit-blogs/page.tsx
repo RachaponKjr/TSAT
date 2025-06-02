@@ -37,7 +37,7 @@ const page = () => {
     const deleteBlog = useCallback(async (id: string) => {
         const accept_token = await getCookie('access_token')
         try {
-            const res = await fetch(`http://150.95.25.111:3131/api/v1/customer-work/delete-work/${id}`, {
+            const res = await fetch(`http://150.95.26.51:3131/api/v1/customer-work/delete-work/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accept_token}`
@@ -170,7 +170,7 @@ const page = () => {
                                 {/* Delete Button */}
                                 <button
                                     onClick={() => handleDeleteClick(item)}
-                                    className='absolute top-2 right-2 z-10 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition-colors shadow-sm opacity-0 group-hover:opacity-100'
+                                    className='absolute top-2 right-2 z-10 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition-colors shadow-sm opacity-100 md:opacity-0 group-hover:opacity-100'
                                 >
                                     <X size={16} />
                                 </button>
@@ -178,14 +178,14 @@ const page = () => {
                                 {/* Edit Button - Optional */}
                                 <Link
                                     href={`/dashboard/edit-blogs/edit/${item.id}`}
-                                    className='absolute top-2 right-12 z-10 w-8 h-8 bg-[#8F2F34] hover:bg-[#C65359] text-white rounded-full flex items-center justify-center transition-colors shadow-sm opacity-0 group-hover:opacity-100'
+                                    className='absolute top-2 right-12 z-10 w-8 h-8 bg-[#8F2F34] hover:bg-[#C65359] text-white rounded-full flex items-center justify-center transition-colors shadow-sm opacity-100 md:opacity-0 group-hover:opacity-100'
                                 >
                                     <Edit size={14} />
                                 </Link>
 
                                 <Image 
                                     unoptimized 
-                                    src={`http://150.95.25.111:3131${item.images}`} 
+                                    src={`http://150.95.26.51:3131${item.images}`} 
                                     alt={item.title || "blog image"} 
                                     fill 
                                     className='object-cover group-hover:scale-105 transition-transform duration-200' 

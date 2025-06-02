@@ -57,7 +57,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                   <div className='flex flex-col w-full gap-0 items-center'>
                     <div className='h-full relative'>
                       <Image
-                        src={`http://150.95.25.111:3131/${item.image ?? 'default.jpg'}`}
+                        src={`http://150.95.26.51:3131/${item.image ?? 'default.jpg'}`}
                         alt={item.name || 'modelcar'}
                         width={500}
                         height={500}
@@ -66,7 +66,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                       />
                     </div>
                     <Image
-                      src={`http://150.95.25.111:3131/${item.imageName ?? 'default.jpg'}`}
+                      src={`http://150.95.26.51:3131/${item.imageName ?? 'default.jpg'}`}
                       alt={item.name || 'modelcar'}
                       width={200}
                       height={200}
@@ -84,7 +84,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                     <div className='relative h-max w-full max-w-full flex justify-center'>
                       <div className='absolute top-0 left-0 w-full h-[60%] bg-gradient-to-t from-[#999999] to-[#ffffff] opacity-20' />
                       <Image
-                        src={`http://150.95.25.111:3131/${item.image ?? 'default.jpg'}`}
+                        src={`http://150.95.26.51:3131/${item.image ?? 'default.jpg'}`}
                         alt={item.name || 'modelcar'}
                         className='relative object-contain z-10'
                         objectPosition='bottom'
@@ -94,7 +94,7 @@ function SwiperModelCar({ data, slidesPerView = 4 }: { data: CarCatogory[], slid
                         unoptimized
                       />
                       <Image
-                        src={`http://150.95.25.111:3131/${item.imageName ?? 'default.jpg'}`}
+                        src={`http://150.95.26.51:3131/${item.imageName ?? 'default.jpg'}`}
                         alt={item.name || 'modelcar'}
                         className='absolute -top-4 object-contain'
                         quality={100}

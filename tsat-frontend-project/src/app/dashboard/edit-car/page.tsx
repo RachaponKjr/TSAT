@@ -35,7 +35,7 @@ const CarModelItem = ({
       form.append('name', subName)
       form.append('carModelId', item.id)
       form.append('image', subImage as File)
-      await fetch('http://150.95.25.111:3131/api/v1/sub-car-model/create', {
+      await fetch('http://150.95.26.51:3131/api/v1/sub-car-model/create', {
         method: 'POST',
         body: form,
         headers: {
@@ -285,7 +285,7 @@ const page = () => {
       form.append('name', name)
       form.append('image_model', imageModel as File)
       form.append('image_name', imageName as File)
-      await fetch('http://150.95.25.111:3131/api/v1/car-model/create', {
+      await fetch('http://150.95.26.51:3131/api/v1/car-model/create', {
         method: 'POST',
         body: form,
         headers: {

@@ -13,7 +13,7 @@ async function CustomerDetail({ params }: { params: Promise<{ id: string }> }) {
 
   const blogRes = await api.customerWork.getWorkByBlog(id);
   const blog = blogRes.data.data;
-
+  console.log(blog)
   return (
     <div>
       <HeaderBlog headText={blog?.title || ''} data={blog} />

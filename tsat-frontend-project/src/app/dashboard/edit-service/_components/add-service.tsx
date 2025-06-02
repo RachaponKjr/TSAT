@@ -127,7 +127,7 @@ const AddService = () => {
                 formData.append('images', images[i])
             }
 
-            const res = await fetch('http://150.95.25.111:3131/api/v1/service/create-service', {
+            const res = await fetch('http://150.95.26.51:3131/api/v1/service/create-service', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -152,19 +152,19 @@ const AddService = () => {
     }
 
     return (
-        <div className='block h-full'>
+        <div className='block h-[52px]'>
             <Dialog open={isOpen} onOpenChange={(open) => {
                 setIsOpen(open)
                 if (!open) {
                     resetForm()
                 }
             }}>
-                <DialogTrigger className='h-full' asChild>
+                <DialogTrigger className='h-full ' asChild>
                     <div className='flex items-center justify-center gap-2 cursor-pointer rounded-lg border border-gray-300 hover:border-[#8F2F34] hover:bg-gray-50 px-4 sm:px-6 py-2 h-full transition-colors'>
                         <Wrench className='text-[#8F2F34] hidden sm:block' size={16} />
                         <span className='text-[#333333] text-sm font-medium'>
                             <span className='hidden sm:inline'>เพิ่มเซอร์วิส</span>
-                            <span className='sm:hidden'>เพิ่ม</span>
+                            <span className='sm:hidden'>เพิ่มเซอร์วิส</span>
                         </span>
                         <Plus color='#333333' size={16} />
                     </div>

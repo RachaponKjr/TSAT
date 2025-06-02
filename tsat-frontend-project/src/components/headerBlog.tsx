@@ -6,6 +6,8 @@ export default function HeaderBlog({ headText, data }: { headText: string, data:
   const combined = [
     ...(data?.carModel ? [data?.carModel] : []),
     ...(data?.subCarModel ? [data?.subCarModel] : []),
+    ...(data?.service ? [data?.service] : []),
+    ...(data?.subService ? [data?.subService] : []),
     ...data?.tags || [],
   ];
   return (
@@ -15,8 +17,8 @@ export default function HeaderBlog({ headText, data }: { headText: string, data:
           <h1 className=''>{headText}</h1>
         </div>
 
-        <div className="flex justify-between">
-          <div className="mt-4 mb-2 flex gap-2">
+        <div className="flex flex-col md:flex-row justify-between">
+          <div className="mt-4 mb-2 flex flex-wrap w-full gap-2">
             {combined.map((tab, index) => (
               <div key={index} className="px-1 py-1 w-max bg-[#8F2F34] text-white rounded-sm text-sm z-10 block">
                 {tab}

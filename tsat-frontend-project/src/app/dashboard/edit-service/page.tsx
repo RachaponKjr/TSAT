@@ -2,6 +2,7 @@ import React from 'react'
 import { Settings, Wrench } from 'lucide-react'
 import AddService from './_components/add-service'
 import TableService from './_components/table-service'
+import AddSubService from './_components/add-sub-service'
 
 const page = () => {
     return (
@@ -24,8 +25,9 @@ const page = () => {
                 </div>
 
                 {/* Action Button */}
-                <div className='h-[48px]'>
+                <div className='h-max flex flex-col gap-2'>
                     <AddService />
+                    <AddSubService/>
                 </div>
             </div>
 

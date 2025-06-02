@@ -16,7 +16,7 @@ const DelItem = ({ id, apiPath, onComplete }: TaskOptions) => {
     const delReview = async (id: string) => {
         try {
             const accept_token = await getCookie('access_token')
-            const res = await fetch(`http://150.95.25.111:3131/api/v1/${apiPath}/${id}`, {
+            const res = await fetch(`http://150.95.26.51:3131/api/v1/${apiPath}/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accept_token}`,

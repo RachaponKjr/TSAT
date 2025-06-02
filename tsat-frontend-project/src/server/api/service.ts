@@ -1,5 +1,6 @@
 import { ServiceResponse } from "@/app/dashboard/edit-service/_components/table-service";
 import { ApiResponse, baseApi } from "../base-api";
+import { SubService } from "@/app/dashboard/edit-service/_components/add-sub-service";
 
 const getService = async (): Promise<
   ApiResponse<{ service: ServiceResponse[] }>
@@ -11,7 +12,6 @@ const getService = async (): Promise<
     },
   });
 };
-
 
 const updateService = async (
   id: string,
@@ -27,4 +27,41 @@ const updateService = async (
   });
 };
 
-export { getService, updateService };
+const saveSubService = async (subData: SubService) => {
+  return baseApi({
+    path: "/api/v1/service/create-sub-service",
+    config: {
+      method: "POST",
+      body: JSON.stringify(subData),
+    },
+    requiresAuth: true,
+  });
+};
+
+const getSubService = async (serviceId: string) => {
+  return baseApi({
+    path: `/api/v1/service/get-subservice/${serviceId}`,
+    config: {
+      method: "GET",
+    },
+    requiresAuth: true,
+  });
+};
+
+const delSubService = async (id: string) => {
+  return baseApi({
+    path: "/api/v1/service/del-sub-service",
+    config: {
+      method: "DELETE",
+      body: JSON.stringify(id),
+    },
+  });
+};
+
+export {
+  getService,
+  updateService,
+  delSubService,
+  saveSubService,
+  getSubService,
+};

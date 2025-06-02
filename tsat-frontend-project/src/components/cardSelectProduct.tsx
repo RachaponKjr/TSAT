@@ -12,7 +12,7 @@ export default function CardSelectProduct({ catagoryProduct, headText }: { catag
             catagoryProduct.data.data.map((item: any, index: number) => (
               <Link href={`/products?index=${index}`} key={index} className="relative w-full aspect-[16/12] lg:aspect-square rounded-lg cursor-pointer hover:scale-[1.02] transition-all duration-300 ease-in-out"
                 style={{
-                  backgroundImage: `url(http://150.95.25.111:3131/${item.image})`,
+                  backgroundImage: `url(http://150.95.26.51:3131/${item.image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}
