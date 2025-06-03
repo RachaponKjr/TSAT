@@ -85,7 +85,7 @@ const TableService = () => {
     const accept_token = await getCookie("access_token");
     try {
       const del = await fetch(
-        `http://localhost:3131/api/v1/service/del-sub-service/${id}`,
+        `http://150.95.26.51:3131/api/v1/service/del-sub-service/${id}`,
         {
           method: "DELETE",
           headers: {
