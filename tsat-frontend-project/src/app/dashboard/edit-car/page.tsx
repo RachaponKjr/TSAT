@@ -288,10 +288,12 @@ const page = () => {
       await fetch('http://150.95.26.51:3131/api/v1/car-model/create', {
         method: 'POST',
         body: form,
+        credentials:"include",
         headers: {
           Authorization: `Bearer ${cookie}`
         }
       }).then(res => {
+        console.log(res)
         if (res.status === 200) {
           toast.success('เพิ่มรถสําเร็จ', { className: '!text-green-500' })
           setAddOpen(false)
@@ -318,6 +320,8 @@ const page = () => {
     void getModeCar()
   }, [getModeCar])
 
+  console.log(imageModel)
+  console.log(imageName)
   return (
     <div className='space-y-4 sm:space-y-6'>
       {/* Header */}

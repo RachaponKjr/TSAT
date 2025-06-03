@@ -19,8 +19,10 @@ const ImageMultiUpload: React.FC<ImageMultiUploadProps> = ({
 
   // sync ค่า value (จาก props) เข้ามาเมื่อโหลด component
   useEffect(() => {
-    setPreviews(value);
-  }, [value]);
+    if (JSON.stringify(value) !== JSON.stringify(previews)) {
+      setPreviews(value);
+    }
+  }, [previews, value]);
 
   const handleClick = () => {
     if (!readOnly) {
