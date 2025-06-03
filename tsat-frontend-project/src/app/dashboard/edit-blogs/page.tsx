@@ -28,7 +28,7 @@ const page = () => {
     const getBlogs = useCallback(async () => {
         try {
             const { data } = await api.customerWork.getCustomerWork()
-            setDataBlogs(data.works)
+            setDataBlogs(data?.works)
         } catch (error) {
             console.log(error)
         }
@@ -164,7 +164,7 @@ const page = () => {
                             {/* Image Container */}
                             <div className='relative aspect-video bg-gray-100 overflow-hidden'>
                                 <Badge className='absolute top-2 left-2 z-10 bg-white/90 text-gray-700 shadow-sm'>
-                                    {item.carModel.name}
+                                    {item.carModel?.name || "ไม่พบ"}
                                 </Badge>
                                 
                                 {/* Delete Button */}
@@ -203,7 +203,7 @@ const page = () => {
                                     <div className='flex items-center justify-between text-xs text-gray-500'>
                                         <span>บทความ #{index + 1}</span>
                                         <span className='text-[#8F2F34] font-medium'>
-                                            {item.carModel.name}
+                                            {item.carModel?.name || "ไม่พบ"}
                                         </span>
                                     </div>
                                 </div>

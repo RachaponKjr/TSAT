@@ -172,7 +172,7 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor({ setEditorContent }: { setEditorContent: React.Dispatch<React.SetStateAction<JSONContent | null>> }) {
+export function SimpleEditor({ setEditorContent,content }: { content?: any,setEditorContent: React.Dispatch<React.SetStateAction<JSONContent | null>> }) {
   const isMobile = useMobile()
   const windowSize = useWindowSize()
   const [mobileView, setMobileView] = React.useState<
@@ -241,7 +241,7 @@ export function SimpleEditor({ setEditorContent }: { setEditorContent: React.Dis
       TrailingNode,
       Link.configure({ openOnClick: false }),
     ],
-    // content: content,
+    content: content,
   })
 
   React.useEffect(() => {

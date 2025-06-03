@@ -1,9 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import HeadAddBlogs from "./_components/head-add-blogs";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
-import { JSONContent } from "@tiptap/react";
+import {
+  EditorContent,
+  EditorContext,
+  JSONContent,
+  useEditor,
+} from "@tiptap/react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -18,10 +22,10 @@ import api from "@/server/api";
 import { CarCatogory } from "@/types/car-model";
 import ImageUpload from "@/components/image-upload";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { getCookie } from "@/lib/cookie";
 import { Switch } from "antd";
-import { SubCarModel } from "../../edit-review/_components/add-review";
+// import { SubCarModel } from "../../edit-review/_components/add-review";
 import {
   Tag,
   X,
@@ -30,14 +34,35 @@ import {
   FileText,
   Car,
   Image as ImageIcon,
+  Loader2,
 } from "lucide-react";
-import { ServiceResponse } from "../../edit-service/_components/table-service";
+// import { ServiceResponse } from "../../edit-service/_components/table-service";
+import HeadAddBlogs from "../../add/_components/head-add-blogs";
+import Image from "next/image";
+import { ServiceResponse } from "@/app/dashboard/edit-service/_components/table-service";
+import { SubCarModel } from "@/app/dashboard/edit-review/_components/add-review";
 
 type BlogType = "WorkBlog" | "ReviewBlog";
 
+interface BlogData {
+  id: string;
+  title: string;
+  content: JSONContent | null;
+  carModelId: string;
+  type: BlogType;
+  serviceId: string;
+  subServiceId: string;
+  carSubModelId: string;
+  isShow: boolean;
+  tags: string[];
+  imageUrl?: string;
+}
+
 const Page = () => {
-  const [editorContent, setEditorContent] = useState<JSONContent | null>(null);
   const router = useRouter();
+  const params = useParams();
+  const blogId = params?.id as string;
+
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState<string>("");
   const [carModel, setCarModel] = useState<CarCatogory[]>([]);
@@ -45,14 +70,20 @@ const Page = () => {
   const [subService, setSubService] = useState([]);
   const [carSubModel, setCarSubModel] = useState<SubCarModel[]>([]);
   const [image, setImage] = useState<File | null>(null);
+  const [currentImageUrl, setCurrentImageUrl] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // เพิ่ม state นี้
+
   const [data, setData] = useState<{
     title: string;
     content: JSONContent | null;
     carModelId: string;
     type: BlogType;
     serviceId: string;
+    imageUrl: string;
     subServiceId: string;
+    tags: string[];
     carSubModelId: string;
     isShow: boolean;
   }>({
@@ -60,11 +91,66 @@ const Page = () => {
     content: null,
     carModelId: "",
     carSubModelId: "",
+    tags: [],
     serviceId: "",
+    imageUrl: "",
     subServiceId: "",
     type: "WorkBlog",
     isShow: false,
   });
+
+
+  // Fetch existing blog data
+  const getBlogData = useCallback(async () => {
+    if (!blogId) return;
+
+    try {
+      setIsLoading(true);
+      const cookie = await getCookie("access_token");
+      const response = await fetch(
+        `http://localhost:3131/api/v1/customer-work/get-work/${blogId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const result = await response.json();
+        const blogData: BlogData = result.data;
+        console.log("Res", blogData);
+
+        // อัปเดต state ทั้งหมดพร้อมกัน
+        const newData = {
+          title: blogData.title,
+          content: blogData.content,
+          carModelId: blogData.carModelId,
+          carSubModelId: blogData.carSubModelId,
+          serviceId: blogData.serviceId,
+          subServiceId: blogData.subServiceId,
+          type: blogData.type,
+          isShow: blogData.isShow,
+          imageUrl: blogData.imageUrl || "",
+          tags: blogData.tags || [],
+        };
+
+        setData(newData);
+        setTags(blogData.tags || []);
+        setCurrentImageUrl(blogData.imageUrl || "");
+        setIsDataLoaded(true); // เซ็ตว่าข้อมูลโหลดเสร็จแล้ว
+      } else {
+        toast.error("ไม่สามารถโหลดข้อมูลบทความได้");
+        router.back();
+      }
+    } catch (error) {
+      console.error("Error fetching blog data:", error);
+      toast.error("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+      router.back();
+    } finally {
+      setIsLoading(false);
+    }
+  }, [blogId, router]);
 
   const getCarModel = useCallback(async () => {
     try {
@@ -89,6 +175,8 @@ const Page = () => {
     if (tag && !tags.includes(tag)) {
       const newTags = [...tags, tag.trim()];
       setTags(newTags);
+      // อัปเดต data state ด้วย
+      setData((prev) => ({ ...prev, tags: newTags }));
     }
   };
 
@@ -96,6 +184,8 @@ const Page = () => {
     const newTags = [...tags];
     newTags.splice(index, 1);
     setTags(newTags);
+    // อัปเดต data state ด้วย
+    setData((prev) => ({ ...prev, tags: newTags }));
   };
 
   const getSubCarModel = useCallback(async (id: string) => {
@@ -106,18 +196,18 @@ const Page = () => {
       console.error("Error fetching sub car models:", error);
     }
   }, []);
+
   const getSubService = useCallback(async (id: string) => {
     try {
       const { data } = await api.service.getSubService(id);
       setSubService(data?.subService);
-      console.log("DATA!", res);
     } catch (error) {
-      console.error("Error fetching sub car models:", error);
+      console.error("Error fetching sub service:", error);
     }
   }, []);
 
-  const handleSubmit = async () => {
-    if (!data.title || !data.carModelId || !editorContent || !image) {
+  const handleUpdate = async () => {
+    if (!data.title || !data.carModelId || !data.content) {
       toast.error("กรุณากรอกข้อมูลให้ครบ", { className: "!text-red-500" });
       return;
     }
@@ -128,63 +218,73 @@ const Page = () => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("carModelId", data.carModelId);
-    formData.append("content", JSON.stringify(editorContent));
+    formData.append("content", JSON.stringify(data.content));
     formData.append("serviceId", data.serviceId);
     formData.append("subServiceId", data.subServiceId);
     formData.append("type", data.type);
     formData.append("isShow", data.isShow ? "true" : "false");
-    formData.append("tags", JSON.stringify(tags));
-    formData.append("image", image);
+    formData.append("tags", JSON.stringify(data.tags)); // ใช้ data.tags แทน tags
     formData.append("carSubModelId", data.carSubModelId);
 
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
-      await fetch(
-        "http://150.95.26.51:3131/api/v1/customer-work/create-work",
+      const response = await fetch(
+        `http://localhost:3131/api/v1/customer-work/update-work/${blogId}`,
         {
-          method: "POST",
+          method: "PUT",
           body: formData,
           headers: {
             Authorization: `Bearer ${cookie}`,
           },
         }
-      )
-        .then((res) => {
-          if (res.status === 200) {
-            toast.success("สร้างบทความสําเร็จ", {
-              className: "!text-green-500",
-            });
-            router.back();
-          }
-        })
-        .catch((e) => {
-          toast.error("เกิดข้อผิดพลาดในการสร้าง Blog");
+      );
+
+      if (response.status === 200) {
+        toast.success("อัปเดตบทความสำเร็จ", {
+          className: "!text-green-500",
         });
-    } catch {
-      toast.error("เกิดข้อผิดพลาดในการสร้าง Blog");
+        router.back();
+      } else {
+        toast.error("เกิดข้อผิดพลาดในการอัปเดต Blog");
+      }
+    } catch (error) {
+      console.error("Error updating blog:", error);
+      toast.error("เกิดข้อผิดพลาดในการอัปเดต Blog");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
+    void getBlogData();
     void getCarModel();
     void getService();
+  }, [getBlogData, getCarModel, getService]);
+
+  useEffect(() => {
     if (data?.carModelId) {
       void getSubCarModel(data.carModelId);
     }
     if (data?.serviceId) {
       void getSubService(data.serviceId);
     }
-  }, [
-    data.carModelId,
-    data.serviceId,
-    getCarModel,
-    getService,
-    getSubCarModel,
-    getSubService,
-  ]);
+  }, [data.carModelId, data.serviceId, getSubCarModel, getSubService]);
 
-  console.log(data);
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center gap-2 text-gray-600">
+          <Loader2 className="w-6 h-6 animate-spin" />
+          <span>กำลังโหลดข้อมูล...</span>
+        </div>
+      </div>
+    );
+  }
+
+  console.log(data, "carSubModel");
 
   return (
     <div className="space-y-4 sm:space-y-6 pb-6">
@@ -193,13 +293,12 @@ const Page = () => {
       {/* Form Container */}
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
         <div className="p-4 sm:p-6">
-          {/* Section Headers for Mobile */}
           <div className="mb-6">
             <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2 mb-2">
               <FileText size={20} className="text-[#8F2F34]" />
-              ข้อมูลบทความ
+              แก้ไขข้อมูลบทความ
             </h2>
-            <p className="text-sm text-gray-600">กรอกข้อมูลพื้นฐานของบทความ</p>
+            <p className="text-sm text-gray-600">แก้ไขข้อมูลพื้นฐานของบทความ</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -257,6 +356,7 @@ const Page = () => {
                   เลือกรุ่นรถ
                 </span>
                 <Select
+                  value={data.carModelId}
                   onValueChange={(value) =>
                     setData((prev) => ({ ...prev, carModelId: value }))
                   }
@@ -284,6 +384,7 @@ const Page = () => {
                   เลือกรุ่นรถย่อย
                 </span>
                 <Select
+                  value={data.carSubModelId}
                   onValueChange={(value) =>
                     setData((prev) => ({ ...prev, carSubModelId: value }))
                   }
@@ -306,19 +407,20 @@ const Page = () => {
               </div>
             </div>
 
-            {/* service */}
+            {/* Service */}
             <div className="md:col-span-1">
               <div className="flex flex-col items-start gap-2">
                 <span className="text-sm font-medium text-gray-700">
                   เลือกบริการ
                 </span>
                 <Select
+                  value={data.serviceId}
                   onValueChange={(value) =>
                     setData((prev) => ({ ...prev, serviceId: value }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
-                    <SelectValue placeholder="กรุณาเลือกรุ่นรถรอง" />
+                    <SelectValue placeholder="กรุณาเลือกบริการ" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -335,19 +437,20 @@ const Page = () => {
               </div>
             </div>
 
-            {/* Subservice */}
+            {/* Sub Service */}
             <div className="md:col-span-1">
               <div className="flex flex-col items-start gap-2">
                 <span className="text-sm font-medium text-gray-700">
                   เลือกบริการย่อย
                 </span>
                 <Select
+                  value={data.subServiceId}
                   onValueChange={(value) =>
                     setData((prev) => ({ ...prev, subServiceId: value }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
-                    <SelectValue placeholder="กรุณาเลือกรุ่นรถรอง" />
+                    <SelectValue placeholder="กรุณาเลือกบริการย่อย" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -374,7 +477,6 @@ const Page = () => {
                   แท็ก Blog
                 </span>
 
-                {/* Tag Input */}
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Input
                     name="tagInput"
@@ -404,7 +506,6 @@ const Page = () => {
                   </button>
                 </div>
 
-                {/* Tags Display */}
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag, index) => (
@@ -453,12 +554,24 @@ const Page = () => {
                   <ImageIcon size={14} />
                   เพิ่มภาพหน้าปก
                 </span>
+                {currentImageUrl && !image && (
+                  <div className="mb-2">
+                    <Image
+                      src={currentImageUrl}
+                      alt="Current cover"
+                      className="w-32 h-20 object-cover rounded border"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">ภาพปัจจุบัน</p>
+                  </div>
+                )}
                 <ImageUpload onChange={setImage} />
+                {image && (
+                  <p className="text-xs text-green-600">เลือกภาพใหม่แล้ว</p>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Save Button */}
           <div className="mt-6 pt-6 border-t border-gray-200">
             <div className="flex flex-col sm:flex-row justify-end gap-3">
               <button
@@ -468,19 +581,19 @@ const Page = () => {
                 ยกเลิก
               </button>
               <button
-                onClick={handleSubmit}
+                onClick={handleUpdate}
                 disabled={isSubmitting}
-                className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white px-6 py-2.5 rounded-lg transition-colors font-medium"
+                className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white px-6 py-2.5 rounded-lg transition-colors font-medium"
               >
                 {isSubmitting ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>กำลังบันทึก...</span>
+                    <span>กำลังอัปเดต...</span>
                   </>
                 ) : (
                   <>
                     <Save size={16} />
-                    <span>บันทึก</span>
+                    <span>อัปเดต</span>
                   </>
                 )}
               </button>
@@ -495,20 +608,30 @@ const Page = () => {
           <div className="mb-4">
             <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2 mb-2">
               <FileText size={20} className="text-[#8F2F34]" />
-              เนื้อหาบทความ
+              แก้ไขเนื้อหาบทความ
             </h2>
-            <p className="text-sm text-gray-600">เขียนเนื้อหาบทความของคุณ</p>
+            <p className="text-sm text-gray-600">แก้ไขเนื้อหาบทความของคุณ</p>
           </div>
 
           <div className="border border-gray-200 rounded-lg overflow-hidden">
-            <SimpleEditor
-              setEditorContent={(
-                content: React.SetStateAction<JSONContent | null>
-              ) => {
-                setEditorContent(content);
-                setData((prev) => ({ ...prev, content: content }));
-              }}
-            />
+            {/* รอให้ข้อมูลโหลดเสร็จก่อนแสดง SimpleEditor */}
+            {isDataLoaded && (
+              <SimpleEditor
+                key={`editor-${blogId}`} // เพิ่ม key เพื่อ force re-render เมื่อ blogId เปลี่ยน
+                content={data.content}
+                setEditorContent={(content) =>
+                  setData((prev) => ({ ...prev, content }))
+                }
+              />
+            )}
+            {!isDataLoaded && (
+              <div className="flex items-center justify-center h-64">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                  <span>กำลังโหลด Editor...</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
