@@ -48,6 +48,7 @@ async function baseApi<T>({
     const response = await fetch(fullUrl, {
       ...config,
       headers: requestHeaders,
+      credentials: requiresAuth ? "include" : "same-origin"
     });
 
     if (!response.ok) {
