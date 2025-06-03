@@ -14,9 +14,10 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Edit, Trash2, Calendar, User, AlertTriangle } from "lucide-react";
+import { Edit, Trash2, Calendar, User, AlertTriangle, Eye } from "lucide-react";
 import EditZone from "./edit-zone";
 import { toast } from "sonner";
 import { getCookie } from "@/lib/cookie";
@@ -272,40 +273,118 @@ const TableService = () => {
           </TableHeader>
           <TableBody>
             {services.map((service, index) => (
-              <TableRow key={service.id} className="hover:bg-gray-50">
-                <TableCell className="text-center font-medium text-gray-600">
-                  {index + 1}
-                </TableCell>
-                <TableCell className="font-medium">
-                  <div className="max-w-[200px] truncate">
-                    {service.serviceName}
-                  </div>
-                </TableCell>
-                <TableCell className="text-center text-sm text-gray-600">
-                  {dayjs(service.createdAt).format("DD/MM/YYYY")}
-                </TableCell>
-                <TableCell className="text-center text-sm text-gray-600">
-                  {dayjs(service.updatedAt).format("DD/MM/YYYY")}
-                </TableCell>
-                <TableCell className="text-center">
-                  <div className="flex items-center justify-center gap-2">
-                    <button
-                      onClick={() => handleEdit(service)}
-                      className="flex items-center gap-1 bg-[#8F2F34] text-white px-3 py-1.5 rounded-md hover:bg-[#C65359] transition-colors text-sm font-medium"
-                    >
-                      <Edit size={14} />
-                      <span>แก้ไข</span>
-                    </button>
-                    <button
-                      onClick={() => handleDelete(service)}
-                      className="flex items-center gap-1 bg-red-500 text-white px-3 py-1.5 rounded-md hover:bg-red-600 transition-colors text-sm font-medium"
-                    >
-                      <Trash2 size={14} />
-                      <span>ลบ</span>
-                    </button>
-                  </div>
-                </TableCell>
-              </TableRow>
+              <React.Fragment key={service.id}>
+                <TableRow className="hover:bg-gray-50">
+                  <TableCell className="text-center font-medium text-gray-600">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <div className="max-w-[200px] truncate">
+                      {service.serviceName}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center text-sm text-gray-600">
+                    {dayjs(service.createdAt).format("DD/MM/YYYY")}
+                  </TableCell>
+                  <TableCell className="text-center text-sm text-gray-600">
+                    {dayjs(service.updatedAt).format("DD/MM/YYYY")}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => handleEdit(service)}
+                        className="flex items-center gap-1 bg-[#8F2F34] text-white px-3 py-1.5 rounded-md hover:bg-[#C65359] transition-colors text-sm font-medium"
+                      >
+                        <Edit size={14} />
+                        <span>แก้ไข</span>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(service)}
+                        className="flex items-center gap-1 bg-red-500 text-white px-3 py-1.5 rounded-md hover:bg-red-600 transition-colors text-sm font-medium"
+                      >
+                        <Trash2 size={14} />
+                        <span>ลบ</span>
+                      </button>
+                      <Dialog>
+                        <DialogTrigger>
+                          <button className="flex items-center gap-1 bg-green-500 text-white px-3 py-1.5 rounded-md hover:bg-green-600 transition-colors text-sm font-medium">
+                            <Eye size={14} />
+                            <span>ดูบริการย่อย</span>
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl p-4">
+                          <DialogTitle className="text-lg font-semibold mb-4">
+                            บริการย่อย
+                          </DialogTitle>
+
+                          {service.subService.length > 0 ? (
+                            <div className="space-y-2">
+                              {service.subService.map((item, index) => (
+                                <div
+                                  key={item.id}
+                                  className="flex items-center justify-between border p-3 rounded-md bg-gray-50"
+                                >
+                                  <div className="text-sm text-gray-800 flex items-center gap-2">
+                                    <span className="text-gray-500">
+                                      #{index + 1}
+                                    </span>
+                                    <span>{item.subServiceName}</span>
+                                  </div>
+
+                                  {/* Confirm Delete Dialog */}
+                                  <Dialog>
+                                    <DialogTrigger className="text-red-500 hover:underline text-sm flex items-center gap-1">
+                                      <Trash2 size={14} />
+                                      ลบ
+                                    </DialogTrigger>
+                                    <DialogContent className="max-w-sm text-center p-4">
+                                      <div className="flex flex-col items-center">
+                                        <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                                          <AlertTriangle
+                                            className="text-red-500"
+                                            size={28}
+                                          />
+                                        </div>
+                                        <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                                          ยืนยันการลบ
+                                        </h2>
+                                        <p className="text-sm text-gray-600 mb-4">
+                                          ต้องการลบบริการย่อย{" "}
+                                          <strong>{item.subServiceName}</strong>{" "}
+                                          หรือไม่?
+                                        </p>
+                                        <div className="flex justify-center gap-3">
+                                          <DialogClose asChild>
+                                            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">
+                                              ยกเลิก
+                                            </button>
+                                          </DialogClose>
+                                          <button
+                                            onClick={() =>
+                                              delSubService(item.id)
+                                            }
+                                            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                                          >
+                                            ลบ
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </DialogContent>
+                                  </Dialog>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-sm text-gray-500 text-center">
+                              ยังไม่มีบริการย่อย
+                            </p>
+                          )}
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
             ))}
           </TableBody>
         </Table>
