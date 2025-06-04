@@ -136,7 +136,7 @@ const Page = () => {
     formData.append("carSubModelId", data.carSubModel.id);
 
     try {
-      await fetch("http://localhost:3131/api/v1/customer-work/create-work", {
+      await fetch("http://150.95.26.51:3131/api/v1/customer-work/create-work", {
         method: "POST",
         body: formData,
         headers: {

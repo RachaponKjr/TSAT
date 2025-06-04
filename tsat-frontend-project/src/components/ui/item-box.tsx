@@ -40,7 +40,7 @@ function ItemBox({ item }: { item: Work }) {
         </div>
         <Image
           unoptimized
-          src={`http://localhost:3131${item.images}`}
+          src={`http://150.95.26.51:3131${item.images}`}
           alt={item.title || ""}
           fill
           className="object-cover"

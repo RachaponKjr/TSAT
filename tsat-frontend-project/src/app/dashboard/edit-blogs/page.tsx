@@ -38,7 +38,7 @@ const page = () => {
     const deleteBlog = useCallback(async (id: string) => {
         const accept_token = await getCookie('access_token')
         try {
-            const res = await fetch(`http://localhost:3131/api/v1/customer-work/delete-work/${id}`, {
+            const res = await fetch(`http://150.95.26.51:3131/api/v1/customer-work/delete-work/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accept_token}`
@@ -187,7 +187,7 @@ const page = () => {
 
                                 <Image 
                                     unoptimized 
-                                    src={`http://localhost:3131${item.images}`} 
+                                    src={`http://150.95.26.51:3131${item.images}`} 
                                     alt={item.title || "blog image"} 
                                     fill 
                                     className='object-cover group-hover:scale-105 transition-transform duration-200' 

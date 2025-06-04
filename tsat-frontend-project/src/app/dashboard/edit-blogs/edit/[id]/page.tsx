@@ -102,7 +102,7 @@ const Page = () => {
       setIsLoading(true);
       const cookie = await getCookie("access_token");
       const response = await fetch(
-        `http://localhost:3131/api/v1/customer-work/get-work/${blogId}`,
+        `http://150.95.26.51:3131/api/v1/customer-work/get-work/${blogId}`,
         {
           headers: {
             Authorization: `Bearer ${cookie}`,
@@ -222,7 +222,7 @@ const Page = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3131/api/v1/customer-work/update-work/${blogId}`,
+        `http://150.95.26.51:3131/api/v1/customer-work/update-work/${blogId}`,
         {
           method: "PUT",
           body: formData,

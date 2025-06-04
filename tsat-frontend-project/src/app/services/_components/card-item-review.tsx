@@ -35,7 +35,7 @@ function CardItemReview({ item }: { item: Work }) {
         <div className="overflow-hidden w-full aspect-video relative rounded-[10px]">
           <Image
             unoptimized
-            src={`http://localhost:3131${item.images}`}
+            src={`http://150.95.26.51:3131${item.images}`}
             alt="modelcar"
             fill
             className="object-cover"
