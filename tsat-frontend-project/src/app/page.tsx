@@ -42,7 +42,6 @@ export default async function Home() {
       return <div>ไม่สามารถโหลดข้อมูลหน้าแรกได้</div>;
     }
 
-    console.log('Customer Work:', customerWork.works);
     return (
       <div>
         <HeaderSection

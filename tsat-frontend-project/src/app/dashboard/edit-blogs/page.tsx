@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { getCookie } from '@/lib/cookie'
 import api from '@/server/api'
+import { ResBlog } from '@/server/api/customer-work'
 import { Button } from 'antd'
 import { Plus, X, BookOpen, AlertTriangle, Edit } from 'lucide-react'
 import Image from 'next/image'
@@ -11,18 +12,18 @@ import Link from 'next/link'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-interface BlogItem {
-    id: string
-    title: string
-    images: string
-    carModel: {
-        name: string
-    }
-}
+// interface BlogItem {
+//     id: string
+//     title: string
+//     images: string
+//     carModel: {
+//         name: string
+//     }
+// }
 
 const page = () => {
-    const [dataBlogs, setDataBlogs] = useState<BlogItem[]>([])
-    const [selectedBlog, setSelectedBlog] = useState<BlogItem | null>(null)
+    const [dataBlogs, setDataBlogs] = useState<ResBlog[]>([])
+    const [selectedBlog, setSelectedBlog] = useState<ResBlog | null>(null)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 
     const getBlogs = useCallback(async () => {
@@ -37,7 +38,7 @@ const page = () => {
     const deleteBlog = useCallback(async (id: string) => {
         const accept_token = await getCookie('access_token')
         try {
-            const res = await fetch(`http://150.95.26.51:3131/api/v1/customer-work/delete-work/${id}`, {
+            const res = await fetch(`http://localhost:3131/api/v1/customer-work/delete-work/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accept_token}`
@@ -115,6 +116,7 @@ const page = () => {
         )
     }
 
+
     return (
         <>
             <div className='space-y-4 sm:space-y-6'>
@@ -159,12 +161,12 @@ const page = () => {
 
                 {/* Blog Grid */}
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'>
-                    {dataBlogs.map((item: BlogItem, index: number) => (
+                    {dataBlogs.map((item: ResBlog, index: number) => (
                         <div key={item.id} className='group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden'>
                             {/* Image Container */}
                             <div className='relative aspect-video bg-gray-100 overflow-hidden'>
                                 <Badge className='absolute top-2 left-2 z-10 bg-white/90 text-gray-700 shadow-sm'>
-                                    {item.carModel?.name || "ไม่พบ"}
+                                    {item.carModel || "ไม่พบ"}
                                 </Badge>
                                 
                                 {/* Delete Button */}
@@ -185,7 +187,7 @@ const page = () => {
 
                                 <Image 
                                     unoptimized 
-                                    src={`http://150.95.26.51:3131${item.images}`} 
+                                    src={`http://localhost:3131${item.images}`} 
                                     alt={item.title || "blog image"} 
                                     fill 
                                     className='object-cover group-hover:scale-105 transition-transform duration-200' 
@@ -203,7 +205,7 @@ const page = () => {
                                     <div className='flex items-center justify-between text-xs text-gray-500'>
                                         <span>บทความ #{index + 1}</span>
                                         <span className='text-[#8F2F34] font-medium'>
-                                            {item.carModel?.name || "ไม่พบ"}
+                                            {item.carModel || "ไม่พบ"}
                                         </span>
                                     </div>
                                 </div>
@@ -235,7 +237,7 @@ const page = () => {
                                     "{selectedBlog.title}"
                                 </p>
                                 <p className='text-xs text-gray-500 mt-1'>
-                                    หมวดหมู่: {selectedBlog.carModel.name}
+                                    หมวดหมู่: {selectedBlog.carModel}
                                 </p>
                             </div>
                         )}

@@ -11,7 +11,6 @@ export default async function Customer() {
   const { data: cms } = cmsResponse as { data: CMSCustomerProps };
   const { data: customerWork } = await api.customerWork.getCustomerWork() as { data: { works: Work[] } };
 
-  console.log('Customer Work:', customerWork.works);
   return (
     <div>
       <HeaderCustomerSection
@@ -25,7 +24,6 @@ export default async function Customer() {
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 px-4 py-6 lg:px-[100px]'>
         {customerWork?.works
-          ?.filter((item: Work) => item.type === "WorkBlog")
           ?.map((item: Work, index: number) => (
             <ItemBox item={item} key={item.id || index} />
           ))

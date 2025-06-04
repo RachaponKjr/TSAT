@@ -1,34 +1,47 @@
-
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Work } from '@/types/customer-work';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Work } from "@/types/customer-work";
 
 function ItemBox({ item }: { item: Work }) {
-
   if (!item) {
     return null;
   }
 
-  const firstTag = item.carModel.name;
-  const subCarModel = item.carSubModel?.name;
+  const tagCarModel = item.carModel;
+  const tagSubCarModel = item.carSubModel;
+  const tagService = item.service;
+  const tagSubService = item.subService;
+  const Alltags = item.tags || [];
+
+  const allTags = [
+    tagCarModel,
+    tagSubCarModel,
+    tagService,
+    tagSubService,
+    ...Alltags,
+  ].filter(Boolean);
 
   return (
-    <Link href={`/customer/${item.id}`} className="flex flex-row md:flex-col gap-3">
+    <Link
+      href={`/customer/${item.id}`}
+      className="flex flex-row md:flex-col gap-3"
+    >
       <div className="min-w-[160px] md:w-full aspect-[8/6] lg:aspect-[16/8] rounded-lg relative overflow-hidden">
-        {subCarModel ? (
-          <div className="px-2 py-1 absolute top-4 left-4 bg-[#8F2F34] rounded-sm text-[clamp(12px,1.5vw,16px)] z-10 text-white hidden md:block">
-            {subCarModel}
-          </div>
-        ) : firstTag ? (
-          <div className="px-1 py-1 absolute top-4 left-4 bg-[#8F2F34] rounded-sm text-[clamp(12px,1.5vw,16px)] z-10 text-white hidden md:block">
-            {firstTag}
-          </div>
-        ) : null}
+        <div className="absolute top-4 left-4 hidden lg:flex flex-wrap gap-1 z-10">
+          {allTags.map((tag: string, index: number) => (
+            <div
+              key={index}
+              className="px-2 py-1 bg-[#8F2F34] rounded-sm text-[clamp(8px,1.5vw,10px)] text-white block"
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
         <Image
           unoptimized
-          src={`http://150.95.26.51:3131${item.images}`}
-          alt={item.title || ''}
+          src={`http://localhost:3131${item.images}`}
+          alt={item.title || ""}
           fill
           className="object-cover"
         />
@@ -37,11 +50,16 @@ function ItemBox({ item }: { item: Work }) {
         <p className="text-[#333333] font-semibold text-[13px] lg:text-xl line-clamp-2 md:line-clamp-3">
           {item.title}
         </p>
-        {firstTag && (
-          <div className="px-1 py-1 w-max bg-[#8F2F34] text-white rounded-sm text-[12px] z-10 md:hidden block">
-            {firstTag}
-          </div>
-        )}
+        <div className="flex lg:hidden gap-1 flex-wrap">
+          {allTags.map((tag: string, index: number) => (
+            <div
+              key={index}
+              className="px-2 py-1 bg-[#8F2F34] rounded-sm text-[clamp(8px,1.5vw,10px)] text-white block"
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
       </div>
     </Link>
   );

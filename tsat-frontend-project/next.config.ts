@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["localhost", "150.95.25.111"],
+    domains: ["localhost", "150.95.26.51"],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },

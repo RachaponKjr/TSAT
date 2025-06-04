@@ -3,6 +3,7 @@
 import ItemBox from '@/components/ui/item-box';
 import api from '@/server/api';
 import React, { useEffect, useState, useCallback } from 'react'
+import CardItemReview from '../services/_components/card-item-review';
 
 interface SubCarModel {
     carModel: string
@@ -32,13 +33,13 @@ const ServiceModelCar = ({ subCarModelId }: { subCarModelId: string }) => {
 
     return (
         <div
-            className='min-w-full grid grid-cols-1 lg:grid-cols-3 justify-center gap-4 mt-4'
+            className='min-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-center gap-4 mt-4'
         >
             {subCarModel.length === 0 ? (
                 <h1 className='col-span-3 text-center '>ไม่พบข้อมูล</h1>
             ) : (
-                subCarModel.map((subCarModel: SubCarModel) => (
-                    <ItemBox item={subCarModel} key={subCarModel.id} />
+                subCarModel.slice(0,3).map((subCarModel: SubCarModel) => (
+                    <CardItemReview item={subCarModel} key={subCarModel.id} />
                 ))
             )}
             {/* <ItemBox /> */}

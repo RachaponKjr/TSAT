@@ -55,7 +55,6 @@ export default function Navbar() {
     getContact();
   }, [getContact]);
 
-  console.log(path);
 
   return (
     <div className={cn(path === '/admin-login' || path.startsWith('/dashboard') ? 'hidden' : 'block', 'text-white py-0 shadow-[0px_12px_24px_0px_#00000008] md:py-6 md:px-4 lg::px-12 xl:px-24 text-base md:text-3xl bg-[#333333] md:bg-white container mx-auto')}>

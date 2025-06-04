@@ -33,8 +33,6 @@ import {
 } from "lucide-react";
 import { ServiceResponse } from "../../edit-service/_components/table-service";
 
-type BlogType = "WorkBlog" | "ReviewBlog";
-
 const Page = () => {
   const [editorContent, setEditorContent] = useState<JSONContent | null>(null);
   const router = useRouter();
@@ -49,20 +47,22 @@ const Page = () => {
   const [data, setData] = useState<{
     title: string;
     content: JSONContent | null;
-    carModelId: string;
-    type: BlogType;
-    serviceId: string;
-    subServiceId: string;
-    carSubModelId: string;
+    carModel: { name: string; id: string };
+    service: { name: string; id: string };
+    imageUrl: string;
+    subService: { name: string; id: string };
+    tags: string[];
+    carSubModel: { name: string; id: string };
     isShow: boolean;
   }>({
     title: "",
     content: null,
-    carModelId: "",
-    carSubModelId: "",
-    serviceId: "",
-    subServiceId: "",
-    type: "WorkBlog",
+    carModel: { name: "", id: "" },
+    carSubModel: { name: "", id: "" },
+    tags: [],
+    service: { name: "", id: "" },
+    imageUrl: "",
+    subService: { name: "", id: "" },
     isShow: false,
   });
 
@@ -110,14 +110,13 @@ const Page = () => {
     try {
       const { data } = await api.service.getSubService(id);
       setSubService(data?.subService);
-      console.log("DATA!", res);
     } catch (error) {
       console.error("Error fetching sub car models:", error);
     }
   }, []);
 
   const handleSubmit = async () => {
-    if (!data.title || !data.carModelId || !editorContent || !image) {
+    if (!data.title || !data.carModel.id || !editorContent || !image) {
       toast.error("กรุณากรอกข้อมูลให้ครบ", { className: "!text-red-500" });
       return;
     }
@@ -127,27 +126,23 @@ const Page = () => {
 
     const formData = new FormData();
     formData.append("title", data.title);
-    formData.append("carModelId", data.carModelId);
+    formData.append("carModelId", data.carModel.id);
     formData.append("content", JSON.stringify(editorContent));
-    formData.append("serviceId", data.serviceId);
-    formData.append("subServiceId", data.subServiceId);
-    formData.append("type", data.type);
+    formData.append("serviceId", data.service.id);
+    formData.append("subServiceId", data.subService.id);
     formData.append("isShow", data.isShow ? "true" : "false");
     formData.append("tags", JSON.stringify(tags));
     formData.append("image", image);
-    formData.append("carSubModelId", data.carSubModelId);
+    formData.append("carSubModelId", data.carSubModel.id);
 
     try {
-      await fetch(
-        "http://150.95.26.51:3131/api/v1/customer-work/create-work",
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-          },
-        }
-      )
+      await fetch("http://localhost:3131/api/v1/customer-work/create-work", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+        },
+      })
         .then((res) => {
           if (res.status === 200) {
             toast.success("สร้างบทความสําเร็จ", {
@@ -169,22 +164,21 @@ const Page = () => {
   useEffect(() => {
     void getCarModel();
     void getService();
-    if (data?.carModelId) {
-      void getSubCarModel(data.carModelId);
+    if (data?.carModel.id) {
+      void getSubCarModel(data.carModel.id);
     }
-    if (data?.serviceId) {
-      void getSubService(data.serviceId);
+    if (data?.service.id) {
+      void getSubService(data.service.id);
     }
   }, [
-    data.carModelId,
-    data.serviceId,
+    data.carModel.id,
+    data.service.id,
     getCarModel,
     getService,
     getSubCarModel,
     getSubService,
   ]);
 
-  console.log(data);
 
   return (
     <div className="space-y-4 sm:space-y-6 pb-6">
@@ -210,7 +204,6 @@ const Page = () => {
                   <span className="text-sm font-medium text-gray-700">
                     ชื่อบทความ
                   </span>
-                  <span className="text-xs text-red-500">(หรือชื่อลูกค้า)</span>
                 </div>
                 <Input
                   name="name"
@@ -224,31 +217,6 @@ const Page = () => {
               </div>
             </div>
 
-            {/* Blog Type */}
-            <div className="md:col-span-1">
-              <div className="flex flex-col items-start gap-2">
-                <span className="text-sm font-medium text-gray-700">
-                  ชนิดบทความ
-                </span>
-                <Select
-                  value={data.type}
-                  onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, type: value as BlogType }))
-                  }
-                >
-                  <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
-                    <SelectValue placeholder="ชนิดบทความ" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="WorkBlog">บทความงานลูกค้า</SelectItem>
-                      <SelectItem value="ReviewBlog">บทความรีวิว</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
             {/* Car Model */}
             <div className="md:col-span-1">
               <div className="flex flex-col items-start gap-2">
@@ -258,7 +226,10 @@ const Page = () => {
                 </span>
                 <Select
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, carModelId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      carModel: { name: "", id: value },
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -285,7 +256,10 @@ const Page = () => {
                 </span>
                 <Select
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, carSubModelId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      carSubModel: { name: "", id: value },
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -314,7 +288,10 @@ const Page = () => {
                 </span>
                 <Select
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, serviceId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      service: { name: "", id: value },
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -343,7 +320,10 @@ const Page = () => {
                 </span>
                 <Select
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, subServiceId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      subService: { name: "", id: value },
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -363,6 +343,23 @@ const Page = () => {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+
+            {/* Show on Homepage */}
+            <div className="md:col-span-1">
+              <div className="flex flex-col gap-2">
+                <span className="text-sm font-medium text-gray-700">
+                  แสดงรีวิวงาน Service หน้าเเรก
+                </span>
+                <div className="flex items-center gap-3">
+                  <Switch
+                    checked={data.isShow || false}
+                    onChange={() =>
+                      setData((prev) => ({ ...prev, isShow: !prev.isShow }))
+                    }
+                  />
+                </div>
               </div>
             </div>
 
@@ -423,26 +420,6 @@ const Page = () => {
                     ))}
                   </div>
                 )}
-              </div>
-            </div>
-
-            {/* Show on Homepage */}
-            <div className="md:col-span-1">
-              <div className="flex flex-col gap-2">
-                <span className="text-sm font-medium text-gray-700">
-                  แสดงหน้าแรก
-                </span>
-                <div className="flex items-center gap-3">
-                  <Switch
-                    checked={data.isShow || false}
-                    onChange={() =>
-                      setData((prev) => ({ ...prev, isShow: !prev.isShow }))
-                    }
-                  />
-                  <span className="text-xs text-red-500">
-                    * ต้องเป็นบทความงานลูกค้า
-                  </span>
-                </div>
               </div>
             </div>
 

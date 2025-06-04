@@ -49,7 +49,6 @@ export default function CardServices({
   useEffect(() => {
     void getModelCar();
   }, [getModelCar]);
-  console.log('customerWork', customerWork);
 
   return (
     <div className="w-full mt-6 flex flex-col gap-5 xl:gap-8">
@@ -63,7 +62,7 @@ export default function CardServices({
                 </div>
                 <div className="space-y-2 text-white text-center md:text-start">
                   <h5 className="text-[17px] lg:text-[22px] font-semibold">{cardData.title}</h5>
-                  <span className="hidden lg:block text-base lg:text-xl font-medium ">{cardData.explain}</span>
+                  <span className="hidden lg:block text-base lg:text-xl font-medium line-clamp-3">{cardData.explain}</span>
                 </div>
               </div>
             </DialogTrigger>
@@ -154,7 +153,7 @@ export default function CardServices({
                     </Link>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                    {customerWork.filter((item: Work) => item.type === "WorkBlog").slice(0, 3).map((item: Work, index: number) => (
+                    {customerWork.slice(0, 3).map((item: Work, index: number) => (
                       <ItemBox item={item} key={index} />
                     ))}
                   </div>

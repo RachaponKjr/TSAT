@@ -23,7 +23,7 @@ function SwiperReviewCar({ workservice }: { workservice: Work[] }) {
                 }}
                 breakpoints={{
                     0: {
-                        slidesPerView: 3,
+                        slidesPerView: 2.2,
                         spaceBetween: 15,
                     },
                     768: {
@@ -34,20 +34,20 @@ function SwiperReviewCar({ workservice }: { workservice: Work[] }) {
                 className='w-full h-full relative'
             >
                 {workservice.map((item, index) => (
-                    item.isShow && item.type === "WorkBlog" &&
+                    item.isShow &&
                     <SwiperSlide key={item.id || index}>
                         <Link href={`/customer/${item.id}`} className='w-full space-y-2 cursor-pointer'>
                             <div className='w-full aspect-video relative rounded-lg overflow-hidden'>
                                 <Image
-                                    src={`http://150.95.26.51:3131${item.images}`}
-                                    alt={`${item.carModel.name} review`}
+                                    src={`http://localhost:3131${item.images}`}
+                                    alt={`${item.carModel} review`}
                                     fill
                                     unoptimized
                                     className='bg-neutral-100 object-cover'
                                 />
                             </div>
                             <h4 className='text-[12px] md:text-xl text-white font-semibold'>
-                                {item.carModel.name}
+                                {item.carModel}
                             </h4>
                         </Link>
                     </SwiperSlide>

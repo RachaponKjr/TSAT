@@ -18,7 +18,6 @@ const ImageBoxUpload: React.FC<ImageBoxUploadProps> = ({ onChange, value }) => {
     }
   }, [value]);
 
-  console.log("ImageBoxUpload value:", value);
 
   const handleClick = () => {
     fileInputRef.current?.click();

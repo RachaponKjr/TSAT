@@ -126,7 +126,6 @@ const TableService = () => {
     void getService();
   }, [getService]);
 
-  console.log(services, "services");
 
   // Mobile Card Component
   const ServiceCard = ({

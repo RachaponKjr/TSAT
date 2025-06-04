@@ -41,7 +41,6 @@ const CarouselReview = ({ workservice, headText }: { workservice: Work[], headTe
   // ตรวจสอบว่ามีข้อมูลที่จะแสดงหรือไม่
   const hasData = workservice && workservice.length > 0;
 
-  console.log('workservice', workservice);
   
   return (
     <div className="bg-[#8F2F34] py-8 md:py-8 relative">
@@ -60,7 +59,7 @@ const CarouselReview = ({ workservice, headText }: { workservice: Work[], headTe
         </div>
       </div>
       
-      <div className='px-4 md:px-24 container mx-auto'>
+      <div className='px-4 xl:px-24 container mx-auto'>
         {!hasData ? (
           <div className="text-white text-center md:text-left mt-4">ไม่มีข้อมูล</div>
         ) : (

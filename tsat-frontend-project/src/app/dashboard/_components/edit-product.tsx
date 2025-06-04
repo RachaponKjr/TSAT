@@ -70,7 +70,6 @@ const EditProduct = ({ data }: { data: Product }) => {
         void getCategory();
     }, [getCategory]);
 
-    console.log(editdata)
     return (
         <form onSubmit={updateProduct} className='space-y-4'>
             <InputWithLabel onChange={handleInputChange} label='ชื่อสินค้า' name='name' value={editdata?.name} />

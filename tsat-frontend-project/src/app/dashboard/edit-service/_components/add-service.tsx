@@ -25,9 +25,6 @@ const AddService = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [errors, setErrors] = useState<{[key: string]: string}>({})
-    console.log(serviceData,"serviceData")
-    console.log(images,"images")
-    console.log(iconFile,"images")
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
         setServiceData((prev) => ({

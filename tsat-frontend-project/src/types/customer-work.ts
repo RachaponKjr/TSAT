@@ -39,16 +39,13 @@ export const WorkSchema = z.object({
   title: z.string(),
   content: ContentSchema,
   isShow: z.boolean(),
+  service: z.string(),
+  subService: z.string(),
   type: z.string(),
   images: z.string(),
-  carSubModel: z.object({
-    name: z.string().nullable(),
-  }),
-  carModel: z.object({
-    id: z.string().uuid(),
-    name: z.string(),
-    image: z.string(),
-  }),
+  carSubModel: z.string(),
+  updata_at: z.string(),
+  carModel: z.string(),
   tags: z.array(z.string()),
 });
 

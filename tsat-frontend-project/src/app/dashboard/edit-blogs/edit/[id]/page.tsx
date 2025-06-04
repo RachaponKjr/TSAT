@@ -42,20 +42,17 @@ import Image from "next/image";
 import { ServiceResponse } from "@/app/dashboard/edit-service/_components/table-service";
 import { SubCarModel } from "@/app/dashboard/edit-review/_components/add-review";
 
-type BlogType = "WorkBlog" | "ReviewBlog";
-
 interface BlogData {
   id: string;
   title: string;
   content: JSONContent | null;
-  carModelId: string;
-  type: BlogType;
-  serviceId: string;
-  subServiceId: string;
-  carSubModelId: string;
+  carModel: { name: string; id: string };
+  service: { name: string; id: string };
+  subService: { name: string; id: string };
+  carSubModel: { name: string; id: string };
   isShow: boolean;
   tags: string[];
-  imageUrl?: string;
+  images?: string;
 }
 
 const Page = () => {
@@ -78,27 +75,24 @@ const Page = () => {
   const [data, setData] = useState<{
     title: string;
     content: JSONContent | null;
-    carModelId: string;
-    type: BlogType;
-    serviceId: string;
+    carModel: string;
+    service: string;
     imageUrl: string;
-    subServiceId: string;
+    subService: string;
     tags: string[];
-    carSubModelId: string;
+    carSubModel: string;
     isShow: boolean;
   }>({
     title: "",
     content: null,
-    carModelId: "",
-    carSubModelId: "",
+    carModel: "",
+    carSubModel: "",
     tags: [],
-    serviceId: "",
+    service: "",
     imageUrl: "",
-    subServiceId: "",
-    type: "WorkBlog",
+    subService: "",
     isShow: false,
   });
-
 
   // Fetch existing blog data
   const getBlogData = useCallback(async () => {
@@ -108,7 +102,7 @@ const Page = () => {
       setIsLoading(true);
       const cookie = await getCookie("access_token");
       const response = await fetch(
-        `http://150.95.26.51:3131/api/v1/customer-work/get-work/${blogId}`,
+        `http://localhost:3131/api/v1/customer-work/get-work/${blogId}`,
         {
           headers: {
             Authorization: `Bearer ${cookie}`,
@@ -119,19 +113,17 @@ const Page = () => {
       if (response.status === 200) {
         const result = await response.json();
         const blogData: BlogData = result.data;
-        console.log("Res", blogData);
 
         // อัปเดต state ทั้งหมดพร้อมกัน
         const newData = {
           title: blogData.title,
           content: blogData.content,
-          carModelId: blogData.carModelId,
-          carSubModelId: blogData.carSubModelId,
-          serviceId: blogData.serviceId,
-          subServiceId: blogData.subServiceId,
-          type: blogData.type,
+          carModel: blogData.carModel.id,
+          carSubModel: blogData.carSubModel.id,
+          service: blogData.service.id,
+          subService: blogData.subService.id,
           isShow: blogData.isShow,
-          imageUrl: blogData.imageUrl || "",
+          imageUrl: blogData.images || "",
           tags: blogData.tags || [],
         };
 
@@ -146,7 +138,6 @@ const Page = () => {
     } catch (error) {
       console.error("Error fetching blog data:", error);
       toast.error("เกิดข้อผิดพลาดในการโหลดข้อมูล");
-      router.back();
     } finally {
       setIsLoading(false);
     }
@@ -207,7 +198,7 @@ const Page = () => {
   }, []);
 
   const handleUpdate = async () => {
-    if (!data.title || !data.carModelId || !data.content) {
+    if (!data.title || !data.carModel || !data.content) {
       toast.error("กรุณากรอกข้อมูลให้ครบ", { className: "!text-red-500" });
       return;
     }
@@ -217,14 +208,13 @@ const Page = () => {
 
     const formData = new FormData();
     formData.append("title", data.title);
-    formData.append("carModelId", data.carModelId);
+    formData.append("carModelId", data.carModel);
     formData.append("content", JSON.stringify(data.content));
-    formData.append("serviceId", data.serviceId);
-    formData.append("subServiceId", data.subServiceId);
-    formData.append("type", data.type);
+    formData.append("serviceId", data.service);
+    formData.append("subServiceId", data.subService);
     formData.append("isShow", data.isShow ? "true" : "false");
     formData.append("tags", JSON.stringify(data.tags)); // ใช้ data.tags แทน tags
-    formData.append("carSubModelId", data.carSubModelId);
+    formData.append("carSubModelId", data.carSubModel);
 
     if (image) {
       formData.append("image", image);
@@ -232,7 +222,7 @@ const Page = () => {
 
     try {
       const response = await fetch(
-        `http://150.95.26.51:3131/api/v1/customer-work/update-work/${blogId}`,
+        `http://localhost:3131/api/v1/customer-work/update-work/${blogId}`,
         {
           method: "PUT",
           body: formData,
@@ -265,13 +255,13 @@ const Page = () => {
   }, [getBlogData, getCarModel, getService]);
 
   useEffect(() => {
-    if (data?.carModelId) {
-      void getSubCarModel(data.carModelId);
+    if (data?.carModel) {
+      void getSubCarModel(data.carModel);
     }
-    if (data?.serviceId) {
-      void getSubService(data.serviceId);
+    if (data?.service) {
+      void getSubService(data.service);
     }
-  }, [data.carModelId, data.serviceId, getSubCarModel, getSubService]);
+  }, [data.carModel, data.service, getSubCarModel, getSubService]);
 
   if (isLoading) {
     return (
@@ -284,7 +274,6 @@ const Page = () => {
     );
   }
 
-  console.log(data, "carSubModel");
 
   return (
     <div className="space-y-4 sm:space-y-6 pb-6">
@@ -323,31 +312,6 @@ const Page = () => {
               </div>
             </div>
 
-            {/* Blog Type */}
-            <div className="md:col-span-1">
-              <div className="flex flex-col items-start gap-2">
-                <span className="text-sm font-medium text-gray-700">
-                  ชนิดบทความ
-                </span>
-                <Select
-                  value={data.type}
-                  onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, type: value as BlogType }))
-                  }
-                >
-                  <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
-                    <SelectValue placeholder="ชนิดบทความ" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="WorkBlog">บทความงานลูกค้า</SelectItem>
-                      <SelectItem value="ReviewBlog">บทความรีวิว</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
             {/* Car Model */}
             <div className="md:col-span-1">
               <div className="flex flex-col items-start gap-2">
@@ -356,9 +320,12 @@ const Page = () => {
                   เลือกรุ่นรถ
                 </span>
                 <Select
-                  value={data.carModelId}
+                  value={data.carModel}
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, carModelId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      carModel: value,
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -384,9 +351,12 @@ const Page = () => {
                   เลือกรุ่นรถย่อย
                 </span>
                 <Select
-                  value={data.carSubModelId}
+                  value={data.carSubModel}
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, carSubModelId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      carSubModel: value,
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -414,9 +384,12 @@ const Page = () => {
                   เลือกบริการ
                 </span>
                 <Select
-                  value={data.serviceId}
+                  value={data.service}
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, serviceId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      service: value,
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">
@@ -444,9 +417,12 @@ const Page = () => {
                   เลือกบริการย่อย
                 </span>
                 <Select
-                  value={data.subServiceId}
+                  value={data.subService}
                   onValueChange={(value) =>
-                    setData((prev) => ({ ...prev, subServiceId: value }))
+                    setData((prev) => ({
+                      ...prev,
+                      subService: value,
+                    }))
                   }
                 >
                   <SelectTrigger className="w-full h-10 sm:h-[2.5rem]">

@@ -8,11 +8,11 @@ export interface ResBlog {
   content: any;
   images: string;
   carModel: string;
-  subCarModel: string;
+  carSubModel: string;
   tags: string[];
 }
 
-const getCustomerWork = async () => {
+const getCustomerWork = async ():Promise<ApiResponse<ResBlog>> => {
   return baseApi({
     path: `/api/v1/customer-work/get-works`,
     config: { method: "GET" },

@@ -16,7 +16,7 @@ const Article = ({ content }: { content: any }) => {
   if (!editor) return null;
 
   return (
-    <div className="article-container px-6 md:px-72 py-8 content-wrapper">
+    <div className="article-container px-6 container mx-auto py-8 content-wrapper">
       <EditorContent editor={editor} />
     </div>
   );

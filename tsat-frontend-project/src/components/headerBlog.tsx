@@ -4,14 +4,14 @@ import { FaFacebookF, FaInstagram, FaLine } from 'react-icons/fa';
 
 export default function HeaderBlog({ headText, data }: { headText: string, data: ResBlog }) {
   const combined = [
-    ...(data?.carModel ? [data?.carModel] : []),
-    ...(data?.subCarModel ? [data?.subCarModel] : []),
-    ...(data?.service ? [data?.service] : []),
-    ...(data?.subService ? [data?.subService] : []),
+    ...(data?.carModel ? [data?.carModel.name] : []),
+    ...(data?.carSubModel ? [data?.carSubModel.name] : []),
+    ...(data?.service ? [data?.service.name] : []),
+    ...(data?.subService ? [data?.subService.name] : []),
     ...data?.tags || [],
   ];
   return (
-    <div className="mt-12 px-6 md:px-72">
+    <div className="mt-12 px-6 container mx-auto">
       <div className="mt-16">
         <div className="text-[#666666] text-3xl font-bold">
           <h1 className=''>{headText}</h1>
