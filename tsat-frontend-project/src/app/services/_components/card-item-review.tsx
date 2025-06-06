@@ -51,7 +51,7 @@ function CardItemReview({ item }: { item: Work }) {
               </div>
             ))}
           </div>
-          <span className="text-[10px] text-white absolute bottom-4 left-4">สร้างเมื่อ : {dayjs(item.updated_at).format("D MMM YYYY")}
+          <span className="text-[10px] px-2 py-1 bg-[#8F2F34]/80 rounded-sm text-white absolute bottom-4 left-4">สร้างเมื่อ : {dayjs(item.updated_at).format("D MMM YYYY")}
           </span>
 
         </div>

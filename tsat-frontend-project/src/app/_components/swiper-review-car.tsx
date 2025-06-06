@@ -46,8 +46,8 @@ function SwiperReviewCar({ workservice }: { workservice: Work[] }) {
                                     className='bg-neutral-100 object-cover'
                                 />
                             </div>
-                            <h4 className='text-[12px] md:text-xl text-white font-semibold'>
-                                {item.carModel}
+                            <h4 className='text-[12px] md:text-lg line-clamp-2 text-white font-semibold'>
+                                {item.title}
                             </h4>
                         </Link>
                     </SwiperSlide>

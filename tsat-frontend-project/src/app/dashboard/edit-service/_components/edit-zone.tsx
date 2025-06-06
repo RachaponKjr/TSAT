@@ -19,6 +19,7 @@ const EditZone = ({ service, getService }: { service: ServiceResponse, getServic
   }
 
   const submitUpdate = async () => {
+    console.log(serviceData)
     try {
       const res = await api.service.updateService(serviceData.id, serviceData)
       if (res.status === 200) {

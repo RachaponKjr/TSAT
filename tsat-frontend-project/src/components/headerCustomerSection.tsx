@@ -14,7 +14,7 @@ export default function headerCustomerSection({ headText, description1, descript
           >
             <span dangerouslySetInnerHTML={{ __html: description1 }} />
           </div>
-          <div className="text-base md:text-[clamp(18px,2vw,24px)] text-center text-[#333333] break-words font-bold leading-relaxed">
+          <div className="text-base md:text-[clamp(18px,2vw,24px)] max-w-4xl text-center text-[#333333] break-words font-bold leading-relaxed">
             <p dangerouslySetInnerHTML={{ __html: description2 }} />
           </div>
         </div>
