@@ -96,6 +96,7 @@ const CarModelItem = ({
           setEditOpen(false);
           setEditValue("");
           setEditImage(null);
+          onDeleteCarModel();
         }
       }).catch(()=>{
         toast.error("เกิดข้อผิดพลาดในการอัพเดท", {
