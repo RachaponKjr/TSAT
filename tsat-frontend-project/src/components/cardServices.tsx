@@ -135,8 +135,7 @@ export default function CardServices({
                       <div className=' grid grid-cols-3 grid-rows-2 gap-4 w-full'>
                         {modelCar.map((item, index: number) => (
                           <div className='flex flex-col max-w-full aspect-video relative'>
-                            <Image unoptimized src={`http://150.95.26.51:3131/${item.image}`} alt={item.name} fill objectFit='contain' />
-                            <Image unoptimized src={`http://150.95.26.51:3131/${item.imageName}`} alt={item.name} width={150} height={150} className='absolute -bottom-5 left-1/2 -translate-x-1/2' />
+                            <Image unoptimized src={`http://150.95.26.51:3131${item.image}`} alt={item.name} fill objectFit='contain' />
                           </div>
                         ))}
                       </div>
@@ -253,8 +252,7 @@ export default function CardServices({
                         <div className=' grid grid-cols-3 grid-rows-2 gap-4 w-full'>
                           {modelCar.map((item, index: number) => (
                             <div className='flex flex-col max-w-full aspect-video relative'>
-                              <Image unoptimized src={`http://150.95.26.51:3131/${item.image}`} alt={item.name} fill objectFit='contain' />
-                              <Image unoptimized src={`http://150.95.26.51:3131/${item.imageName}`} alt={item.name} width={150} height={150} className='absolute -bottom-5 left-1/2 -translate-x-1/2' />
+                              <Image unoptimized src={`http://150.95.26.51:3131${item.image}`} alt={item.name} fill objectFit='contain' />
                             </div>
                           ))}
                         </div>

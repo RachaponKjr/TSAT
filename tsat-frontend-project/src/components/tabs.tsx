@@ -37,7 +37,7 @@ function Tabs({ tabs, defaultActive, className, classNameTab }: TabsProps) {
             </button>
           ))}
         </div>
-        <div className="w-full">{tabs.find((tab) => tab.id === activeTab)?.content}</div>
+        <div className="w-full flex justify-center">{tabs.find((tab) => tab.id === activeTab)?.content}</div>
       </div>
     </>
   );

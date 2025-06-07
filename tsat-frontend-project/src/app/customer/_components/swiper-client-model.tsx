@@ -91,7 +91,7 @@ function SwiperClientModel() {
                 <div className="flex h-[50px] lg:h-[200px] w-full gap-0 items-center">
                   <Image
                     unoptimized
-                    src={`http://150.95.26.51:3131/${item.image}`}
+                    src={`http://150.95.26.51:3131${item.image}`}
                     alt="modelcar"
                     width={500}
                     height={500}
@@ -108,7 +108,7 @@ function SwiperClientModel() {
                     <div className="relative p-4 h-max w-full max-w-full flex justify-center">
                       <div className="absolute top-0 left-0 w-full h-[60%]  bg-gradient-to-t from-[#999999] to-[#ffffff] opacity-20" />
                       <Image
-                        src={`http://150.95.26.51:3131/${
+                        src={`http://150.95.26.51:3131${
                           item.image ?? "default.jpg"
                         }`}
                         alt={item.name || "modelcar"}

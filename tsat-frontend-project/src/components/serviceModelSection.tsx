@@ -42,7 +42,7 @@ export default function ServiceModelSection({
                 >
                   <Image
                     unoptimized
-                    src={`http://150.95.26.51:3131/${
+                    src={`http://150.95.26.51:3131${
                       model.image ?? "default.jpg"
                     }`}
                     alt={model.name || "modelcar"}
@@ -62,7 +62,7 @@ export default function ServiceModelSection({
                     <div className="relative p-4 h-max w-full max-w-full flex justify-center">
                       <div className="absolute top-0 left-0 w-full h-[60%]  bg-gradient-to-t from-[#999999] to-[#ffffff] opacity-20" />
                       <Image
-                        src={`http://150.95.26.51:3131/${
+                        src={`http://150.95.26.51:3131${
                           model.image ?? "default.jpg"
                         }`}
                         alt={model.name || "modelcar"}

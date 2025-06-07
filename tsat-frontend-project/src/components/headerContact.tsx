@@ -12,7 +12,7 @@ export default function HeaderContact({ headText, description1, description2 }: 
             <div className="text-[#666666] text-xl md:text-[clamp(20px,2vw,30px)] font-bold">
               <span dangerouslySetInnerHTML={{ __html: headText }} />
             </div>
-            <div className="text-[17px] md:text-[clamp(18px,2vw,24px)] text-[#333333] font-bold">
+            <div className="text-[17px] md:text-[clamp(18px,2vw,24px)] max-w-3xl text-[#333333] font-bold">
               <span dangerouslySetInnerHTML={{ __html: description1 }} />
             </div>
           </div>

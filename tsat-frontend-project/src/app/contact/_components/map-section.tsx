@@ -13,7 +13,7 @@ const MapSection = () => {
         {
             id: 'index1',
             label: 'แผนที่โดยรวม',
-            content: <Image src={map1} alt="" quality={100} width={600} height={600} />
+            content: <Image src={map1} alt="" quality={100} width={600} height={600} className='place-content-center' />
         },
         {
             id: 'index2',

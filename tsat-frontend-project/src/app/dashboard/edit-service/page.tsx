@@ -25,7 +25,7 @@ const page = () => {
                 </div>
 
                 {/* Action Button */}
-                <div className='h-max flex flex-col gap-2'>
+                <div className='h-max flex flex-col lg:flex-row gap-2'>
                     <AddService />
                     <AddSubService/>
                 </div>
