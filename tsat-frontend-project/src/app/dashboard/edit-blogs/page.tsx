@@ -12,15 +12,6 @@ import Link from 'next/link'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-// interface BlogItem {
-//     id: string
-//     title: string
-//     images: string
-//     carModel: {
-//         name: string
-//     }
-// }
-
 const page = () => {
     const [dataBlogs, setDataBlogs] = useState<ResBlog[]>([])
     const [selectedBlog, setSelectedBlog] = useState<ResBlog | null>(null)

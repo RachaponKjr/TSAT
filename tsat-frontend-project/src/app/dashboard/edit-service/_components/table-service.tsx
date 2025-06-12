@@ -29,6 +29,7 @@ export interface ServiceResponse {
   id: string;
   subService: [{ id: string; subServiceName: string }];
   images: string[];
+  bgIcon: string;
   serviceDetail: string;
   serviceName: string;
   title: string;
@@ -125,7 +126,6 @@ const TableService = () => {
   useEffect(() => {
     void getService();
   }, [getService]);
-
 
   // Mobile Card Component
   const ServiceCard = ({

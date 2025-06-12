@@ -50,16 +50,19 @@ export default function CardServices({
     void getModelCar();
   }, [getModelCar]);
 
+
+  console.log(services)
   return (
     <div className="w-full mt-6 flex flex-col gap-5 xl:gap-8">
       <div className="grid grid-cols-3 lg:grid-cols-3 gap-2 xl:gap-8">
         {services.slice(0, 3).map((cardData, index) => (
           <Dialog key={index}>
             <DialogTrigger className="w-full flex items-stretch">
-              <div className="w-full bg-gradient-to-b cursor-pointer from-[#C65359] to-[#8F2F34] rounded-md md:rounded-xl p-4 lg:p-6 flex flex-col gap-2 md:gap-5 items-center md:items-start">
+              <div className="w-full bg-gradient-to-b cursor-pointer relative from-[#C65359] to-[#8F2F34] rounded-md md:rounded-xl p-4 lg:p-6 flex flex-col gap-2 md:gap-5 items-center md:items-start">
                 <div className='w-[50px] md:w-[80px] aspect-square relative'>
-                  <Image src={cardData.icon} alt={cardData.title} fill className="object-contain" />
+                  <Image src={cardData.icon} alt={cardData.title} fill className="object-contain z-30" />
                 </div>
+                <Image src={cardData.bgIcon} alt={cardData.title} width={220} height={220} className=' absolute top-12 md:right-4 md:top-8'/>
                 <div className="space-y-2 text-white text-center md:text-start">
                   <h5 className="text-[17px] lg:text-[22px] font-semibold">{cardData.title}</h5>
                   <span className="hidden lg:block text-base lg:text-xl font-medium line-clamp-3">{cardData.explain}</span>
@@ -132,10 +135,10 @@ export default function CardServices({
                   <h3 className="text-2xl text-center md:text-left font-semibold text-[#8F2F34]">บริการเช็คระยะ Porsche ของท่าน</h3>
                   <div className="w-full ">
                     <div className="flex gap-4 min-w-max px-2">
-                      <div className=' grid grid-cols-3 grid-rows-2 gap-4 w-full'>
+                      <div className=' grid grid-cols-3 lg:grid-cols-4 gap-4 w-full'>
                         {modelCar.map((item, index: number) => (
-                          <div className='flex flex-col max-w-full aspect-video relative'>
-                            <Image unoptimized src={`http://150.95.26.51:3131${item.image}`} alt={item.name} fill objectFit='contain' />
+                          <div className='flex flex-col max-w-full aspect-square relative'>
+                            <Image unoptimized src={`http://150.95.26.51:3131${item.image}`} alt={item.name} fill objectFit='cover' />
                           </div>
                         ))}
                       </div>
@@ -179,7 +182,7 @@ export default function CardServices({
                   </div>
                   <div className=" text-white text-center">
                     <h5 className="text-[17px] md:text-lg lg:text-[22px] font-semibold">{item.title}</h5>
-                    <span className="hidden lg:block text-base md:text-lg lg:text-xl font-medium">{item.explain}</span>
+                    {/* <span className="hidden lg:block text-base md:text-lg lg:text-xl font-medium">{item.explain}</span> */}
                   </div>
                 </div>
               </DialogTrigger>

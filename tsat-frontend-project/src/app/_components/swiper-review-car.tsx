@@ -12,7 +12,7 @@ import Link from 'next/link';
 function SwiperReviewCar({ workservice }: { workservice: Work[] }) {
     return (
         <div className='w-full h-full relative'>
-            <div className='hidden md:block absolute top-14 -left-16 z-20 cursor-pointer p-4 swiper-button-prev-service'>
+            <div className='hidden lg:block absolute top-14 -left-16 z-20 cursor-pointer p-4 swiper-button-prev-service'>
                 <ArrowL size={32} />
             </div>
             <Swiper
@@ -53,7 +53,7 @@ function SwiperReviewCar({ workservice }: { workservice: Work[] }) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className='hidden md:block absolute top-14 -right-16 z-20 cursor-pointer p-4 swiper-button-next-service'>
+            <div className='hidden lg:block absolute top-14 -right-16 z-20 cursor-pointer p-4 swiper-button-next-service'>
                 <ArrowR size={32} />
             </div>
         </div>

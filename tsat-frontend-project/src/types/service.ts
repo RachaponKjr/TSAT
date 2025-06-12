@@ -10,6 +10,7 @@ const ServiceSchema = z.object({
   serviceDetail: z.string(),
   serviceName: z.string(),
   title: z.string(),
+  bgIcon:z.string(),
   updatedAt: z.date(),
 });
 

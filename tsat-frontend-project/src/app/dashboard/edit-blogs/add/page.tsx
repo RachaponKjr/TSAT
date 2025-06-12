@@ -32,6 +32,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { ServiceResponse } from "../../edit-service/_components/table-service";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const Page = () => {
   const [editorContent, setEditorContent] = useState<JSONContent | null>(null);
@@ -40,6 +41,7 @@ const Page = () => {
   const [tagInput, setTagInput] = useState<string>("");
   const [carModel, setCarModel] = useState<CarCatogory[]>([]);
   const [service, setService] = useState<ServiceResponse[]>([]);
+  const [services, setServices] = useState([]);
   const [subService, setSubService] = useState([]);
   const [carSubModel, setCarSubModel] = useState<SubCarModel[]>([]);
   const [image, setImage] = useState<File | null>(null);
@@ -85,6 +87,15 @@ const Page = () => {
     }
   }, []);
 
+  const getSubServices = useCallback(async () => {
+    try {
+      const { data } = await api.service.getSubServices();
+      setServices(data.data);
+    } catch (error) {
+      console.error("Error fetching service:", error);
+    }
+  }, []);
+
   const addTags = (tag: string) => {
     if (tag && !tags.includes(tag)) {
       const newTags = [...tags, tag.trim()];
@@ -96,6 +107,20 @@ const Page = () => {
     const newTags = [...tags];
     newTags.splice(index, 1);
     setTags(newTags);
+  };
+
+  // Toggle บริการหลัก
+  const onCheckMainService = (id: string) => {
+    setTags((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
+  // Toggle บริการย่อย
+  const onCheckSubService = (id: string) => {
+    setTags((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
   };
 
   const getSubCarModel = useCallback(async (id: string) => {
@@ -164,6 +189,7 @@ const Page = () => {
   useEffect(() => {
     void getCarModel();
     void getService();
+    void getSubServices();
     if (data?.carModel.id) {
       void getSubCarModel(data.carModel.id);
     }
@@ -177,8 +203,10 @@ const Page = () => {
     getService,
     getSubCarModel,
     getSubService,
+    getSubServices,
   ]);
 
+  console.log(tags, "Tag");
 
   return (
     <div className="space-y-4 sm:space-y-6 pb-6">
@@ -347,7 +375,72 @@ const Page = () => {
             </div>
 
             {/* Show on Homepage */}
-            <div className="md:col-span-1">
+            <div className="md:col-span-1 flex gap-4">
+              <div className="flex flex-col gap-2">
+                <span className="text-sm font-medium text-gray-700">
+                  เลือก บริการเพิ่มเติม
+                </span>
+                <Dialog>
+                  <DialogTrigger>
+                    <button className="px-4 py-2 bg-[#8F2F34] text-white rounded-lg">
+                      เลือกบริการเพิ่มเติม
+                    </button>
+                  </DialogTrigger>
+
+                  <DialogContent className="max-w-2xl">
+                    <div className="flex flex-col gap-6 p-4">
+                      {/* บริการหลัก */}
+                      <div className="flex flex-col">
+                        <span className="text-lg font-semibold mb-2">
+                          บริการหลัก
+                        </span>
+                        <div className="grid grid-cols-2 gap-4">
+                          {service.map((item: any) => (
+                            <label
+                              key={item.id}
+                              className="flex items-center gap-2 border p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={tags.includes(item.serviceName)}
+                                onChange={() =>
+                                  onCheckMainService(item.serviceName)
+                                }
+                              />
+                              <span>{item.serviceName}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* บริการย่อย */}
+                      <div className="flex flex-col">
+                        <span className="text-lg font-semibold mb-2">
+                          บริการย่อย
+                        </span>
+                        <div className="grid grid-cols-2 gap-4">
+                          {services.map((item: any) => (
+                            <label
+                              key={item.id}
+                              className="flex items-center gap-2 border p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={tags.includes(item.subServiceName)}
+                                onChange={() =>
+                                  onCheckSubService(item.subServiceName)
+                                }
+                              />
+                              <span>{item.subServiceName}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+              {/* Tag service more */}
               <div className="flex flex-col gap-2">
                 <span className="text-sm font-medium text-gray-700">
                   แสดงรีวิวงาน Service หน้าเเรก

@@ -32,6 +32,8 @@ const AddSubService = () => {
     subServiceDetail: "",
     subServiceName: "",
   });
+
+  console.log(subServiceData)
   const [diaOpen, setDiaOpen] = useState<boolean>(false);
   const router = useRouter();
   const getService = useCallback(async () => {

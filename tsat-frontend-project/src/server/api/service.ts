@@ -13,15 +13,18 @@ const getService = async (): Promise<
   });
 };
 
-const updateService = async (
-  id: string,
-  data: Partial<ServiceResponse>
-): Promise<ApiResponse<ServiceResponse>> => {
+const updateService = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: any;
+}): Promise<ApiResponse<ServiceResponse>> => {
   return baseApi({
     path: `/api/v1/service/update-service/${id}`,
     config: {
       method: "PUT",
-      body: JSON.stringify(data),
+      body: data,
     },
     requiresAuth: true,
   });
@@ -48,6 +51,16 @@ const getSubService = async (serviceId: string) => {
   });
 };
 
+const getSubServices = async () => {
+  return baseApi({
+    path: "/api/v1/service/get-subservices",
+    config: {
+      method: "GET",
+    },
+    requiresAuth: true,
+  });
+};
+
 const delSubService = async (id: string) => {
   return baseApi({
     path: "/api/v1/service/del-sub-service",
@@ -64,4 +77,5 @@ export {
   delSubService,
   saveSubService,
   getSubService,
+  getSubServices
 };
