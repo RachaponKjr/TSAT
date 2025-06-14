@@ -394,7 +394,7 @@ const HeaderTop = ({
                           ลบ
                         </button>
                       </DialogTrigger>
-                      <DialogContent className="p-4">
+                      <DialogContent className="p-4 max-w-2xl">
                         <DelItem
                           apiPath="product/delete-category"
                           id={item.id}
