@@ -145,7 +145,7 @@ const AddService = () => {
     try {
       const cookie = await getCookie("access_token");
       const formData = new FormData();
-      
+
       // Add text fields
       formData.append("serviceName", serviceData?.serviceName || "");
       formData.append("title", serviceData?.title || "");
@@ -154,12 +154,12 @@ const AddService = () => {
 
       // Add icon file
       if (iconFile) {
-        formData.append("icon", iconFile);
+        formData.append("icon", serviceData?.icon);
       }
 
       // Add background icon file
       if (bgIcon) {
-        formData.append("bgIcon", bgIcon);
+        formData.append("bgIcon", serviceData?.bgIcon);
       }
 
       // Add image files
@@ -334,6 +334,7 @@ const AddService = () => {
                   }`}
                 >
                   <ImageMultiUpload
+                    name="images"
                     onChange={handleImageChange}
                     value={serviceData?.images}
                   />

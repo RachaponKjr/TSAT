@@ -6,6 +6,7 @@ interface ImageMultiUploadProps {
   onChange?: (files: File[]) => void;
   value?: string[]; // base64 หรือ path
   readOnly?: boolean;
+  name?:string
 }
 
 const ImageMultiUpload: React.FC<ImageMultiUploadProps> = ({
@@ -68,6 +69,7 @@ const ImageMultiUpload: React.FC<ImageMultiUploadProps> = ({
           type="file"
           accept="image/*"
           multiple
+          name={name}
           ref={fileInputRef}
           onChange={handleFileChange}
           className="hidden"
