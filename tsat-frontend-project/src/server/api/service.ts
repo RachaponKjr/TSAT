@@ -24,7 +24,7 @@ const updateService = async ({
     path: `/api/v1/service/update-service/${id}`,
     config: {
       method: "PUT",
-      body: data,
+      body: JSON.stringify(data),
     },
     requiresAuth: true,
   });

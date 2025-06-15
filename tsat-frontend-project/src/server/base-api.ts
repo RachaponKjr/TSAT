@@ -1,8 +1,8 @@
 "use server";
 import { getCookie } from "@/lib/cookie";
 
-// const BASE_URL: string = "http://150.95.26.51:3131";
-const BASE_URL: string = "http://tsat-back:3131";  
+const BASE_URL: string = "http://localhost:3131";
+// const BASE_URL: string = "http://tsat-back:3131";  
 // const BASE_URL: string = "http://150.95.26.51:3131";
 type FetchConfig = RequestInit & { headers?: Record<string, string> };
 
