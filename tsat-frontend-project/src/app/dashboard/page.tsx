@@ -28,7 +28,7 @@ const page = () => {
   useEffect(() => {
     if (filter === "all") return setProductFilter(product);
     const filterProduct = product.filter(
-      (item) => item.category?.name === filter
+      (item) => item && item.category && item.category.name === filter
     );
     setProductFilter(filterProduct);
   }, [filter, product]);
