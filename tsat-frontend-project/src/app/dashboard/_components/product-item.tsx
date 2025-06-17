@@ -76,7 +76,7 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
                     <div className='flex items-center gap-1'>
                         <Tag size={10} className='text-gray-600' />
                         <span className='text-xs font-medium text-gray-700 truncate max-w-[80px]'>
-                            {item.category.name}
+                            {item?.category?.name}
                         </span>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
                 <div className='sm:hidden flex items-center gap-1 text-xs text-gray-600'>
                     <Tag size={12} />
                     <span>หมวดหมู่:</span>
-                    <span className='font-semibold text-gray-800'>{item.category.name}</span>
+                    <span className='font-semibold text-gray-800'>{item?.category?.name}</span>
                 </div>
 
                 {/* Desktop Actions */}
@@ -201,7 +201,7 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
                         <div className='flex items-center gap-2 text-sm text-gray-600'>
                             <Tag size={14} />
                             <span>หมวดหมู่: </span>
-                            <span className='font-medium'>{item.category.name}</span>
+                            <span className='font-medium'>{item?.category?.name}</span>
                         </div>
                         
                         <div className='bg-gray-50 p-3 rounded-lg'>
@@ -245,7 +245,7 @@ const ProductItem = ({ item, getProduct }: { item: Product, getProduct: () => vo
                             </div>
                             <div className='flex items-center gap-1 justify-center mt-1 text-sm text-gray-500'>
                                 <Tag size={12} />
-                                <span>{item.category.name}</span>
+                                <span>{item?.category?.name}</span>
                             </div>
                         </div>
 
