@@ -16,7 +16,7 @@ const BannerBottom = () => {
                         <span className='text-[clamp(20px,2.5vw,30px)] font-semibold text-center lg:text-start'>ที่ TSAT เราไม่ใช่แค่ศูนย์บริการ<br />
                             เราคือพาร์ทเนอร์ที่ดูแลรถคุณด้วยความใส่ใจ</span>
                         <div className='w-full flex flex-col lg:flex-row h-max gap-6 text-[clamp(14px,2.5vw,16px]'>
-                            <Link href={'/service'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border flex items-center justify-center font-semibold border-[#8F2F34]'>เลือกดูบริการ</Link>
+                            <Link href={'/services'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border flex items-center justify-center font-semibold border-[#8F2F34]'>เลือกดูบริการ</Link>
                             <Link href={'/contact'} className='min-h-[54px] cursor-pointer flex-1 rounded-sm lg:text-lg bg-white/60 lg:bg-white border flex items-center justify-center font-semibold border-[#8F2F34]'>ติดต่อเรา</Link>
                         </div>
                     </div>
